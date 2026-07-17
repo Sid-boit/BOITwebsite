@@ -1,0 +1,91 @@
+/* Ripple hover animation — adapted from Lexend Zetta button demo.
+   Use `.hover-ripple` on links/buttons; text stays above via `.hover-ripple__label`. */
+
+:root {
+  --ripple-primary: #080808;
+  --ripple-secondary: #97cee0;
+  --ripple-secondary-blue: #556fba;
+  --ripple-tertiary-blue: #314589;
+  --ripple-electric: #10ddc2;
+  --ripple-electric-dark: #0bb59f;
+}
+
+.hover-ripple {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  display: block;
+  width: 100%;
+}
+
+.hover-ripple::before,
+.hover-ripple::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hover-ripple::before {
+  background: var(--ripple-secondary-blue);
+  transition: transform 0.6s ease-in;
+  transition-delay: 0.1s;
+}
+
+.hover-ripple::after {
+  background: var(--ripple-tertiary-blue);
+  transition: transform 0.8s ease;
+  transition-delay: 0.4s;
+}
+
+.hover-ripple:hover::before,
+.hover-ripple:hover::after {
+  transform: translate(-50%, -50%) scale(310);
+}
+
+/* Teal variant for light backgrounds (mega-menu, detail pages). */
+.hover-ripple--teal::before {
+  background: var(--ripple-electric);
+}
+
+.hover-ripple--teal::after {
+  background: var(--ripple-electric-dark);
+}
+
+/* Full-row / full-block fill — expands to cover the entire element. */
+.hover-ripple--full::before,
+.hover-ripple--full::after {
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  border-radius: inherit;
+  transform: translate(-50%, -50%) scale(0);
+  transform-origin: center center;
+}
+
+.hover-ripple--full:hover::before,
+.hover-ripple--full:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.hover-ripple__label {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-ripple::before,
+  .hover-ripple::after {
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+  }
+}

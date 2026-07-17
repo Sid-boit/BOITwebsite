@@ -1,0 +1,29 @@
+{
+  "name": "boit-global",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "BOIT Global — enterprise IT & Fintech platform. Dark, high-performance React SPA inspired by the Vectr design language.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "framer-motion": "^11.11.9",
+    "lucide-react": "^1.24.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.27.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.2",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "vite": "^5.4.9"
+  }
+}
