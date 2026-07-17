@@ -5,8 +5,7 @@ import { TextReveal } from '@/components/ui/Reveal';
 export default function NotFound() {
   return (
     <PageTransition>
-      <section className="relative flex min-h-svh items-center overflow-hidden">
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[50vh] w-[60vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-radial-glow blur-3xl" />
+      <section className="relative flex min-h-svh items-center overflow-hidden bg-[#f7fefe]">
         <div className="container relative text-center">
           <h1 className="text-display-lg font-semibold tracking-tightest text-gradient">
             <TextReveal text="404" />

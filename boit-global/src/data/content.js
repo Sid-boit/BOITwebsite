@@ -349,19 +349,22 @@ export const about = {
       bio: 'Priyank comes with 15+ years of professional experience spanning into people management, program, quality, customer relations and operations management. Priyank has hands-on experience in implementation and maintenance of end-to-end digital solutions for multiple BFSI organizations globally.',
       extra: 'Priyank is an engineering graduate and a passionate technology leader. Priyank is based out of Dubai and heads the operation for the Middle East and Africa Region at BOIT.',
     },
-  ],
-  leadership: [
+    {
+      name: 'Francis Chung',
+      role: 'Head of Delivery',
+      img: 'francis.png',
+      bio: 'With over 20 years of global Delivery Management experience, Francis has led numerous projects in Digital Transformation, AI Implementation, and Resource Outsourcing Management. Certified by the Scrum Alliance as both a Scrum Master and Product Owner, he is renowned for his innovative leadership and adaptability across diverse organizational cultures. Francis is based out of Malaysia.',
+      extra: 'As Head of Delivery, Francis is responsible for ensuring all customer projects are delivered on time and within budget while exceeding customer expectations. He is accountable for client satisfaction throughout the entire engagement.',
+    },
     {
       name: 'Hiren Jain',
       role: 'Head of Product',
-      bio: 'Drives AI-powered platform development. With 18+ years in insurance and banking tech, he blends domain expertise and a customer-first mindset to build scalable, outcome-driven products.',
-    },
-    {
-      name: 'Francis Chung',
-      role: 'SVP & Head of Account Delivery',
-      bio: 'Leads global solution delivery and client transformation. With 20+ years in insurance and banking, he ensures every engagement drives efficiency, measurable outcomes, and lasting value.',
+      img: 'hiren.png',
+      bio: 'Hiren brings extensive experience across digital transformation, product innovation, and business consulting in financial services. He combines deep technology fluency with a clear understanding of customer needs and strategic execution — helping insurers and banks modernize with confidence.',
+      extra: 'As Head of Product at BOIT, Hiren strengthens our mission to reshape the insurance and banking ecosystem through innovation, intelligence, and measurable impact — accelerating AI-powered transformation for institutions worldwide.',
     },
   ],
+  leadership: [],
   commitment: home.commitment.items,
 };
 

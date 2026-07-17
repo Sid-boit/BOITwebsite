@@ -16,13 +16,13 @@ export default {
     },
     extend: {
       colors: {
-        // Light teal page background (#d9ffff), with white panels layered on top.
-        paper: '#efffffff',
+        // Light teal page background — #f7fefe
+        paper: '#f7fefe',
         surface: {
           50: '#ffffff',
-          100: '#ecffff',
-          200: '#d9ffff',
-          300: '#c4f5f5',
+          100: '#f2fcfc',
+          200: '#f7fefe',
+          300: '#d0f5f5',
         },
         // Deep teal-charcoal text for readability on both white cards and the
         // soft-teal page background.

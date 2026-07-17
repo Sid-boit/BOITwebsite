@@ -21,22 +21,23 @@ const PANEL_VARIANTS = {
 };
 
 function CategoryBlock({ cat }) {
+  const firstPath = `/services/${cat.slug}/${cat.pages[0].slug}`;
   return (
     <div className="min-w-[11rem]">
       <Link
-        to={`/services/${cat.slug}`}
+        to={firstPath}
         className="hover-ripple hover-ripple--teal hover-ripple--full mb-2 block w-full rounded-md px-2 py-1.5 font-display text-sm font-semibold text-black transition-colors duration-300 hover:text-white md:text-[15px]"
       >
         <span className="hover-ripple__label whitespace-normal">{cat.title}</span>
       </Link>
       <ul>
-        {cat.navPoints.map((point) => (
-          <li key={point}>
+        {cat.pages.map((page) => (
+          <li key={page.slug}>
             <RippleLink
-              to={`/services/${cat.slug}`}
+              to={`/services/${cat.slug}/${page.slug}`}
               className="rounded-md px-2 py-1 text-xs leading-snug text-black md:text-sm"
             >
-              {point}
+              {page.navLabel}
             </RippleLink>
           </li>
         ))}
@@ -68,7 +69,7 @@ function MegaMenuPanel({ open, onOpen, onClose, onNavigate }) {
       {open && (
         <>
           <div
-            className="fixed inset-x-0 top-16 z-[60] h-4 md:top-20"
+            className="fixed inset-x-0 top-16 z-[110] h-4 md:top-20"
             onMouseEnter={onOpen}
             onMouseLeave={onClose}
             aria-hidden
@@ -78,7 +79,7 @@ function MegaMenuPanel({ open, onOpen, onClose, onNavigate }) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-x-0 top-16 z-[60] md:top-20"
+            className="fixed inset-x-0 top-16 z-[110] md:top-20"
             onMouseEnter={onOpen}
             onMouseLeave={onClose}
           >
@@ -207,21 +208,21 @@ export function ServicesMobileNav({ onNavigate }) {
                 {pillar.categories.map((cat) => (
                   <div key={cat.slug} className="mb-4">
                     <NavLink
-                      to={`/services/${cat.slug}`}
+                      to={`/services/${cat.slug}/${cat.pages[0].slug}`}
                       onClick={onNavigate}
                       className="block py-1 font-display text-lg font-semibold text-black"
                     >
                       {cat.title}
                     </NavLink>
                     <ul className="mt-1 space-y-1 pl-3">
-                      {cat.navPoints.map((point) => (
-                        <li key={point}>
+                      {cat.pages.map((page) => (
+                        <li key={page.slug}>
                           <NavLink
-                            to={`/services/${cat.slug}`}
+                            to={`/services/${cat.slug}/${page.slug}`}
                             onClick={onNavigate}
                             className="block py-1 text-sm text-black"
                           >
-                            {point}
+                            {page.navLabel}
                           </NavLink>
                         </li>
                       ))}

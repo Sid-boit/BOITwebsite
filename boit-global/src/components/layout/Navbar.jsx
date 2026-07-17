@@ -27,7 +27,7 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-      className="fixed inset-x-0 top-0 z-50"
+      className="fixed inset-x-0 top-0 z-[100]"
     >
       <div
         className={`transition-all duration-500 ease-expo ${
@@ -102,7 +102,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 overflow-y-auto bg-white/95 backdrop-blur-2xl md:hidden"
+            className="fixed inset-0 z-[110] overflow-y-auto bg-white/95 backdrop-blur-2xl md:hidden"
           >
             <div className="container flex min-h-full flex-col justify-center gap-2 pb-12 pt-20">
               {nav.map((item, i) => (

@@ -381,12 +381,7 @@ export default function RoadmapJourney() {
   return (
     // Tall scroll track (one viewport of scroll per step) drives the pinned scene.
     <section ref={sectionRef} className="relative" style={{ height: `${STEPS.length * 100}vh` }}>
-      <div className="sticky top-0 h-svh overflow-hidden">
-        {/* Ambient glow */}
-        <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute right-[10%] top-1/4 h-[45vh] w-[45vw] rounded-full bg-radial-aqua blur-3xl" />
-        </div>
-
+      <div className="sticky top-0 h-svh overflow-hidden bg-[#f7fefe]">
         {/* The panning city */}
         <City scrollYProgress={scrollYProgress} activeIndex={activeIndex} />
 

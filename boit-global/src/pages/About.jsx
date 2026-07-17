@@ -9,11 +9,15 @@ import Button from '@/components/ui/Button';
 import brajImg from '@/assets/Braj.png';
 import chintanImg from '@/assets/Chintan.png';
 import priyankImg from '@/assets/Priyank.png';
+import francisImg from '@/assets/francis.png';
+import hirenImg from '@/assets/hiren.png';
 
 const founderImages = {
   'Braj.png': brajImg,
   'Chintan.png': chintanImg,
   'Priyank.png': priyankImg,
+  'francis.png': francisImg,
+  'hiren.png': hirenImg,
 };
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -157,7 +161,7 @@ export default function About() {
       </section>
 
       {/* Leadership Team */}
-      <section className="relative py-16 md:py-24 bg-slate-50">
+      <section className="relative bg-white/50 py-16 md:py-24">
         <div className="container">
           <Reveal>
             <h2 className="text-center font-display text-3xl font-semibold tracking-tight text-black md:text-4xl">

@@ -1,34 +1,40 @@
 import { Reveal } from '@/components/ui/Reveal';
-import { clients } from '@/data/content';
+import { clientLogos } from '@/data/clientLogos';
 
 export default function ClientsMarquee() {
-  const doubled = [...clients, ...clients];
+  const doubled = [...clientLogos, ...clientLogos];
 
   return (
-    <section className="py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
+    <section className="overflow-hidden py-20">
+      <div className="mx-auto mb-12 max-w-7xl px-6 text-center">
         <Reveal>
-          <p className="text-sm font-medium uppercase tracking-widest text-electric-500 mb-3">
+          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-electric-500">
             Trusted By
           </p>
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-black">
+          <h2 className="font-display text-3xl font-bold text-black md:text-4xl">
             Esteemed Clients
           </h2>
         </Reveal>
       </div>
 
       <div className="relative">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-paper to-transparent md:w-24" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-paper to-transparent md:w-24" />
+
         <div className="flex w-max animate-marquee">
           {doubled.map((client, i) => (
             <div
-              key={`${client}-${i}`}
-              className="mx-3 flex-shrink-0 flex items-center justify-center rounded-xl border border-line bg-white px-10 py-6 transition-colors duration-300 hover:bg-surface-100"
+              key={`${client.name}-${i}`}
+              className="mx-3 flex h-24 w-44 flex-shrink-0 items-center justify-center rounded-xl border border-line bg-white px-6 py-4 transition-shadow duration-300 hover:shadow-card md:h-28 md:w-52"
             >
-              <span className="font-display text-2xl text-black hover:text-black transition-colors duration-300 whitespace-nowrap">
-                {client}
-              </span>
+              <img
+                src={client.src}
+                alt={client.name}
+                className="max-h-14 max-w-full object-contain md:max-h-16"
+                loading="lazy"
+              />
             </div>
           ))}
         </div>

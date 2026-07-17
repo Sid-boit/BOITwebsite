@@ -8,10 +8,8 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden border-t border-line bg-surface-100">
-      {/* Ambient accent */}
+    <footer className="relative overflow-hidden border-t border-line bg-[#f7fefe]">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-electric-sheen bg-[length:200%_100%] animate-shimmer" />
-      <div className="pointer-events-none absolute -bottom-40 left-1/2 h-96 w-[80vw] -translate-x-1/2 rounded-full bg-radial-glow blur-3xl" />
 
       {/* CTA band */}
       <div className="container relative py-24 md:py-32">

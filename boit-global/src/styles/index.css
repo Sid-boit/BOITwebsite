@@ -17,20 +17,22 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #f7fefe;
   }
 
   body {
-    @apply bg-paper font-sans text-black antialiased;
+    @apply font-sans text-black antialiased;
     width: 100%;
-    /* `clip` prevents horizontal overflow WITHOUT becoming a scroll container,
-       so descendant `position: sticky` (the pinned roadmap) still works.
-       (Plain `overflow-x: hidden` would break sticky.) */
+    /* `clip` hides horizontal overflow WITHOUT becoming a scroll container,
+       so `position: sticky` (roadmap) keeps working. `hidden` would break it. */
     overflow-x: clip;
-    /* Barely-there depth so the squid cursor layer blends into the teal page. */
-    background-image:
-      radial-gradient(120% 80% at 50% -10%, rgba(255, 255, 255, 0.55), transparent 55%),
-      radial-gradient(70% 60% at 100% 0%, rgba(16, 221, 194, 0.08), transparent 55%);
-    background-attachment: fixed;
+    background-color: #f7fefe !important;
+    background-image: none !important;
+  }
+
+  #root {
+    min-height: 100%;
+    background-color: #f7fefe;
   }
 
   ::selection {
@@ -50,13 +52,13 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #ecffff;
+    background: #f7fefe;
   }
 
   ::-webkit-scrollbar-thumb {
     background: #7ee8dc;
     border-radius: 9999px;
-    border: 2px solid #ecffff;
+    border: 2px solid #f7fefe;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -103,6 +105,75 @@
 
   .preserve-3d {
     transform-style: preserve-3d;
+  }
+
+  /* RotatingSphere — CSS spins (survive parent Framer page transitions). */
+  @keyframes sphere-spin-y {
+    0% {
+      transform: rotateY(0deg);
+    }
+    25% {
+      transform: rotateY(-90deg);
+    }
+    50% {
+      transform: rotateY(-180deg);
+    }
+    75% {
+      transform: rotateY(-270deg);
+    }
+    100% {
+      transform: rotateY(-360deg);
+    }
+  }
+
+  @keyframes sphere-orbit-cw {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes sphere-orbit-ccw {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+  @keyframes sphere-particle {
+    0%,
+    100% {
+      transform: translate(0, 0);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translate(var(--tx), var(--ty));
+      opacity: 1;
+    }
+  }
+
+  .sphere-spin {
+    animation: sphere-spin-y 10s ease-in-out infinite;
+  }
+
+  .sphere-orbit-cw {
+    animation: sphere-orbit-cw 40s linear infinite;
+  }
+
+  .sphere-orbit-ccw {
+    animation: sphere-orbit-ccw 30s linear infinite;
+  }
+
+  .sphere-particle {
+    animation-name: sphere-particle;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+
+  /* After book-flip ends, flatten so nested 3D (globe) can animate. */
+  .book-page-settled {
+    transform: none !important;
+    transform-style: flat !important;
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
   }
 
   .text-glow-teal {

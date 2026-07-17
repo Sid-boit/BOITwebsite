@@ -31,13 +31,7 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-svh overflow-hidden">
-      {/* Ambient backdrop */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/4 top-1/3 h-[55vh] w-[55vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-radial-glow blur-3xl" />
-        <div className="absolute right-0 top-0 h-[50vh] w-[50vw] rounded-full bg-radial-aqua blur-3xl" />
-      </div>
-
+    <section ref={ref} className="relative min-h-svh overflow-hidden bg-[#f7fefe]">
       <motion.div
         style={{ y, opacity }}
         className="container relative z-10 grid min-h-svh items-center gap-12 pt-20 lg:grid-cols-2 lg:gap-8"
@@ -132,8 +126,7 @@ function Hero() {
 function Testimonial() {
   const { testimonial } = home;
   return (
-    <section className="relative overflow-hidden py-28 md:py-40">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[50vh] w-[70vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-radial-glow blur-3xl" />
+    <section className="relative overflow-hidden bg-[#f7fefe] py-28 md:py-40">
       <div className="container relative">
         <Reveal>
           <span aria-hidden className="block font-display text-[8rem] leading-none text-electric-500/20 md:text-[12rem]">
