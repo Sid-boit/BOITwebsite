@@ -2,6 +2,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import ScrollProgress from './ScrollProgress';
 import SquidCursor from '@/components/effects/SquidCursor';
+import CookieConsent from '@/components/ui/CookieConsent';
 
 /**
  * Global chrome shared by every route.
@@ -16,6 +17,7 @@ export default function Layout({ children }) {
       <Navbar />
       <div className="relative z-0 flex-1 bg-[#f7fefe]">{children}</div>
       <Footer />
+      <CookieConsent />
     </div>
   );
 }

@@ -26,7 +26,7 @@ function CategoryBlock({ cat }) {
     <div className="min-w-[11rem]">
       <Link
         to={firstPath}
-        className="hover-ripple hover-ripple--teal hover-ripple--full mb-2 block w-full rounded-md px-2 py-1.5 font-display text-sm font-semibold text-black transition-colors duration-300 hover:text-white md:text-[15px]"
+        className="hover-ripple hover-ripple--teal hover-ripple--full mb-2 block w-full rounded-md px-2 py-1.5 font-display text-sm font-semibold text-black md:text-[15px]"
       >
         <span className="hover-ripple__label whitespace-normal">{cat.title}</span>
       </Link>

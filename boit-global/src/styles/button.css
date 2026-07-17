@@ -1,14 +1,209 @@
-/* Ripple hover animation — adapted from Lexend Zetta button demo.
-   Use `.hover-ripple` on links/buttons; text stays above via `.hover-ripple__label`. */
+/* Calypso hover — Codrops-style circle wipe, branded in BOIT teal.
+   Applied via `.button--calypso` on the shared Button component.
+   ::before = teal circle · ::after = white settle · text always black */
 
 :root {
-  --ripple-primary: #080808;
-  --ripple-secondary: #97cee0;
-  --ripple-secondary-blue: #556fba;
-  --ripple-tertiary-blue: #314589;
+  --calypso-teal: #10ddc2;
+  --calypso-teal-deep: #0bb59f;
   --ripple-electric: #10ddc2;
   --ripple-electric-dark: #0bb59f;
 }
+
+@keyframes MoveScaleUpInitial {
+  to {
+    transform: translate3d(0, -105%, 0) scale3d(1, 2, 1);
+    opacity: 0;
+  }
+}
+
+@keyframes MoveScaleUpEnd {
+  from {
+    transform: translate3d(0, 100%, 0) scale3d(1, 2, 1);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.button--calypso {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+  border: none;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #000;
+  text-decoration: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.button--calypso:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(16, 221, 194, 0.7);
+}
+
+.button--calypso:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.button--calypso .button__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 10;
+  color: #000;
+}
+
+.button--calypso:hover .button__label {
+  animation:
+    MoveScaleUpInitial 0.45s forwards,
+    MoveScaleUpEnd 0.45s forwards 0.45s;
+}
+
+.button--calypso::before,
+.button--calypso::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Expanding teal circle */
+.button--calypso::before {
+  background: var(--calypso-teal);
+  width: 120%;
+  height: 0;
+  padding-bottom: 120%;
+  top: -110%;
+  left: -10%;
+  border-radius: 50%;
+  transform: translate3d(0, 68%, 0) scale3d(0, 0, 0);
+}
+
+.button--calypso:hover::before {
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  transition: transform 0.55s cubic-bezier(0.1, 0, 0.3, 1);
+}
+
+/* White settle fill */
+.button--calypso::after {
+  background: #ffffff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  transform: translate3d(0, -100%, 0);
+  transition: transform 0.55s cubic-bezier(0.1, 0, 0.3, 1);
+}
+
+.button--calypso:hover::after {
+  transform: translate3d(0, 0, 0);
+  transition-duration: 0.08s;
+  transition-delay: 0.55s;
+  transition-timing-function: linear;
+}
+
+/* Primary — teal resting state */
+.button--calypso--primary {
+  background: var(--calypso-teal);
+  box-shadow: 0 10px 30px -10px rgba(16, 221, 194, 0.45);
+}
+
+.button--calypso--primary:hover {
+  box-shadow: 0 20px 50px -24px rgba(16, 221, 194, 0.45);
+}
+
+.button--calypso--primary::before {
+  background: var(--calypso-teal-deep);
+}
+
+.button--calypso--primary::after {
+  background: #ffffff;
+}
+
+/* Ghost — white resting state, teal circle then white settle */
+.button--calypso--ghost {
+  background: #ffffff;
+  color: #000;
+  box-shadow: inset 0 0 0 1px #7ee8dc;
+}
+
+.button--calypso--ghost::before {
+  background: var(--calypso-teal);
+}
+
+.button--calypso--ghost::after {
+  background: #ffffff;
+}
+
+/* Minimal */
+.button--calypso--minimal {
+  background: transparent;
+  box-shadow: none;
+  color: #000;
+}
+
+.button--calypso--minimal::before {
+  background: var(--calypso-teal);
+}
+
+.button--calypso--minimal::after {
+  background: #ffffff;
+}
+
+/* Sizes */
+.button--calypso--sm {
+  height: 2.25rem;
+  padding: 0 1rem;
+  font-size: 0.75rem;
+}
+
+.button--calypso--md {
+  height: 2.75rem;
+  padding: 0 1.5rem;
+  font-size: 0.875rem;
+}
+
+.button--calypso--lg {
+  height: 3.5rem;
+  padding: 0 2rem;
+  font-size: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button--calypso:hover .button__label {
+    animation: none;
+  }
+
+  .button--calypso::before,
+  .button--calypso::after {
+    transition: none !important;
+  }
+
+  .button--calypso:hover::before,
+  .button--calypso:hover::after {
+    transform: none;
+  }
+
+  .button--calypso:hover::after {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ── Existing mega-menu / list ripple (unchanged) ── */
 
 .hover-ripple {
   position: relative;
@@ -34,13 +229,13 @@
 }
 
 .hover-ripple::before {
-  background: var(--ripple-secondary-blue);
+  background: #556fba;
   transition: transform 0.6s ease-in;
   transition-delay: 0.1s;
 }
 
 .hover-ripple::after {
-  background: var(--ripple-tertiary-blue);
+  background: #314589;
   transition: transform 0.8s ease;
   transition-delay: 0.4s;
 }
@@ -50,7 +245,6 @@
   transform: translate(-50%, -50%) scale(310);
 }
 
-/* Teal variant for light backgrounds (mega-menu, detail pages). */
 .hover-ripple--teal::before {
   background: var(--ripple-electric);
 }
@@ -59,7 +253,6 @@
   background: var(--ripple-electric-dark);
 }
 
-/* Full-row / full-block fill — expands to cover the entire element. */
 .hover-ripple--full::before,
 .hover-ripple--full::after {
   top: 50%;
@@ -80,6 +273,12 @@
   position: relative;
   z-index: 1;
   display: block;
+  color: #000;
+}
+
+.hover-ripple:hover,
+.hover-ripple:hover .hover-ripple__label {
+  color: #000 !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,26 +1,19 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 /**
- * Pill-shaped button matching the Vectr language: filled electric primary,
- * glass ghost secondary, and a subtle glow that blooms on hover.
- *
- * Renders as an internal <Link> (`to`), an external <a> (`href`), or a
- * native <button> depending on the props supplied.
+ * Shared CTA button with Calypso teal hover (circle wipe + label flip).
+ * Renders as <Link>, <a>, or <button> depending on props.
  */
-const VARIANTS = {
-  primary:
-    'bg-electric-500 text-black shadow-glow hover:bg-electric-600 hover:shadow-glow-soft',
-  ghost:
-    'border border-line-strong bg-white text-black hover:border-electric-400 hover:text-electric-600 hover:shadow-card',
-  minimal:
-    'text-black hover:text-black',
+const VARIANT_CLASS = {
+  primary: 'button--calypso--primary',
+  ghost: 'button--calypso--ghost',
+  minimal: 'button--calypso--minimal',
 };
 
-const SIZES = {
-  sm: 'h-9 px-4 text-xs',
-  md: 'h-11 px-6 text-sm',
-  lg: 'h-14 px-8 text-base',
+const SIZE_CLASS = {
+  sm: 'button--calypso--sm',
+  md: 'button--calypso--md',
+  lg: 'button--calypso--lg',
 };
 
 export default function Button({
@@ -31,49 +24,44 @@ export default function Button({
   size = 'md',
   className = '',
   arrow = false,
+  type = 'button',
   ...props
 }) {
-  const base =
-    'group relative inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight transition-all duration-300 ease-expo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50';
-  const classes = `${base} ${VARIANTS[variant]} ${SIZES[size]} ${className}`;
+  const classes = [
+    'button--calypso',
+    VARIANT_CLASS[variant] ?? VARIANT_CLASS.primary,
+    SIZE_CLASS[size] ?? SIZE_CLASS.md,
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   const content = (
-    <>
+    <span className="button__label">
       <span>{children}</span>
-      {arrow && (
-        <span className="transition-transform duration-300 ease-expo group-hover:translate-x-1">
-          &rarr;
-        </span>
-      )}
-    </>
+      {arrow && <span aria-hidden>&rarr;</span>}
+    </span>
   );
-
-  const motionProps = {
-    whileHover: { y: -1 },
-    whileTap: { scale: 0.98 },
-  };
 
   if (to) {
     return (
-      <motion.div {...motionProps} className="inline-flex">
-        <Link to={to} className={classes} {...props}>
-          {content}
-        </Link>
-      </motion.div>
+      <Link to={to} className={classes} {...props}>
+        {content}
+      </Link>
     );
   }
 
   if (href) {
     return (
-      <motion.a href={href} className={classes} {...motionProps} {...props}>
+      <a href={href} className={classes} {...props}>
         {content}
-      </motion.a>
+      </a>
     );
   }
 
   return (
-    <motion.button className={classes} {...motionProps} {...props}>
+    <button type={type} className={classes} {...props}>
       {content}
-    </motion.button>
+    </button>
   );
 }

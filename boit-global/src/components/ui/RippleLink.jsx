@@ -18,7 +18,7 @@ export default function RippleLink({
     'hover-ripple',
     variant === 'teal' ? 'hover-ripple--teal' : '',
     full ? 'hover-ripple--full' : '',
-    'rounded-md px-2 py-1 text-sm text-black transition-colors duration-300 hover:text-white',
+    'rounded-md px-2 py-1 text-sm text-black',
     className,
   ]
     .filter(Boolean)
