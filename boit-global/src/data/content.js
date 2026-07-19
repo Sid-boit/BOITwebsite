@@ -267,34 +267,92 @@ export const caseStudies = {
     subtitle:
       'Real transformations for insurance and banking leaders who needed speed without compromising on control.',
   },
-  items: [
+  disclaimer:
+    'The case studies and transformation examples cited on this page are drawn from publicly available materials published by leading consulting organizations. These references are included for informational purposes only to illustrate proven transformation approaches within the banking and insurance industries. BOIT does not claim any ownership, partnership, endorsement, or commercial association with the organizations or materials referenced. BOIT has no control over the content, accuracy, or privacy practices of external websites. Visiting external links is at the user’s discretion, and BOIT bears no responsibility for the information, opinions, or data hosted by those third-party sources. Users are encouraged to review the terms of use and privacy policies of any external sites they visit.',
+  sections: [
     {
-      id: 'time-to-market',
-      title: 'Accelerating Time-to-Market',
-      summary:
-        'A leading reinsurance firm transformed their legacy infrastructure to reduce manual intervention and ship faster.',
-      tags: ['Reinsurance', 'Automation', 'Legacy Modernization'],
+      id: 'insurance',
+      label: 'Insurance',
+      items: [
+        {
+          id: 'ai-insurance',
+          title: 'The Future of AI in the Insurance Industry',
+          summary:
+            'How intelligent decisioning, automation, and analytics are reshaping insurance operations and customer experience.',
+          source: 'McKinsey',
+          tags: ['AI', 'Insurance', 'Analytics'],
+          href: 'https://www.mckinsey.com/industries/financial-services/our-insights/the-future-of-ai-in-the-insurance-industry',
+        },
+        {
+          id: 'allianz-direct',
+          title: 'Allianz Direct — Advancing as Europe’s Leading Digital Insurer',
+          summary:
+            'A digital-first insurer modernised its platform to accelerate product launches and scale across European markets.',
+          source: 'McKinsey',
+          tags: ['Insurance', 'Digital', 'Modernization'],
+          href: 'https://www.mckinsey.com/capabilities/mckinsey-digital/how-we-help-clients/rewired-in-action/allianz-direct-advancing-as-europes-leading-digital-insurer',
+        },
+        {
+          id: 'aegon-insuremo',
+          title: 'Aegon Digital Transformation Case Study',
+          summary:
+            'How a leading insurer leveraged a modern core platform to accelerate digital product delivery and servicing.',
+          source: 'InsureMO',
+          tags: ['Insurance', 'Core Platform', 'Digital'],
+          href: 'https://insuremo.com/en/case-study-aegon/',
+        },
+        {
+          id: 'ibm-ai-workflows',
+          title: 'AI Automation & Intelligent Workflows in Insurance',
+          summary:
+            'Intelligent workflows and AI-driven automation reducing friction across claims, underwriting, and servicing.',
+          source: 'IBM',
+          tags: ['AI', 'Automation', 'Insurance'],
+          href: 'https://www.ibm.com/thought-leadership/institute-business-value/en-us/blog/ai-automation-intelligent-workflows-insurance',
+        },
+      ],
     },
     {
-      id: 'ai-insurance',
-      title: 'The Future of AI in Insurance',
-      summary:
-        'How intelligent decisioning, fraud defense and propensity analytics are reshaping the insurance industry.',
-      tags: ['AI', 'Insurance', 'Analytics'],
-    },
-    {
-      id: 'european-insurer',
-      title: 'Advancing as European Digital Insurer',
-      summary:
-        'A leading European insurer transformed their legacy stack into a cloud-native platform, unlocking faster product launches and lower operating costs.',
-      tags: ['Insurance', 'Cloud', 'Modernization'],
-    },
-    {
-      id: 'digital-onboarding',
-      title: 'Digital Onboarding for a Tier-1 Retail Bank',
-      summary:
-        'Reduced KYC turnaround from days to minutes by replacing manual workflows with a fully digital onboarding journey.',
-      tags: ['Banking', 'KYC', 'Digital'],
+      id: 'banking',
+      label: 'Banking',
+      items: [
+        {
+          id: 'deloitte-modern-tech',
+          title: 'Traditional Ways, Modern Technology',
+          summary:
+            'How financial institutions blend legacy strengths with modern technology to accelerate digital transformation.',
+          source: 'Deloitte',
+          tags: ['Banking', 'Technology', 'Transformation'],
+          href: 'https://www.deloitte.com/global/en/Industries/technology/case-studies/traditional-ways-modern-technology.html',
+        },
+        {
+          id: 'kpmg-public-bank',
+          title: 'Digital Transformation for a Leading Public Sector Bank',
+          summary:
+            'A connected-enterprise approach enabling a major public sector bank to modernise customer journeys and operations.',
+          source: 'KPMG',
+          tags: ['Banking', 'Public Sector', 'Digital'],
+          href: 'https://kpmg.com/in/en/services/advisory/consulting/business-consulting/connected-enterprise/case-study-digital-transformation-for-leading-public-sector-bank.html',
+        },
+        {
+          id: 'pwc-aeon-bank',
+          title: 'AEON Bank Digital Transformation',
+          summary:
+            'Building a next-generation digital bank experience with modern architecture and customer-centric design.',
+          source: 'PwC',
+          tags: ['Banking', 'Digital Bank', 'CX'],
+          href: 'https://www.pwc.com/gx/en/about/case-studies/aeon-bank.html',
+        },
+        {
+          id: 'pwc-hyperautomation',
+          title: 'Transforming Banking Through Intelligent Hyperautomation',
+          summary:
+            'Intelligent hyperautomation used to streamline banking operations and unlock measurable efficiency gains.',
+          source: 'PwC',
+          tags: ['Banking', 'Hyperautomation', 'Operations'],
+          href: 'https://www.pwc.co.za/en/services/case-studies/transforming-banking-through-intelligent-hyperautomation.html',
+        },
+      ],
     },
   ],
 };
@@ -374,6 +432,75 @@ export const media = {
     title: 'Insights & perspectives.',
     subtitle: 'Thinking on automation, AI, and the future of financial services.',
   },
+  featuredVideo: {
+    title: 'BOIT Global — InsurTech & Digital Transformation',
+    youtubeId: '9d7M9S28Lr8',
+    href: 'https://www.youtube.com/watch?v=9d7M9S28Lr8',
+  },
+  featuredArticle: {
+    title: 'BOIT: Revolutionizing Insurance with Cutting-Edge InsurTech Services and Solutions',
+    source: 'NY Weekly',
+    href: 'https://nyweekly.com/tech/boit-revolutionizing-insurance-with-cutting-edge-insurtech-services-and-solutions/',
+    summary:
+      'Coverage of how BOIT Global is advancing insurance modernisation with InsurTech services, platforms, and delivery excellence.',
+  },
+  events: [
+    {
+      id: 'li-1',
+      title: 'BOIT Global LinkedIn update',
+      href: 'https://www.linkedin.com/feed/update/urn:li:activity:7289745184039305216',
+    },
+    {
+      id: 'li-2',
+      title: 'BOIT Global LinkedIn update',
+      href: 'https://www.linkedin.com/feed/update/urn:li:activity:7340814074282139650',
+    },
+    {
+      id: 'li-3',
+      title: 'BOIT Global LinkedIn update',
+      href: 'https://www.linkedin.com/feed/update/urn:li:activity:7337948706312192001',
+    },
+    {
+      id: 'li-4',
+      title: 'BOIT Global LinkedIn update',
+      href: 'https://www.linkedin.com/feed/update/urn:li:activity:7322877892432932864',
+    },
+    {
+      id: 'li-5',
+      title: 'BOIT Global LinkedIn update',
+      href: 'https://www.linkedin.com/feed/update/urn:li:activity:7319785495075430401',
+    },
+    {
+      id: 'li-6',
+      title: 'BOIT Global LinkedIn update',
+      href: 'https://www.linkedin.com/feed/update/urn:li:activity:7317184162388443136',
+    },
+    {
+      id: 'li-7',
+      title: 'BOIT Global LinkedIn update',
+      href: 'https://www.linkedin.com/feed/update/urn:li:activity:7308454150172815360',
+    },
+    {
+      id: 'li-8',
+      title: 'BOIT Global LinkedIn update',
+      href: 'https://www.linkedin.com/feed/update/urn:li:activity:7304395619144499201',
+    },
+    {
+      id: 'li-9',
+      title: 'BOIT Global LinkedIn update',
+      href: 'https://www.linkedin.com/feed/update/urn:li:activity:7299533189021106176',
+    },
+    {
+      id: 'li-10',
+      title: 'BOIT Global LinkedIn update',
+      href: 'https://www.linkedin.com/feed/update/urn:li:activity:7290102588450988033',
+    },
+    {
+      id: 'li-11',
+      title: 'BOIT Global LinkedIn update',
+      href: 'https://www.linkedin.com/feed/update/urn:li:activity:7290088832450908161',
+    },
+  ],
 };
 
 export const contact = {

@@ -1,9 +1,10 @@
 /**
- * Services mega-menu + detail pages.
- * Content sourced from txt_data_files/*.md — 4 sub-pages per category.
+ * Services mega-menu + category detail pages.
+ * Content sourced from txt_data_files/*.md — each category is ONE page with
+ * 3–4 alternating text/image sections (Product-page layout).
  *
- * URL: /services/:categorySlug/:pageSlug
- * Category heading (e.g. "Life Insurance") comes from the category title.
+ * URL: /services/:categorySlug
+ * Section anchors: /services/:categorySlug#section-slug
  */
 
 export const servicesTopBox = [
@@ -979,15 +980,13 @@ export function getCategoryBySlug(categorySlug) {
   return null;
 }
 
-/** Specific sub-page within a category. */
+/** Specific section within a category (legacy helper / deep links). */
 export function getServicePage(categorySlug, pageSlug) {
   const category = getCategoryBySlug(categorySlug);
   if (!category) return null;
   const pageIndex = category.pages.findIndex((p) => p.slug === pageSlug);
   if (pageIndex === -1) return null;
   const page = category.pages[pageIndex];
-  const next = category.pages[pageIndex + 1] ?? null;
-  const prev = category.pages[pageIndex - 1] ?? null;
   return {
     pillar: category.pillar,
     categorySlug: category.slug,
@@ -995,17 +994,15 @@ export function getServicePage(categorySlug, pageSlug) {
     pageIndex,
     pageCount: category.pages.length,
     page,
-    next,
-    prev,
     pages: category.pages,
   };
 }
 
-/** First page path for a category (used when visiting /services/:slug). */
+/** Category page path. */
 export function getFirstPagePath(categorySlug) {
   const category = getCategoryBySlug(categorySlug);
-  if (!category?.pages?.length) return '/services';
-  return `/services/${category.slug}/${category.pages[0].slug}`;
+  if (!category) return '/services';
+  return `/services/${category.slug}`;
 }
 
 export function getAllServices() {

@@ -1,190 +1,143 @@
 import { useEffect } from 'react';
-import { useParams, Navigate, Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import {
-  getCategoryBySlug,
-  getServicePage,
-  getFirstPagePath,
-} from '@/data/servicesNav';
+import { useParams, Navigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { getCategoryBySlug } from '@/data/servicesNav';
 import AnimatedPage from '@/components/effects/AnimatedPages';
-import ServicesTopBox from '@/components/sections/ServicesTopBox';
+import PageHero from '@/components/layout/PageHero';
 import HighlightText from '@/components/ui/HighlightText';
-import { Reveal } from '@/components/ui/Reveal';
+import HoverList from '@/components/ui/HoverList';
+import { Reveal, TextReveal } from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
 
+const SECTION_IMAGES = [
+  'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/7681091/pexels-photo-7681091.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/8370752/pexels-photo-8370752.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/7567443/pexels-photo-7567443.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/6801874/pexels-photo-6801874.jpeg?auto=compress&cs=tinysrgb&w=800',
+];
+
+function ServiceSection({ section, index }) {
+  const reversed = index % 2 !== 0;
+  const img = SECTION_IMAGES[index % SECTION_IMAGES.length];
+  const step = String(index + 1).padStart(2, '0');
+  const features = [...(section.capabilities ?? []), ...(section.impact ?? [])];
+
+  return (
+    <section id={section.slug} className="scroll-mt-28">
+      <Reveal>
+        <div
+          className={`grid items-start gap-12 lg:grid-cols-2 ${
+            reversed ? 'lg:[direction:rtl]' : ''
+          }`}
+        >
+          <div className={reversed ? 'lg:[direction:ltr]' : ''}>
+            <span className="eyebrow mb-4 block text-electric-500">{step}</span>
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-black md:text-3xl">
+              {section.navLabel}
+            </h2>
+            <p className="mt-3 text-lg font-medium leading-snug text-black/70 md:text-xl">
+              {section.headline}
+            </p>
+            <p className="mt-4 text-base leading-relaxed">
+              <HighlightText text={section.solution} />
+            </p>
+            <div className="mt-8">
+              <HoverList items={features} />
+            </div>
+          </div>
+
+          <div className={`overflow-hidden rounded-2xl ${reversed ? 'lg:[direction:ltr]' : ''}`}>
+            <motion.img
+              src={img}
+              alt={section.navLabel}
+              className="aspect-[4/3] w-full object-cover"
+              initial={{ scale: 1.05, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+            />
+          </div>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
 /**
- * Universal one-page layout for each service sub-page:
- * Category heading → Headline → Challenge → Solution → Key Capabilities → Business Impact → Next
+ * One page per category (Life Insurance, Retail Banking, …) with alternating
+ * text/image sections — same layout pattern as the Product page.
  */
 export default function ServiceDetail() {
   const { slug, pageSlug } = useParams();
+  const location = useLocation();
   const category = slug ? getCategoryBySlug(slug) : null;
-  const data = slug && pageSlug ? getServicePage(slug, pageSlug) : null;
 
   useEffect(() => {
-    if (data) window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [slug, pageSlug, data]);
+    if (pageSlug || location.hash) return;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [slug, pageSlug, location.hash]);
 
-  // /services/:slug → redirect to first sub-page
-  if (slug && !pageSlug) {
-    if (!category) return <Navigate to="/services" replace />;
-    return <Navigate to={getFirstPagePath(slug)} replace />;
+  useEffect(() => {
+    if (!location.hash || pageSlug) return undefined;
+    const id = decodeURIComponent(location.hash.slice(1));
+    const scrollToSection = () => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    // Wait for page enter + layout so the heading is in place
+    const t = setTimeout(scrollToSection, 520);
+    return () => clearTimeout(t);
+  }, [location.hash, location.pathname, slug, pageSlug]);
+
+  // Legacy deep links → category page + section hash
+  if (slug && pageSlug) {
+    return <Navigate to={`/services/${slug}#${pageSlug}`} replace />;
   }
 
-  if (!data) {
+  if (!category) {
     return <Navigate to="/services" replace />;
   }
 
-  const { categoryTitle, pillar, page, next, prev, pageIndex, pageCount } = data;
+  const { title, pages } = category;
 
   return (
     <AnimatedPage>
-      <ServicesTopBox />
+      <PageHero
+        title={title}
+        subtitle={`End-to-end solutions for ${title.toLowerCase()} — explore how BOIT Global modernises every stage of your operations.`}
+      />
 
-      {/* Category heading (e.g. Life Insurance) */}
-      <section className="border-b border-line bg-white pb-6 pt-10 md:pb-8 md:pt-14">
-        <div className="container max-w-4xl">
-          <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-widest text-electric-600">
-              {pillar}
-            </p>
-            <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-black md:text-5xl">
-              {categoryTitle}
-            </h1>
-            <p className="mt-3 text-sm text-black/60">
-              Page {pageIndex + 1} of {pageCount}
-              <span className="mx-2 text-black/30">·</span>
-              {page.navLabel}
-            </p>
-          </Reveal>
+      <section className="border-t border-line py-20 md:py-28">
+        <div className="container space-y-24 md:space-y-32">
+          {pages.map((section, i) => (
+            <ServiceSection key={section.slug} section={section} index={i} />
+          ))}
         </div>
       </section>
 
-      {/* Headline */}
-      <section className="border-b border-line py-10 md:py-14">
-        <div className="container max-w-4xl">
+      <section className="border-t border-line py-20 md:py-28">
+        <div className="container text-center">
           <Reveal>
-            <h2 className="font-display text-2xl font-bold leading-snug tracking-tight text-black md:text-4xl">
-              {page.headline}
+            <h2 className="font-display text-display-sm font-semibold tracking-tightest text-black">
+              <TextReveal text={`Ready to transform ${title}?`} />
             </h2>
           </Reveal>
-        </div>
-      </section>
-
-      {/* Challenge */}
-      <section className="py-10 md:py-14">
-        <div className="container max-w-4xl">
-          <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-widest text-electric-600">
-              The Challenge
-            </p>
-            <p className="mt-4 text-base leading-relaxed md:text-lg">
-              <HighlightText text={page.challenge} />
+          <Reveal delay={0.15}>
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed">
+              Talk to our team about tailoring a solution for your organisation.
             </p>
           </Reveal>
-        </div>
-      </section>
-
-      {/* Solution */}
-      <section className="border-y border-line bg-white py-10 md:py-14">
-        <div className="container max-w-4xl">
-          <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-widest text-electric-600">
-              The BOIT Global Solution
-            </p>
-            <p className="mt-4 text-base leading-relaxed md:text-lg">
-              <HighlightText text={page.solution} />
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Key Capabilities */}
-      <section className="py-10 md:py-14">
-        <div className="container max-w-4xl">
-          <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-widest text-electric-600">
-              Key Capabilities
-            </p>
-          </Reveal>
-          <ul className="mt-8 space-y-5">
-            {page.capabilities.map((item, i) => (
-              <Reveal key={item.title} delay={i * 0.06}>
-                <li className="flex gap-4 rounded-2xl border border-line bg-white p-5 md:p-6">
-                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-electric-50 font-display text-xs font-bold text-electric-600">
-                    {i + 1}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-base font-semibold text-black md:text-lg">
-                      {item.title}
-                    </h3>
-                    <p className="mt-1.5 text-sm leading-relaxed md:text-base">
-                      <HighlightText text={item.body} />
-                    </p>
-                  </div>
-                </li>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Business Impact */}
-      <section className="border-t border-line bg-surface-100 py-10 md:py-14">
-        <div className="container max-w-4xl">
-          <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-widest text-electric-600">
-              Business Impact
-            </p>
-          </Reveal>
-          <ul className="mt-8 grid gap-4 md:grid-cols-3">
-            {page.impact.map((item, i) => (
-              <Reveal key={item.title} delay={i * 0.08}>
-                <li className="h-full rounded-2xl border border-line bg-white p-5">
-                  <h3 className="font-display text-base font-semibold text-black">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed">
-                    <HighlightText text={item.body} />
-                  </p>
-                </li>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Prev / Next */}
-      <section className="border-t border-line py-10 md:py-14">
-        <div className="container max-w-4xl">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            {prev ? (
-              <Link
-                to={`/services/${slug}/${prev.slug}`}
-                className="group inline-flex items-center gap-2 text-sm font-medium text-black transition-colors hover:text-electric-600"
-              >
-                <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                <span>
-                  <span className="block text-[10px] uppercase tracking-widest text-black/50">
-                    Previous
-                  </span>
-                  {prev.navLabel}
-                </span>
-              </Link>
-            ) : (
-              <span />
-            )}
-
-            {next ? (
-              <Button to={`/services/${slug}/${next.slug}`} size="lg" arrow>
-                Next: {next.navLabel}
-              </Button>
-            ) : (
+          <Reveal delay={0.25}>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Button to="/contact" size="lg" arrow>
                 Contact Us
               </Button>
-            )}
-          </div>
+              <Button to="/services" variant="ghost" size="lg">
+                All Services
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
     </AnimatedPage>

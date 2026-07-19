@@ -11,6 +11,8 @@ import chintanImg from '@/assets/Chintan.png';
 import priyankImg from '@/assets/Priyank.png';
 import francisImg from '@/assets/francis.png';
 import hirenImg from '@/assets/hiren.png';
+import iso9001 from '@/assets/iso9001.png';
+import iso27001 from '@/assets/iso27001.jpeg';
 
 const founderImages = {
   'Braj.png': brajImg,
@@ -20,9 +22,15 @@ const founderImages = {
   'hiren.png': hirenImg,
 };
 
+const certImages = {
+  'ISO 9001': iso9001,
+  'ISO 27001': iso27001,
+};
+
 const EASE = [0.16, 1, 0.3, 1];
 
 function CertBadge({ code, label, delay }) {
+  const img = certImages[code];
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
@@ -31,12 +39,20 @@ function CertBadge({ code, label, delay }) {
       transition={{ duration: 0.5, ease: EASE, delay }}
       className="flex flex-col items-center gap-2"
     >
-      <div
-        className="flex h-20 w-20 items-center justify-center bg-gradient-to-br from-amber-400 to-amber-600 font-display text-xs font-bold leading-tight text-black text-center"
-        style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
-      >
-        {code}
-      </div>
+      {img ? (
+        <img
+          src={img}
+          alt={`${code} — ${label}`}
+          className="h-24 w-24 object-contain md:h-28 md:w-28"
+        />
+      ) : (
+        <div
+          className="flex h-20 w-20 items-center justify-center bg-gradient-to-br from-amber-400 to-amber-600 font-display text-xs font-bold leading-tight text-black text-center"
+          style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
+        >
+          {code}
+        </div>
+      )}
       <span className="text-xs text-black text-center">{label}</span>
     </motion.div>
   );

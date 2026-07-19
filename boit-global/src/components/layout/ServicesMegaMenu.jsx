@@ -2,9 +2,19 @@ import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, NavLink } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import { servicesNav } from '@/data/servicesNav';
+import { ChevronDown, Monitor, Layers, Code2, Briefcase } from 'lucide-react';
+import { servicesNav, servicesTopBox } from '@/data/servicesNav';
+import iso9001 from '@/assets/iso9001.png';
+import iso27001 from '@/assets/iso27001.jpeg';
+import logoImg from '@/assets/Logo-Boit-removebg-preview.png';
 import RippleLink from '@/components/ui/RippleLink';
+
+const ICONS = {
+  monitor: Monitor,
+  layers: Layers,
+  code: Code2,
+  briefcase: Briefcase,
+};
 
 const PANEL_VARIANTS = {
   hidden: { opacity: 0, y: -8 },
@@ -20,12 +30,13 @@ const PANEL_VARIANTS = {
   },
 };
 
-function CategoryBlock({ cat }) {
-  const firstPath = `/services/${cat.slug}/${cat.pages[0].slug}`;
+function CategoryBlock({ cat, onNavigate }) {
+  const categoryPath = `/services/${cat.slug}`;
   return (
     <div className="min-w-[11rem]">
       <Link
-        to={firstPath}
+        to={categoryPath}
+        onClick={onNavigate}
         className="hover-ripple hover-ripple--teal hover-ripple--full mb-2 block w-full rounded-md px-2 py-1.5 font-display text-sm font-semibold text-black md:text-[15px]"
       >
         <span className="hover-ripple__label whitespace-normal">{cat.title}</span>
@@ -34,7 +45,8 @@ function CategoryBlock({ cat }) {
         {cat.pages.map((page) => (
           <li key={page.slug}>
             <RippleLink
-              to={`/services/${cat.slug}/${page.slug}`}
+              to={`/services/${cat.slug}#${page.slug}`}
+              onClick={onNavigate}
               className="rounded-md px-2 py-1 text-xs leading-snug text-black md:text-sm"
             >
               {page.navLabel}
@@ -46,7 +58,7 @@ function CategoryBlock({ cat }) {
   );
 }
 
-function PillarPanel({ pillar }) {
+function PillarPanel({ pillar, onNavigate }) {
   return (
     <div className="flex-1 px-5 py-5 md:px-8 md:py-6">
       <p className="mb-4 font-display text-xs font-semibold uppercase tracking-breathe text-black md:text-sm">
@@ -54,7 +66,7 @@ function PillarPanel({ pillar }) {
       </p>
       <div className="grid grid-cols-3 gap-x-6 gap-y-2 lg:gap-x-10">
         {pillar.categories.map((cat) => (
-          <CategoryBlock key={cat.slug} cat={cat} />
+          <CategoryBlock key={cat.slug} cat={cat} onNavigate={onNavigate} />
         ))}
       </div>
     </div>
@@ -85,18 +97,56 @@ function MegaMenuPanel({ open, onOpen, onClose, onNavigate }) {
           >
             <div className="px-3 md:px-5 lg:px-6">
               <div className="w-full overflow-hidden rounded-2xl border border-line bg-white shadow-card">
-                <div className="flex divide-x divide-line">
-                  <PillarPanel pillar={servicesNav.insurance} />
-                  <PillarPanel pillar={servicesNav.banking} />
+                {/* Four service pillars — above Insurance / Banking */}
+                <div className="border-b border-line bg-surface-100 px-4 py-3 md:px-6">
+                  <ul className="grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-4 lg:gap-2">
+                    {servicesTopBox.map((item) => {
+                      const Icon = ICONS[item.icon] ?? Monitor;
+                      return (
+                        <li key={item.id}>
+                          <Link
+                            to={item.to}
+                            onClick={onNavigate}
+                            className="group flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors hover:bg-white"
+                          >
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-electric-50 text-electric-700">
+                              <Icon className="h-4 w-4" strokeWidth={1.75} />
+                            </span>
+                            <span className="font-display text-xs font-semibold leading-snug text-black md:text-[13px]">
+                              {item.label}
+                            </span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
-                <div className="border-t border-line bg-surface-100 px-4 py-2.5 text-center">
-                  <Link
-                    to="/services"
-                    onClick={onNavigate}
-                    className="text-xs font-medium uppercase tracking-widest text-black transition-colors hover:text-electric-600"
-                  >
-                    View all services →
-                  </Link>
+
+                <div className="flex divide-x divide-line">
+                  <PillarPanel pillar={servicesNav.insurance} onNavigate={onNavigate} />
+                  <PillarPanel pillar={servicesNav.banking} onNavigate={onNavigate} />
+                </div>
+
+                {/* Brand + ISO badges — display only */}
+                <div className="flex items-center justify-end gap-4 border-t border-line bg-white px-5 py-3 md:gap-5 md:px-8">
+                  <img
+                    src={logoImg}
+                    alt="BOIT Global"
+                    className="h-8 w-auto object-contain md:h-9"
+                    draggable={false}
+                  />
+                  <img
+                    src={iso9001}
+                    alt="ISO 9001 Certified"
+                    className="h-10 w-10 object-contain md:h-12 md:w-12"
+                    draggable={false}
+                  />
+                  <img
+                    src={iso27001}
+                    alt="ISO 27001 Certified"
+                    className="h-10 w-10 object-contain md:h-12 md:w-12"
+                    draggable={false}
+                  />
                 </div>
               </div>
             </div>
@@ -200,6 +250,19 @@ export function ServicesMobileNav({ onNavigate }) {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden pl-2"
           >
+            <div className="mb-6 space-y-1 border-b border-line pb-4">
+              {servicesTopBox.map((item) => (
+                <NavLink
+                  key={item.id}
+                  to={item.to}
+                  onClick={onNavigate}
+                  className="block py-1.5 text-sm font-medium text-black"
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </div>
+
             {Object.entries(servicesNav).map(([key, pillar]) => (
               <div key={key} className="mb-6">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-black">
@@ -208,7 +271,7 @@ export function ServicesMobileNav({ onNavigate }) {
                 {pillar.categories.map((cat) => (
                   <div key={cat.slug} className="mb-4">
                     <NavLink
-                      to={`/services/${cat.slug}/${cat.pages[0].slug}`}
+                      to={`/services/${cat.slug}`}
                       onClick={onNavigate}
                       className="block py-1 font-display text-lg font-semibold text-black"
                     >
@@ -218,7 +281,7 @@ export function ServicesMobileNav({ onNavigate }) {
                       {cat.pages.map((page) => (
                         <li key={page.slug}>
                           <NavLink
-                            to={`/services/${cat.slug}/${page.slug}`}
+                            to={`/services/${cat.slug}#${page.slug}`}
                             onClick={onNavigate}
                             className="block py-1 text-sm text-black"
                           >
@@ -231,13 +294,6 @@ export function ServicesMobileNav({ onNavigate }) {
                 ))}
               </div>
             ))}
-            <NavLink
-              to="/services"
-              onClick={onNavigate}
-              className="mb-4 block text-sm font-medium text-electric-600"
-            >
-              View all services →
-            </NavLink>
           </motion.div>
         )}
       </AnimatePresence>

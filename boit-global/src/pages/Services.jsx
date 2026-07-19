@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cpu, LifeBuoy, Users, Lightbulb } from 'lucide-react';
 import { services, home } from '@/data/content';
@@ -16,9 +17,36 @@ const PANEL_VARIANTS = {
   exit: { opacity: 0, x: -20 },
 };
 
+function indexFromHash(hash) {
+  const id = decodeURIComponent((hash || '').replace(/^#/, ''));
+  if (!id) return 0;
+  const i = services.groups.findIndex((g) => g.id === id);
+  return i >= 0 ? i : 0;
+}
+
 export default function Services() {
-  const [active, setActive] = useState(0);
+  const location = useLocation();
+  const [active, setActive] = useState(() => indexFromHash(location.hash));
   const group = services.groups[active];
+
+  useEffect(() => {
+    const next = indexFromHash(location.hash);
+    setActive(next);
+    if (!location.hash) return undefined;
+    const t = setTimeout(() => {
+      document.getElementById('services-groups')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }, 120);
+    return () => clearTimeout(t);
+  }, [location.hash]);
+
+  const selectGroup = (i) => {
+    setActive(i);
+    const id = services.groups[i].id;
+    window.history.replaceState(null, '', `/services#${id}`);
+  };
 
   return (
     <PageTransition>
@@ -28,12 +56,10 @@ export default function Services() {
         subtitle={services.hero.subtitle}
       />
 
-      {/* ── Main two-column layout ── */}
-      <section className="relative py-16 md:py-24">
+      <section id="services-groups" className="relative scroll-mt-28 py-16 md:py-24">
         <div className="container">
           <Reveal>
             <div className="grid gap-10 lg:grid-cols-[340px_1fr] lg:gap-14">
-              {/* ── Sidebar ── */}
               <div className="lg:sticky lg:top-28 lg:self-start">
                 <nav className="flex flex-col gap-3">
                   {services.groups.map((g, i) => {
@@ -42,7 +68,9 @@ export default function Services() {
                     return (
                       <button
                         key={g.id}
-                        onClick={() => setActive(i)}
+                        type="button"
+                        id={g.id}
+                        onClick={() => selectGroup(i)}
                         className={`group flex items-center gap-4 rounded-2xl px-5 py-4 text-left transition-all duration-300 ${
                           isActive
                             ? 'border border-electric-400 bg-electric-50 text-black shadow-md shadow-electric-500/10'
@@ -71,7 +99,6 @@ export default function Services() {
                   })}
                 </nav>
 
-                {/* CTA card */}
                 <div className="mt-8 rounded-2xl border border-line bg-gradient-to-b from-white to-electric-50/40 p-6 text-center">
                   <p className="font-display text-base font-semibold text-black">
                     Ready to get started?
@@ -87,7 +114,6 @@ export default function Services() {
                 </div>
               </div>
 
-              {/* ── Content panel ── */}
               <div className="relative min-h-[420px]">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -139,7 +165,6 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ── Commitment section ── */}
       <section className="border-t border-line py-16 md:py-24">
         <div className="container">
           <Reveal>
