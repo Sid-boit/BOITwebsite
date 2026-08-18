@@ -3,8 +3,8 @@ import { about } from '@/data/content';
 import PageTransition from '@/components/ui/PageTransition';
 import PageHero from '@/components/layout/PageHero';
 import HighlightText from '@/components/ui/HighlightText';
-import { Reveal, TextReveal } from '@/components/ui/Reveal';
-import Button from '@/components/ui/Button';
+import { Reveal } from '@/components/ui/Reveal';
+import LocationsMap from '@/components/sections/LocationsMap';
 
 import brajImg from '@/assets/Braj.png';
 import chintanImg from '@/assets/Chintan.png';
@@ -140,26 +140,8 @@ export default function About() {
                 </p>
               </Reveal>
 
-              {/* Locations */}
-              <Reveal delay={0.25}>
-                <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-black">
-                  Our Offices
-                </h4>
-                <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  {about.locations.map((loc) => (
-                    <div
-                      key={loc.name}
-                      className="flex items-center gap-2 rounded-lg border border-line px-3 py-2"
-                    >
-                      <span className="text-lg">{loc.flag}</span>
-                      <span className="text-sm font-medium text-black">{loc.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </Reveal>
-
               {/* Stats */}
-              <Reveal delay={0.3}>
+              <Reveal delay={0.25}>
                 <div className="grid grid-cols-3 gap-4">
                   {about.stats.map((stat) => (
                     <div key={stat.label} className="text-center">
@@ -175,6 +157,8 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      <LocationsMap />
 
       {/* Leadership Team */}
       <section className="relative bg-white/50 py-16 md:py-24">

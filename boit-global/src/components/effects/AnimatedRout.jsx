@@ -4,6 +4,8 @@ import { AnimatePresence } from 'framer-motion';
 import Home from '@/pages/Home';
 
 const Product = lazy(() => import('@/pages/Product'));
+const ProductDetail = lazy(() => import('@/pages/ProductDetail'));
+const ProductCapabilities = lazy(() => import('@/pages/ProductCapabilities'));
 const Services = lazy(() => import('@/pages/Services'));
 const ServiceDetail = lazy(() => import('@/pages/ServiceDetail'));
 const CaseStudies = lazy(() => import('@/pages/CaseStudies'));
@@ -33,6 +35,8 @@ export default function AnimatedRoutes() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/product/capabilities" element={<ProductCapabilities />} />
+          <Route path="/product/:slug" element={<ProductDetail />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/services/:slug/:pageSlug" element={<ServiceDetail />} />

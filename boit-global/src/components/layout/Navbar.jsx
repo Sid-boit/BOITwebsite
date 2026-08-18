@@ -5,6 +5,7 @@ import { nav } from '@/data/content';
 import Button from '@/components/ui/Button';
 import BrandLogo from '@/components/ui/BrandLogo';
 import ServicesMegaMenu, { ServicesMobileNav } from '@/components/layout/ServicesMegaMenu';
+import ProductsMegaMenu, { ProductsMobileNav } from '@/components/layout/ProductsMegaMenu';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -41,6 +42,8 @@ export default function Navbar() {
             {nav.map((item) =>
               item.to === '/services' ? (
                 <ServicesMegaMenu key={item.to} />
+              ) : item.to === '/product' ? (
+                <ProductsMegaMenu key={item.to} />
               ) : (
                 <NavLink
                   key={item.to}
@@ -114,6 +117,8 @@ export default function Navbar() {
                 >
                   {item.to === '/services' ? (
                     <ServicesMobileNav onNavigate={closeMobile} />
+                  ) : item.to === '/product' ? (
+                    <ProductsMobileNav onNavigate={closeMobile} />
                   ) : (
                     <NavLink
                       to={item.to}

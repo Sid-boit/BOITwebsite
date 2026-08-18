@@ -1,0 +1,99 @@
+.fwidget {
+  position: fixed;
+  z-index: 980;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 30px 60px -30px rgba(12, 21, 18, 0.35);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+.fwidget[data-ready='1'] {
+  opacity: 1;
+  animation: fwidgetDangle 3.4s ease-in-out infinite;
+}
+
+.fwidget[data-dragging='1'] {
+  animation-play-state: paused;
+  cursor: grabbing;
+  transform: none;
+}
+
+.fwidget:active {
+  cursor: grabbing;
+}
+
+@keyframes fwidgetDangle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.fwidget__thumb {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--grad-teal), var(--grad-purple));
+  display: grid;
+  place-items: center;
+}
+
+.fwidget__thumb svg {
+  width: 26px;
+  height: 26px;
+}
+
+.fwidget__body {
+  min-width: 0;
+  flex: 1;
+}
+
+.fwidget__title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.fwidget__sub {
+  margin: 4px 0 10px;
+  font-size: 12.5px;
+  color: var(--body-2);
+}
+
+.fwidget__bar {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--line-soft);
+  overflow: hidden;
+}
+
+.fwidget__bar span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--grad-purple), var(--grad-teal));
+}
+
+@media (max-width: 560px) {
+  .fwidget {
+    width: min(300px, calc(100vw - 32px));
+  }
+}
