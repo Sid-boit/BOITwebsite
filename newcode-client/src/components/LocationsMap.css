@@ -1,0 +1,219 @@
+.locmap {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 22px;
+  align-items: stretch;
+}
+
+.locmap__stage {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.locmap__stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.locmap__pin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.locmap__arrow {
+  display: block;
+  filter: drop-shadow(0 6px 10px rgba(84, 45, 169, 0.28));
+  transition: transform 0.25s var(--ease);
+}
+
+.locmap__pin.is-active .locmap__arrow,
+.locmap__pin:hover .locmap__arrow {
+  transform: translateY(-4px) scale(1.12);
+}
+
+.locmap__pulse {
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 50%;
+  background: rgba(0, 134, 158, 0.22);
+  animation: locPulse 2.2s ease-out infinite;
+  pointer-events: none;
+}
+
+.locmap__label {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 4px;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.locmap__pin.is-active .locmap__label,
+.locmap__pin:hover .locmap__label {
+  opacity: 1;
+}
+
+.locmap__card {
+  position: absolute;
+  z-index: 5;
+  width: min(280px, 42vw);
+  transform: translate(-50%, calc(-100% - 36px));
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 24px 50px -24px rgba(12, 21, 18, 0.4);
+  padding: 16px 16px 14px;
+  pointer-events: auto;
+}
+
+.locmap__card.is-left {
+  transform: translate(-92%, calc(-100% - 36px));
+}
+
+.locmap__card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.locmap__card-head img {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+}
+
+.locmap__card-city {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.locmap__card-co {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.locmap__card-addr {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--body-2);
+}
+
+.locmap__card dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 10px;
+  font-size: 12.5px;
+}
+
+.locmap__card dt {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.locmap__card dd {
+  margin: 0;
+  color: var(--ink-2);
+}
+
+.locmap__list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.locmap__list-item {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 12px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.locmap__list-item strong {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.locmap__list-item em {
+  display: block;
+  font-style: normal;
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+.locmap__list-item:hover,
+.locmap__list-item.is-active {
+  background: rgba(84, 45, 169, 0.06);
+  border-color: rgba(84, 45, 169, 0.16);
+}
+
+.locmap__list-flag {
+  font-size: 20px;
+  line-height: 1;
+}
+
+@keyframes locPulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .locmap {
+    grid-template-columns: 1fr;
+  }
+
+  .locmap__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .locmap__card {
+    width: min(240px, 70vw);
+  }
+}

@@ -1,0 +1,15 @@
+node_modules
+dist
+.DS_Store
+*.local
+.env
+server/.env
+
+# Playwright screenshot testing artifacts
+/playwright-report/
+/playwright-tests/test-results/
+/playwright-tests/screenshots/
+/playwright-tests/screenshots-gallery.html
+/test-results/
+/blob-report/
+/playwright/.cache/
