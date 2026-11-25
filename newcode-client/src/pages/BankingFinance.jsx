@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductVerticalPage from '../components/ProductVerticalPage';
-import heroImage from '../assets/pageimages/bankingFinance.png';
+import { verticalHeroes } from '../data/submenuHeroes';
+const heroImage = verticalHeroes.banking;
 
 export default function BankingFinance() {
   return (
@@ -29,7 +30,7 @@ export default function BankingFinance() {
       ]}
       acceleratorsTitle="Engagement, operations, and channel — ready for banking."
       platformLabel="Banking Platform"
-      platformTo="/product/banking"
+      platformTo="/platform/banking"
     />
   );
 }

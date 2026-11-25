@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-
+import React, { useRef, useState } from 'react';
 import { media } from '../data/site';
 import PageHero from '../components/PageHero';
 import CtaBand from '../components/CtaBand';
+import GlassPanel from '../components/GlassPanel';
 import Reveal from '../components/motion/Reveal';
 import SplitText from '../components/motion/SplitText';
+import useTiltPanels from '../hooks/useTiltPanels';
+import '../styles/brand-surfaces.css';
+import './Media.css';
 
 const postImages = import.meta.glob('../assets/media/linkedin-*.{png,jpg,jpeg,webp}', {
   eager: true,
@@ -44,41 +47,13 @@ function VideoEmbed({ video }) {
       type="button"
       onClick={() => setPlaying(true)}
       aria-label={`Play ${video.title}`}
+      className="media-video-btn"
       style={{
-        position: 'relative',
-        width: '100%',
-        aspectRatio: '16 / 9',
-        border: '1px solid var(--line)',
-        borderRadius: 18,
-        overflow: 'hidden',
-        padding: 0,
         background: `#000 url(https://i.ytimg.com/vi/${video.youtubeId}/maxresdefault.jpg) center/cover no-repeat`,
-        display: 'block',
       }}
     >
-      <span
-        style={{
-          position: 'absolute',
-          inset: 0,
-          display: 'grid',
-          placeItems: 'center',
-          background: 'rgba(12,21,18,.28)',
-        }}
-      >
-        <span
-          style={{
-            width: 78,
-            height: 78,
-            borderRadius: '50%',
-            background: 'var(--bright)',
-            color: 'var(--deep)',
-            display: 'grid',
-            placeItems: 'center',
-            fontSize: 26,
-          }}
-        >
-          ▶
-        </span>
+      <span className="media-video-btn__veil">
+        <span className="media-video-btn__play">▶</span>
       </span>
     </button>
   );
@@ -86,21 +61,18 @@ function VideoEmbed({ video }) {
 
 export default function Media() {
   const { hero, video, article, events } = media;
+  const rootRef = useRef(null);
+  useTiltPanels(rootRef, []);
 
   return (
-    <>
-      <PageHero eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} />
+    <div className="brand-page media-page" ref={rootRef}>
+      <PageHero wash eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} />
 
-      <section className="section" style={{ paddingTop: 40 }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0,1.2fr) minmax(0,.8fr)',
-            gap: 48,
-            alignItems: 'start',
-          }}
-          data-stack="1"
-        >
+      <section
+        className="brand-section brand-wash"
+        style={{ paddingTop: 40, paddingLeft: 'var(--gutter)', paddingRight: 'var(--gutter)' }}
+      >
+        <div className="media-feature" data-stack="1">
           <div>
             <Reveal as="p" className="eyebrow" style={{ marginBottom: 16 }}>
               {video.label}
@@ -127,40 +99,41 @@ export default function Media() {
             </a>
           </div>
 
-          <Reveal
-            delay={2}
-            style={{
-              border: '1px solid var(--line)',
-              borderRadius: 18,
-              padding: 30,
-              background: 'var(--surface)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 14,
-            }}
-          >
-            <div className="tag eyebrow eyebrow--accent">{article.source}</div>
-            <h3 style={{ margin: 0, fontSize: 22, lineHeight: 1.25, letterSpacing: '-.02em' }}>
-              {article.title}
-            </h3>
-            <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.6, color: 'var(--body-2)' }}>
-              {article.summary}
-            </p>
-            <a
-              href={article.url}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="link-arrow"
-              style={{ marginTop: 'auto' }}
+          <Reveal delay={2}>
+            <GlassPanel
+              accent
+              className="media-article media-article--tone-violet"
+              style={{
+                padding: 30,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 14,
+                height: '100%',
+              }}
             >
-              {article.linkLabel} <span>→</span>
-            </a>
+              <div className="tag eyebrow eyebrow--accent">{article.source}</div>
+              <h3 style={{ margin: 0, fontSize: 22, lineHeight: 1.25, letterSpacing: '-.02em' }}>
+                {article.title}
+              </h3>
+              <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.6, color: 'var(--body-2)' }}>
+                {article.summary}
+              </p>
+              <a
+                href={article.url}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="link-arrow"
+                style={{ marginTop: 'auto' }}
+              >
+                {article.linkLabel} <span>→</span>
+              </a>
+            </GlassPanel>
           </Reveal>
         </div>
       </section>
 
-      <section className="panel-light">
-        <div className="shell" style={{ padding: '96px 40px' }}>
+      <section className="brand-section brand-band">
+        <div className="shell" style={{ padding: '0 var(--gutter)' }}>
           <Reveal as="p" className="eyebrow">
             {events.label}
           </Reveal>
@@ -184,7 +157,7 @@ export default function Media() {
                   href={post.url}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="media-card lift"
+                  className={`media-card brand-panel brand-panel--accent lift media-card--tone-${i % 2 === 0 ? 'violet' : 'teal'}`}
                   aria-label={`${events.rowLabel} update ${number}`}
                 >
                   <span className="media-card__shot">
@@ -220,6 +193,6 @@ export default function Media() {
           { label: 'Case studies', to: '/case-studies' },
         ]}
       />
-    </>
+    </div>
   );
 }

@@ -1,0 +1,141 @@
+/* Services overview — sticky detail listings (aligned with Platform) */
+
+.services-page .services-section,
+.services-page .brand-band {
+  border-top: 1px solid var(--line);
+}
+
+.services-page .services-detail {
+  scroll-margin-top: 110px;
+}
+
+.services-page .services-detail + .services-detail {
+  margin-top: 72px;
+  padding-top: 72px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.services-page .services-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.services-page .services-detail-sticky {
+  position: sticky;
+  top: 110px;
+}
+
+.services-page .services-detail-sticky h3 {
+  font-size: clamp(26px, 3vw, 42px);
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  line-height: 1.05;
+  margin: 0 0 18px;
+}
+
+.services-page .services-detail-sticky .lede {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--body);
+  margin: 0;
+  max-width: 42ch;
+}
+
+.services-page .services-feature-list {
+  display: grid;
+  gap: 18px;
+}
+
+.services-page .services-feature-list > *:nth-child(even) .brand-panel--accent {
+  border-top-color: var(--about-teal);
+}
+
+.services-page .services-column-card {
+  padding: 22px 22px 24px;
+}
+
+.services-page .services-column-card h4 {
+  font-size: 17.5px;
+  letter-spacing: -0.02em;
+  margin: 8px 0 12px;
+}
+
+.services-page .services-column-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.services-page .services-column-card li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 14px;
+  color: var(--body-2);
+}
+
+.services-page .services-column-card li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--bright);
+  flex: none;
+  transform: translateY(-3px);
+}
+
+.services-page .services-practice-card {
+  padding: 24px 22px 26px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.services-page .services-practice-card h4 {
+  font-size: 18px;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.services-page .services-practice-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.services-page .services-practice-card li {
+  font-size: 14px;
+  color: var(--body-2);
+}
+
+.services-page .services-practice-card .link-arrow {
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .services-page .services-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .services-page .services-detail-sticky {
+    position: static;
+  }
+
+  .services-page .services-detail + .services-detail {
+    margin-top: 48px;
+    padding-top: 48px;
+  }
+}

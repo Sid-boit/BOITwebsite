@@ -4,6 +4,9 @@
 
 let io = null;
 let mo = null;
+/* Tracked per observer instance (not via a DOM flag) so a stop/start cycle —
+   e.g. React StrictMode re-running the effect — re-observes existing nodes. */
+let seen = new WeakSet();
 
 function countUp(el) {
   const target = parseFloat(el.dataset.count);
@@ -24,8 +27,8 @@ function countUp(el) {
 function observe(root = document) {
   if (!io) return;
   root.querySelectorAll('[data-reveal],[data-split],[data-count]').forEach((el) => {
-    if (el.dataset.observed) return;
-    el.dataset.observed = '1';
+    if (seen.has(el)) return;
+    seen.add(el);
     io.observe(el);
   });
 }
@@ -52,8 +55,8 @@ export function startMotion() {
       r.addedNodes.forEach((n) => {
         if (n.nodeType !== 1) return;
         if (n.matches('[data-reveal],[data-split],[data-count]')) {
-          if (!n.dataset.observed) {
-            n.dataset.observed = '1';
+          if (!seen.has(n)) {
+            seen.add(n);
             io.observe(n);
           }
         }
@@ -69,6 +72,7 @@ export function stopMotion() {
   if (mo) mo.disconnect();
   io = null;
   mo = null;
+  seen = new WeakSet();
 }
 
 /* Pointer-follow "magnetism" used on links and CTAs in the design. */
@@ -95,16 +99,21 @@ export function magnetize(el, strength = 12) {
   };
 }
 
-/* 3D tilt on hover, matching the design's [data-lift] cards. */
-export function tilt(el, deg = 5) {
+/* 3D tilt + zoom on hover, matching the design's [data-lift] cards. */
+export function tilt(el, deg = 5, scale = 1.035) {
   if (!el) return () => {};
   const onMove = (e) => {
+    /* Hover-deck expand/dim owns transform — don't fight it. */
+    if (el.matches('.is-active, .is-dimmed')) {
+      el.style.transform = '';
+      return;
+    }
     const r = el.getBoundingClientRect();
     const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
     const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
     el.style.transform = `perspective(900px) rotateY(${(dx * deg).toFixed(
       2
-    )}deg) rotateX(${(-dy * deg).toFixed(2)}deg) translateY(-7px)`;
+    )}deg) rotateX(${(-dy * deg).toFixed(2)}deg) translateY(-7px) scale(${scale})`;
   };
   const onLeave = () => {
     el.style.transform = '';

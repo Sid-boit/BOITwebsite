@@ -1,0 +1,71 @@
+/* Media — classification washes + accent card themes */
+
+.media-page {
+  background:
+    radial-gradient(ellipse at 90% 12%, #f0edff66, transparent 55%),
+    radial-gradient(ellipse at 0% 55%, #e3faf555, transparent 48%),
+    var(--bg);
+}
+
+.media-page .media-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.media-page .media-video-btn {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  padding: 0;
+  display: block;
+  cursor: pointer;
+}
+
+.media-page .media-video-btn__veil {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(12, 21, 18, 0.28);
+}
+
+.media-page .media-video-btn__play {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: var(--bright);
+  color: var(--deep);
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+}
+
+.media-page .media-article--tone-violet.brand-panel--accent {
+  border-top-color: var(--about-violet);
+}
+
+.media-page .media-card.brand-panel {
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  padding: 0;
+}
+
+.media-page .media-card--tone-violet.brand-panel--accent {
+  border-top-color: var(--about-violet);
+}
+
+.media-page .media-card--tone-teal.brand-panel--accent {
+  border-top-color: var(--about-teal);
+}
+
+@media (max-width: 900px) {
+  .media-page .media-feature {
+    grid-template-columns: 1fr;
+  }
+}

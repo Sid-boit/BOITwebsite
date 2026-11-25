@@ -17,10 +17,10 @@ export const routes = [
   { name: 'services-investment-banking', path: '/services/investment-banking' },
 
   { name: 'product', path: '/product' },
-  { name: 'product-insurance', path: '/product/insurance' },
+  { name: 'platform-insurance', path: '/platform/insurance' },
   { name: 'product-insurance-life-annuity-medical', path: '/product/insurance/life-annuity-medical' },
   { name: 'product-insurance-property-casualty', path: '/product/insurance/property-casualty' },
-  { name: 'product-banking', path: '/product/banking' },
+  { name: 'platform-banking', path: '/platform/banking' },
   { name: 'product-banking-financial-services', path: '/product/banking/financial-services' },
 
   { name: 'product-solutions-intelligent-process-automation', path: '/product/solutions/intelligent-process-automation' },

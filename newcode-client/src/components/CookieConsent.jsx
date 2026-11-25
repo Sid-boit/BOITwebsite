@@ -25,27 +25,17 @@ export default function CookieConsent() {
     setShow(false);
   };
 
+  // Lets other fixed UI (the floating widget on phones) step aside while the banner is up.
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle('cookie-pending', show);
+    return () => root.classList.remove('cookie-pending');
+  }, [show]);
+
   if (!show) return null;
 
   return (
-    <div
-      role="dialog"
-      aria-label={cookieConsent.title}
-      style={{
-        position: 'fixed',
-        left: 16,
-        right: 16,
-        bottom: 16,
-        zIndex: 950,
-        background: 'var(--surface)',
-        border: '1px solid var(--line)',
-        borderRadius: 18,
-        boxShadow: '0 30px 70px -50px rgba(12,21,18,.6)',
-        padding: '22px 24px',
-        maxWidth: 780,
-        margin: '0 auto',
-      }}
-    >
+    <div role="dialog" aria-label={cookieConsent.title} className="cookie">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <strong style={{ fontSize: 16, letterSpacing: '-.01em' }}>
           {cookieConsent.title}
@@ -82,7 +72,7 @@ export default function CookieConsent() {
           </div>
         ) : null}
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 6 }}>
+        <div className="cookie__actions">
           {custom ? (
             <button className="btn btn--primary" onClick={() => persist(prefs)}>
               {cookieConsent.buttons.save}

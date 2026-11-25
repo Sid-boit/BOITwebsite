@@ -1,0 +1,35 @@
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+}
+
+.theme-toggle button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+}
+
+.theme-toggle button:hover {
+  background: var(--surface-alt) !important;
+}
+
+.theme-toggle button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-toggle--mobile {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .theme-toggle--mobile {
+    display: inline-flex;
+  }
+}

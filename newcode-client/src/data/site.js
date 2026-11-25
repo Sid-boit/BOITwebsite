@@ -16,6 +16,44 @@ import malaysia from '../assets/locations/malaysia.png';
 import singapore from '../assets/locations/singapore.png';
 import southAfrica from '../assets/locations/south-africa.png';
 
+import aboutHeroArt from '../assets/about/hero-fintech.png';
+import aboutCollaboration from '../assets/about/collaboration.png';
+import aboutTalentPhoto from '../assets/about/talent-learning.png';
+import aboutCertIso9001 from '../assets/about/cert-iso9001.png';
+import aboutCertIso27001 from '../assets/about/cert-iso27001.png';
+import partnerIbm from '../assets/about/partner-ibm.png';
+import partnerInsuremo from '../assets/about/partner-insuremo.png';
+import partnerRedhat from '../assets/about/partner-redhat.png';
+import partnerMicrosoft from '../assets/about/partner-microsoft.png';
+import partnerNcino from '../assets/about/partner-ncino.png';
+import partnerCollabera from '../assets/about/partner-collabera.png';
+import customerPrudential from '../assets/about/customer-prudential.png';
+import customerGenerali from '../assets/about/customer-generali.png';
+import customerFwd from '../assets/about/customer-fwd.png';
+import customerAllianz from '../assets/about/customer-allianz.png';
+import customerManulife from '../assets/about/customer-manulife.png';
+import customerTamuni from '../assets/about/customer-tamuni.png';
+import customerSicom from '../assets/about/customer-sicom.png';
+import customerEagle from '../assets/about/customer-eagle.png';
+//import customerGreatEastern from '../assets/about/customer-great-eastern.png';
+import customerStandardBank from '../assets/about/customerStandardBank.png';
+import customerPrudentialHongkong from '../assets/about/prudential-hongkong.png';
+import customerPrudentialTakaful from '../assets/about/prudential-takaful.png';
+import ntuc from '../assets/about/ntuc.png';
+import customerCbe from '../assets/about/customer-cbe.png';
+import customerAlMasraf from '../assets/about/customer-almasraf.png';
+import locationPhotoSingapore from '../assets/locations/singapore.png';
+import locationPhotoDubai from '../assets/locations/dubai.png';
+import locationPhotoKualaLumpur from '../assets/locations/malaysia.png';
+import locationPhotoJakarta from '../assets/locations/indonesia.png';
+import locationPhotoBengaluru from '../assets/locations/india.png';
+import locationPhotoJohannesburg from '../assets/locations/south-africa.png';
+
+import miaPortrait from '../assets/home/myra-portrait.jpg';
+import heroLlm from '../assets/LLM.png';
+import heroAgents from '../assets/500+.png';
+import heroOrchestrator from '../assets/03-ai-orchestrator.png';
+
 export const brand = {
   name: 'BOIT Global',
   tagline: '',
@@ -25,7 +63,7 @@ export const brand = {
 
 export const primaryNav = [
   { label: 'Home', to: '/' },
-  { label: 'Platform', to: '/product/capabilities' },
+  { label: 'Platform', to: '/platform/insurance' },
   { label: 'Product', to: '/product' },
   { label: 'Services', to: '/services' },
   { label: 'Case Studies', to: '/case-studies' },
@@ -36,43 +74,47 @@ export const primaryNav = [
 export const navCta = { label: 'Demo', to: '/contact' };
 
 export const platformMenu = {
-  title: 'Platform',
-  to: '/product/capabilities',
+  title: '',
+  to: '/platform/insurance',
   subtitle: 'Modular AI infrastructure that powers every product workflow.',
+  platforms: [
+    { label: 'Insurance Platform', to: '/platform/insurance', icon: 'life' },
+    { label: 'Banking Platform', to: '/platform/banking', icon: 'banking' },
+  ],
   items: [
     {
       label: 'AI Agents & Orchestrator',
-      to: '/product/capabilities#process-automation',
+      to: '/platform/capabilities/ai-agents-orchestrator',
       icon: 'agents',
     },
     {
       label: 'Unified Data Lake',
-      to: '/product/capabilities#data-analysis',
+      to: '/platform/capabilities/unified-data-lake',
       icon: 'datalake',
     },
     {
       label: 'Smart Decision Configurator',
-      to: '/product/capabilities#recommendation',
+      to: '/platform/capabilities/smart-decision-configurator',
       icon: 'decision',
     },
     {
       label: 'Intelligent Data Extraction & Comparison',
-      to: '/product/capabilities#extraction-engine',
+      to: '/platform/capabilities/intelligent-data-extraction',
       icon: 'extraction',
     },
     {
       label: 'AI Analysis & Summarization',
-      to: '/product/capabilities#data-analysis',
+      to: '/platform/capabilities/ai-analysis-summarization',
       icon: 'analysis',
     },
     {
       label: 'Recommendation Engine',
-      to: '/product/capabilities#recommendation',
+      to: '/platform/capabilities/recommendation-engine',
       icon: 'recommend',
     },
     {
       label: 'Propensity & Predictive Analytics',
-      to: '/product/capabilities#propensity',
+      to: '/platform/capabilities/propensity-predictive-analytics',
       icon: 'propensity',
     },
   ],
@@ -82,11 +124,11 @@ export const productMenu = {
   strip: {
     label: 'AI Capabilities',
     to: '/product/capabilities',
-    linkLabel: 'View all →',
+    linkLabel: 'View all',
     chips: [
       {
         label: 'Intelligent Process Automation',
-        detail: 'New Business • Underwriting • Policy Servicing • Claims',
+        detail: '',
         to: '/product/solutions/intelligent-process-automation',
         icon: 'automation',
       },
@@ -120,16 +162,16 @@ export const productMenu = {
   pillars: [
     {
       label: 'Insurance',
-      to: '/product/insurance',
+      to: '/platform/insurance',
       groups: [
         {
           label: 'Accelerate Engagement',
-          to: '/product/insurance#accelerate-engagement',
+          to: '/platform/insurance#accelerate-engagement',
           items: ['Engagement Portals / App', 'RPA & Chatbots'],
         },
         {
           label: 'Accelerate Operations',
-          to: '/product/insurance#accelerate-operations',
+          to: '/platform/insurance#accelerate-operations',
           items: [
             'Case Management and Workbenches',
             'Process, Rules & Content Management',
@@ -138,23 +180,23 @@ export const productMenu = {
         },
         {
           label: 'Accelerate Distribution',
-          to: '/product/insurance#accelerate-distribution',
+          to: '/platform/insurance#accelerate-distribution',
           items: ['Lead Management', 'e-POS', 'SVOC'],
         },
       ],
     },
     {
       label: 'Banking',
-      to: '/product/banking',
+      to: '/platform/banking',
       groups: [
         {
           label: 'Accelerate Engagement',
-          to: '/product/banking#accelerate-engagement',
+          to: '/platform/banking#accelerate-engagement',
           items: ['Mobile and Tablet Banking', 'Website / Portals / App · RPA & Chatbots'],
         },
         {
           label: 'Accelerate Operations',
-          to: '/product/banking#accelerate-operations',
+          to: '/platform/banking#accelerate-operations',
           items: [
             'BPM and Case Management',
             'Process, Rules & Content Management',
@@ -162,8 +204,8 @@ export const productMenu = {
           ],
         },
         {
-          label: 'Accelerate Channel',
-          to: '/product/banking#accelerate-channel',
+          label: 'Accelerate Distribution',
+          to: '/platform/banking#accelerate-channel',
           items: [
             'Customer Relationship Management',
             'Sales and Campaign Management',
@@ -264,7 +306,7 @@ export const servicesMenu = {
 
 export const home = {
   hero: {
-    eyebrow: '',
+    // eyebrow: '',
     titleLines: [
       {
         parts: [
@@ -435,7 +477,7 @@ export const home = {
 };
 
 export const commitment = {
-  eyebrow: 'Our Commitment',
+  eyebrow: '',
   items: [
     {
       title: 'Value',
@@ -521,7 +563,7 @@ export const about = {
         city: 'Indonesia',
         flag: '🇮🇩',
         image: indonesia,
-        company: 'PT. BOIT SOFTWARE INDONESIA',
+        company: 'PT. BOIT Software Indonesia',
         address:
           'Sahid Sudirman Center, 11th floor, Suite A, Jalan Jendral Sudirman, Jakarta, Indonesia',
         phone: '+6592373013',
@@ -589,6 +631,258 @@ export const about = {
         note: 'As Head of Product at BOIT, Hiren strengthens our mission to reshape the insurance and banking ecosystem through innovation, intelligence, and measurable impact — accelerating AI-powered transformation for institutions worldwide.',
       },
     ],
+  },
+};
+
+/* --------------------------------------------------------- About (v2 page) */
+
+export const aboutPage = {
+  hero: {
+    eyebrow: '',
+    titleLines: ['Business expertise.', 'Human ambition.'],
+    titleGradient: 'Intelligent impact.',
+    lede: 'We help banks and insurers turn AI and digital technology into better business outcomes.',
+    primary: { label: 'Get to know BOIT', to: '#story', primary: true },
+    secondary: { label: '', to: '' },
+    art: aboutHeroArt,
+    artCaption: { tag: 'Banking + Insurance', title: 'Built around your business.' },
+  },
+  stats: [
+    { value: '6', label: 'Countries' },
+    { value: '200+', label: 'Domain & SME consultants' },
+    { value: '20+', label: 'Banking & insurance clients' },
+    { value: '10+ years', label: 'Average client tenure' },
+  ],
+  story: {
+    eyebrow: '',
+    titleLines: ['Deep in your industry.'],
+    titleGradient: 'Focused on your outcomes.',
+    photo: aboutCollaboration,
+    photoCaption: '',
+    lead: 'BOIT is an AI-first fintech firm focused on digital transformation across banking and insurance.',
+    paragraphs: [
+      'Our leadership brings more than 20 years of industry experience. We combine business knowledge with engineering expertise to help financial institutions modernize customer journeys and the operations behind them.',
+      'Our work spans transformation platforms, specialist consulting, application management and enhancement, and AI talent augmentation. We build technology around the needs of the business, with teams that stay close to our customers.',
+    ],
+  },
+  leadership: {
+    eyebrow: '',
+    title: 'Leadership Team',
+    intro:
+      '',
+    coFoundersLabel: 'Our Co-founders',
+    coFounders: [
+      {
+        name: 'Braj Bhusan Kumar',
+        role: 'Co-founder & CEO',
+        location: 'Dubai, UAE',
+        photo: braj,
+        bio: 'A financial services technology leader with more than 20 years of experience. Braj has led complex transformation programs across global markets and previously served as Global Head of Delivery at Azentio. He is an Executive Management alumnus of Yale School of Management.',
+        linkedin: 'https://www.linkedin.com/in/brajb/',
+      },
+      {
+        name: 'Chintan Kothari',
+        role: 'Co-founder & Chief Customer Officer',
+        location: 'Singapore',
+        photo: chintan,
+        bio: 'Chintan brings more than 22 years of global leadership experience, spanning transformation programs in over 20 countries. His expertise includes intelligent automation, case management, and customer experience. Based in Singapore, he leads BOIT’s APAC operations.',
+        linkedin: 'https://www.linkedin.com/in/chintanpkothari/',
+      },
+      {
+        name: 'Priyank Choudhary',
+        role: 'Co-founder & Chief Technology Officer',
+        location: 'Dubai, UAE',
+        photo: priyank,
+        bio: 'An engineering graduate and technology leader with experience delivering and maintaining digital solutions for financial institutions. Priyank brings expertise in program delivery, quality, and operations, and leads BOIT’s Middle East and Africa operations from Dubai.',
+        linkedin: 'https://www.linkedin.com/in/choudhary-priyank/',
+      },
+    ],
+    productLeadershipLabel: 'Product and delivery leadership',
+    productLeadership: [
+      {
+        name: 'Francis Chung',
+        role: 'Senior Vice President & Global Head of Account Delivery',
+        location: 'Kuala Lumpur, Malaysia',
+        photo: francis,
+        bio: 'Francis leads transformation delivery and application management services. BOIT’s appointment announcement highlights more than 20 years of global delivery experience across insurtech, automation, and implementation support, with a focus on customer success and long-term partnerships.',
+        linkedin: 'https://www.linkedin.com/in/francis-chungfs/',
+      },
+      {
+        name: 'Hiren Jain',
+        role: 'Senior Vice President & Head of Product & Consulting',
+        location: 'Kuala Lumpur, Malaysia',
+        photo: hiren,
+        bio: 'Hiren leads product and consulting, bringing expertise in financial services transformation, digital platforms, and enterprise modernization. His role focuses on BOIT’s product strategy, consulting practice, and AI solutions for insurers and banks.',
+        linkedin: 'https://www.linkedin.com/in/hiren-jain-8921308/',
+      },
+    ],
+  },
+  partners: {
+    eyebrow: '',
+    titleLines: ['Technology partnerships.'],
+    titleGradient: 'Shared possibilities.',
+    intro: 'Our technology ecosystem supports the platforms and integrations behind banking and insurance transformation.',
+    items: [
+      { name: 'IBM', logo: partnerIbm },
+      { name: 'insureMO', logo: partnerInsuremo },
+      { name: 'Red Hat', logo: partnerRedhat },
+      { name: 'Microsoft', logo: partnerMicrosoft },
+      { name: 'nCino', logo: partnerNcino },
+      { name: 'Collabera', logo: partnerCollabera },
+    ],
+  },
+  customers: {
+    eyebrow: '',
+    titleLines: ['Relationships built over'],
+    titleGradient: 'long term.',
+    intro:
+      'BOIT’s customer portfolio spans banking and insurance. We bring domain expertise, implementation support, and ongoing application services to each relationship.',
+    items: [
+      { name: 'Prudential', logo: customerPrudential },
+      { name: 'Generali', logo: customerGenerali },
+      { name: 'FWD', logo: customerFwd },
+      { name: 'Allianz', logo: customerAllianz },
+      { name: 'Manulife', logo: customerManulife },
+      { name: 'Prudential Takaful', logo: customerPrudentialTakaful },
+      { name: 'TAMUNI Insurance', logo: customerTamuni },
+      { name: 'SICOM Group', logo: customerSicom },
+      { name: 'Eagle Insurance', logo: customerEagle },
+      //{ name: 'Great Eastern', logo: customerGreatEastern },
+      { name: 'Standard Bank', logo: customerStandardBank },
+      { name: 'Prudential Hongkong', logo: customerPrudentialHongkong },
+      { name: 'Commercial Bank of Ethiopia', logo: customerCbe },
+      { name: 'NTUC', logo: ntuc },
+      { name: 'Al Masraf', logo: customerAlMasraf },
+    ],
+  },
+  certifications: {
+    eyebrow: '',
+    titleLines: ['Quality and security'],
+    titleGradient:['at the foundation.'],
+    body: 'BOIT’s corporate presentation identifies ISO 9001 and ISO 27001 certifications. Our delivery approach includes controlled access, protection of personal information, security monitoring, and structured governance.',
+    note: '',
+    items: [
+      { name: 'ISO 9001', label: 'Quality management', badge: aboutCertIso9001 },
+      { name: 'ISO 27001', label: 'Information security management', badge: aboutCertIso27001 },
+    ],
+  },
+  offerings: {
+    eyebrow: '',
+    titleLines: ['Our platforms.'],
+    titleGradient: 'Your next chapter.',
+    items: [
+      {
+        number: '01',
+        title: 'Accelerate Automation',
+        paragraphs: [
+          'A modular banking automation platform connecting customer engagement, operations, channels, and process and case management.',
+          'AI capabilities include document intelligence, fraud detection, e-KYC, AML risk assessment, and recommendation engines.',
+        ],
+      },
+      {
+        number: '02',
+        title: 'Insurance automation',
+        paragraphs: [
+          'Digital workflows and AI capabilities supporting insurance operations, including claims processing and case management.',
+          'BOIT’s publicly announced Malaysian claims engagement covers automation, fraud management, compliance, and operational reporting.',
+        ],
+      },
+      {
+        number: '03',
+        title: 'BOIT 2.0',
+        paragraphs: ['Our planned product direction brings focused solutions to motor, medical, and life insurance.'],
+        planned: 'Motor360 · Medical360 · Life360',
+        plannedNote: 'Working names / planned scope',
+        link: { label: 'Explore the product preview', to: '/product' },
+      },
+    ],
+  },
+  people: {
+    eyebrow: '',
+    titleLines: ['Specialist talent.'],
+    titleGradient:['Room to grow.'],
+    photo: aboutTalentPhoto,
+    photoCaption: '',
+    photoNote: '',
+    lead: 'Our LEAP Hire–Train–Deploy program builds talent for evolving technology needs.',
+    paragraphs: [
+      'We develop specialists through hiring, reskilling, and upskilling. Our teams cover generative AI, machine learning, data engineering, cloud platforms, architecture, and assurance.',
+      'Flexible engagement models support individual specialists, dedicated AI pods, and managed capacity.',
+    ],
+  },
+  locationsShowcase: {
+    eyebrow: '',
+    titleLines: ['Six countries.'],
+    titleGradient: 'One connected team.',
+    intro: '',
+    items: [
+      {
+        city: 'Singapore (HQ)',
+        caption: '',
+        photo: locationPhotoSingapore,
+        tag: '',
+        detail: 'BOIT Global Pte. Ltd.\n20 Cecil Street, 05-03 Plus Tower\nSingapore 049705',
+      },
+      {
+        city: 'United Arab Emirates',
+        caption: '',
+        photo: locationPhotoDubai,
+        tag: '',
+        detail: 'BOIT MEA Information Technology Consultants L.L.C. Office 0107, The Binary by Omniyat  \n Business Bay Dubai, UAE ',
+      },
+      {
+        city: 'Malaysia',
+        caption: '',
+        photo: locationPhotoKualaLumpur,
+        tag: '',
+        detail: 'BOIT Malaysia SDN BHD \n BO1-A-09, Menara 2,\n KL Eco City, 3, Jln Bangsar 59200 \n Kuala Lumpur WP Malaysia '
+      },
+      {
+        city: 'Indonesia',
+        caption: '',
+        photo: locationPhotoJakarta,
+        tag: '',
+        detail: 'PT. BOIT Software Indonesia \n Sahid Sudirman Center, 11th floor, \n Jalan Jendral Sudirman No Kav 86, \n Jakarta Pusat, Provinsi DKI Jakarta, Kode Pos: 10220'
+      },  
+      {
+        city: 'India',
+        caption: '',
+        photo: locationPhotoBengaluru,
+        tag: '',
+        detail: 'BOIT India Pvt. Ltd. \n The Estate, 8th Floor, \n Dickenson Road, \n Bangalore, India – 560042 '
+      },
+      {
+        city: 'South Africa',
+        caption: '',
+        photo: locationPhotoJohannesburg,
+        tag: '',
+        detail: 'BOIT Africa (PTY) LTD \n 2nd Floor, Nelson Mandela Square, \n Maude Street West Tower, \n Sandton, 2146, South Africa'
+      },
+    ],
+  },
+  news: {
+    eyebrow: '',
+    title: 'Ideas in action.',
+    items: [
+      {
+        title: 'Claims transformation in Malaysia',
+        body: 'BOIT announced a multi-year agreement with a leading Malaysian insurer to implement and maintain its Claims Automation Platform.',
+        link: 'https://www.linkedin.com/posts/boit-global_malaysian-insurance-company-activity-7416952522436816896-T3yk',
+        linkLabel: 'Read BOIT’s announcement',
+      },
+      {
+        title: 'AI insurance solutions at GITEX Asia',
+        body: 'BOIT announced its participation in GITEX Asia 2025, with a tech talk by Braj Bhusan Kumar on its AI-powered insurance solutions.',
+        link: 'https://www.linkedin.com/posts/boit-global_insurance-innovation-automation-activity-7319785495075430401-u_d0',
+        linkLabel: 'View the event post',
+      },
+    ],
+  },
+  closingCta: {
+    eyebrow: 'Let’s connect',
+    title: 'What could we\nbuild together?',
+    body: 'Talk to BOIT about your transformation goals, platforms, or specialist talent needs.',
+    button: { label: 'Talk to our team', to: '/contact' },
   },
 };
 
@@ -680,7 +974,7 @@ export const caseStudies = {
 
 export const media = {
   hero: {
-    eyebrow: 'Media',
+    eyebrow: '',
     title: 'Insights & perspectives.',
     subtitle: 'Thinking on automation, AI, and the future of financial services.',
   },
@@ -768,7 +1062,7 @@ export const contact = {
   },
   direct: {
     eyebrow: 'Direct',
-    email: 'hr.operations@boitglobal.com',
+    email: 'marcom@boitglobal.com',
     body: "We operate as an extension of your team. Share your goals and we'll respond within one business day.",
   },
   fields: [
@@ -788,12 +1082,6 @@ export const contact = {
 /* -------------------------------------------------------- Footer & misc. */
 
 export const footer = {
-  band: {
-    eyebrow: 'BOIT Global',
-    title: 'Ready to transform your business?',
-    points: ['Quick Implementation', 'Proven Results', 'Expert Support'],
-    cta: { label: 'Start the conversation', to: '/contact' },
-  },
   nav: [
     { label: 'Home', to: '/' },
     { label: 'Product', to: '/product' },
@@ -830,4 +1118,184 @@ export const notFound = {
   title: '404',
   body: "This route drifted off the network. Let's get you back on the path.",
   cta: { label: 'Return home', to: '/' },
+};
+
+/* --------------------------------------------------------------- Home (v2) */
+
+export const homePage = {
+  hero: {
+    eyebrow: '',
+    headingLines: ['The intelligence behind', 'your transformation.'],
+    headingClassName: 'assets-heading',
+    lede: 'At BOIT we combine domain-focused AI, specialist agents, industry expertise, and global delivery to help banks and insurers grow sales, enhance customer service, and streamline operations',
+    primary: { label: 'Request Demo', to: '/contact' },
+    secondary: { label: 'Explore solutions', to: '/product' },
+    tags: [''],
+    //bottomLeft: 'SCROLL TO EXPLORE ↓',
+    //bottomRight: 'EIGHT ASSETS / ONE CONNECTED ADVANTAGE',
+    pagination: 'dots',
+    slides: [
+      {
+        label: 'LLM',
+        word: 'BOIT’s fine-tuned LLM.',
+        kicker: '',
+        title: 'Industry context. Clearer insight.',
+        copy: 'A domain-focused model interprets industry information, summarises evidence, and supports Banking and Insurance workflows. \n\n',
+        image: heroLlm,
+        alt: 'BOIT fine-tuned LLM for banking and insurance',
+      },
+      {
+        label: 'Agents',
+        word: '500+ specialised AI agents.',
+        kicker: '',
+        title: 'Focused intelligence for every task.',
+        copy: 'An Insurance and Banking portfolio spanning document intelligence, risk screening, underwriting, claims, engagement, and operations.',
+        image: heroAgents,
+        alt: '500+ specialised AI agents for insurance and banking',
+      },
+      {
+        label: 'Orchestration',
+        word: 'AI agent orchestrators.',
+        kicker: '',
+        title: 'Connect the work. Preserve the context.',
+        copy: 'Orchestrators coordinate agents, tools, and workflow stages, routing exceptions to people for review.',
+        image: heroOrchestrator,
+        alt: 'AI agent orchestrators coordinating specialist agents',
+      },
+    ],
+  },
+  outcomes: {
+    eyebrow: '',
+    titleLines: ['Less friction.'],
+    titleGradient: 'More progress.',
+    items: [
+      {
+        title: 'Less manual work',
+        body: 'Reduce repetitive document handling and give teams more time for complex cases.',
+      },
+      {
+        title: 'Faster case handling',
+        body: 'Coordinate tasks and handoffs so work moves forward with fewer delays.',
+      },
+      {
+        title: 'Clearer oversight',
+        body: 'Bring evidence and case context together to support reviews and compliance checks.',
+      },
+      {
+        title: 'Responsive service',
+        body: 'Help customers and advisors get clearer answers and timely updates.',
+      },
+    ],
+  },
+  solutions: {
+    eyebrow: '',
+    title: 'Built around your industry.',
+    paths: [
+      {
+        tag: '',
+        title: 'AI-powered digital banking. From customer acquisition to services.',
+        body: 'Build digital sales journeys across mobile banking and agency channels. Engage new and existing customers with targeted campaigns, simplify account opening, loan and credit card applications, and connect onboarding with KYC, AML, and FATCA checks.',
+        link: { label: 'Explore banking platform', to: '/platform/banking' },
+      },
+      {
+        tag: '',
+        title: 'AI-powered digital insurance. From first sale to lasting service.',
+        body: 'Connect sales, distribution, and operations through end-to-end digital transformation. Use AI-powered journeys to support customer acquisition, onboarding, underwriting, claims, and policy servicing—helping teams work efficiently and deliver a seamless customer experience.',
+        link: { label: 'Explore insurance platform', to: '/platform/insurance' },
+      },
+    ],
+  },
+  intelligence: {
+    eyebrow: '',
+    titleLines: ['From intelligence'],
+    titleGradient: 'to business impact.',
+    lede: 'Our agentic journey brings industry knowledge, specialist AI agents, and orchestration together. Helping banks and insurers move from isolated automation to connected operations, end to end.',
+    cards: [
+      {
+        tag: '',
+        title: 'BOIT’s LLM that speaks\nBanking & Insurance',
+        body: 'BOIT’s domain-focused LLM interprets industry language, connects information, and delivers contextual insights across sales, customer service, and operations—helping teams make sense of complex requests and take informed next steps. \n\n\n',
+        benefit: 'Less time interpreting information. More time applying expertise.',
+      },
+      {
+        tag: '',
+        title: '500+ specialised\nAI agents',
+        body: 'An agent portfolio for Insurance and Banking, covering document extraction, comparison, risk screening, case summaries, and coordinated workflows.\n\n\n\n',
+        benefit: 'Reduce repetitive effort and respond to changing workloads.',
+      },
+      {
+        tag: '',
+        title: 'AI orchestrator driving all\ncoordinated operations.',
+        body: 'BOIT’s AI orchestrators bring specialist agents, tools, and people together across sales, customer service, and operations. Our orchestrator direct tasks, preserve context, apply business rules, and route exceptions for human review—keeping complex journeys moving.\n\n',
+        benefit: 'Less coordination effort. Faster execution. Clearer accountability.',
+      },
+    ],
+  },
+  meetMia: {
+    eyebrow: '',
+    titleLines: ['Meet MIA.'],
+    titleGradient: 'Start with a conversation.',
+    body: 'MIA is BOIT’s AI guide to banking and insurance. Explore our solutions, ask questions, and find a clearer path through complex information.',
+    button: { label: 'Meet MIA', to: '/contact' },
+    note: 'Live voice requires an active API connection. The recorded introduction is available in the preview; live lip sync and CaseX access are not connected yet.',
+    photo: miaPortrait,
+  },
+  whyBoit: {
+    eyebrow: '',
+    titleLines: ['Technology with'],
+    titleGradient: 'industry understanding.',
+    intro: 'Business knowledge, engineering expertise, and global teams working together across banking and insurance.',
+    stats: [
+      { value: '20+ years', label: 'Industry experience across our leadership.' },
+      { value: '200+', label: 'Domain and SME consultants.' },
+      { value: '20+', label: 'Banking and insurance clients.' },
+      { value: '6 countries', label: 'A connected global presence.' },
+    ],
+    trust: {
+      partners: [
+        { name: 'IBM', logo: partnerIbm },
+        { name: 'insureMO', logo: partnerInsuremo },
+        { name: 'Red Hat', logo: partnerRedhat },
+        { name: 'Microsoft', logo: partnerMicrosoft },
+        { name: 'nCino', logo: partnerNcino },
+        { name: 'Collabera', logo: partnerCollabera },
+      ],
+      customers: [
+        { name: 'Prudential', logo: customerPrudential },
+        { name: 'Generali', logo: customerGenerali },
+        { name: 'FWD', logo: customerFwd },
+        { name: 'Prudential Takaful', logo: customerPrudentialTakaful },
+        { name: 'Allianz', logo: customerAllianz },
+        { name: 'Manulife', logo: customerManulife },
+        { name: 'TAMUNI Insurance', logo: customerTamuni },
+        { name: 'SICOM Group', logo: customerSicom },
+        { name: 'Eagle Insurance', logo: customerEagle },
+        //{ name: 'Great Eastern', logo: customerGreatEastern },
+        { name: 'Standard Bank', logo: customerStandardBank },
+        { name: 'Prudential Hongkong', logo: customerPrudentialHongkong },
+        
+        { name: 'Commercial Bank of Ethiopia', logo: customerCbe },
+        { name: 'Al Masraf', logo: customerAlMasraf },
+        { name: 'NTUC', logo: ntuc }
+      ],
+    },
+    markets: {
+      title: 'Global presence',
+      items: [
+        { name: 'Singapore', short: 'Singapore', image: singapore },
+        { name: 'United Arab Emirates', short: 'UAE', image: dubai },
+        { name: 'Malaysia', short: 'Malaysia', image: malaysia },
+        { name: 'Indonesia', short: 'Indonesia', image: indonesia },
+        { name: 'India', short: 'India', image: india },
+        { name: 'South Africa', short: 'South Africa', image: southAfrica },
+      ],
+    },
+    link: { label: 'Get to know BOIT', to: '/about', primary: true },
+  },
+  contact: {
+    eyebrow: '',
+    titleLines: ['What could we simplify', 'for your business?'],
+    body: 'Tell us where your teams face complexity. Let’s explore how BOIT can help.',
+    button: { label: 'Talk to our team', href: 'mailto:marcom@boitglobal.com' },
+  },
 };

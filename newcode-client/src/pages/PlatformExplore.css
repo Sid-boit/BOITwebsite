@@ -1,0 +1,78 @@
+.platform-explore-page .platform-explore-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.platform-explore-page .platform-explore-grid-wrap {
+  padding-top: 8px;
+  padding-bottom: 56px;
+}
+
+.platform-explore-page .platform-explore-grid > * {
+  display: flex;
+  height: 100%;
+}
+
+.platform-explore-page .platform-explore-grid > * > * {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.platform-explore-page .platform-explore-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 18px 26px;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  min-height: 180px;
+}
+
+.platform-explore-page .platform-explore-card__media {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface-alt);
+}
+
+.platform-explore-page .platform-explore-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.platform-explore-page .platform-explore-card h3 {
+  margin: 4px 0 0;
+  font-size: clamp(20px, 2vw, 26px);
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  line-height: 1.2;
+  min-height: 0;
+}
+
+.platform-explore-page .platform-explore-card p {
+  margin: 0;
+  flex: 1;
+  color: var(--body-2);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.platform-explore-page .platform-explore-card .link-arrow {
+  margin-top: 8px;
+}
+
+.platform-explore-page .platform-explore-card--tone-violet.brand-panel--accent {
+  border-top-color: var(--about-violet);
+}
+
+.platform-explore-page .platform-explore-card--tone-teal.brand-panel--accent {
+  border-top-color: var(--about-teal);
+}

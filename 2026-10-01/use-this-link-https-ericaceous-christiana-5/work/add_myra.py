@@ -1,0 +1,16 @@
+from pathlib import Path
+out=Path('outputs/boit-preview');p=out/'index.html';s=p.read_text()
+if 'myra-widget.js' not in s:
+ s=s.replace('</head>','<link rel="stylesheet" href="myra-widget.css"></head>')
+ s=s.replace('</body>','<script src="myra-widget.js" data-context="website" defer></script></body>')
+ s=s.replace('href="https://ericaceous-christiana-proscribable.ngrok-free.dev/"','href="home.html"')
+ p.write_text(s)
+home=s.replace('BOIT 2.0 — Product Page Preview','BOIT Global — Homepage with Myra')
+home=home.replace('BOIT 2.0 / A new chapter','BOIT Global / Homepage demo')
+home=home.replace('Insurance.<br><span class="gradient-text">Reimagined.</span>','Insurance.<br>Banking.<br><span class="gradient-text">Reimagined.</span>')
+home=home.replace('Big ideas for simpler insurance.<br>Meet the motor, medical, and life products we’re building to move the industry forward.','AI-native transformation for insurance and banking.<br>Explore our solutions with Myra, BOIT’s AI guide.')
+home=home.replace('<a class="btn btn--primary" href="#boit2">Meet the products <span>↗</span></a>','<button class="btn btn--primary myra-hero-button" type="button" data-open-myra>Meet Myra <span>↗</span></button>')
+home=home.replace('<a class="hero-new" href="#roadmap">Let’s talk <span>→</span></a>','<a class="hero-new" href="index.html">Explore products <span>→</span></a>')
+home=home.replace('<a class="hdr__tablink active" aria-current="page" href="#top">Product</a>','<a class="hdr__tablink active" aria-current="page" href="#top">Home</a><a class="hdr__tablink" href="index.html">Product</a>')
+home=home.replace('</head>','<style>.hero-copy h1{font-size:clamp(44px,5.8vw,80px)}.hero-layout{min-height:500px}.hdr__tabs{gap:19px}@media(max-width:760px){.hero-copy h1{font-size:54px}}</style></head>')
+(out/'home.html').write_text(home)

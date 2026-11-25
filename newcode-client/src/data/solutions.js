@@ -1,12 +1,4 @@
-import ipa from '../assets/pageimages/IntelligentProcessAutomation.png';
-import caseMgmt from '../assets/pageimages/smartCaseManagement.png';
-import core from '../assets/pageimages/InsuranceCoreModernization.png';
-import medical from '../assets/pageimages/MedicalUnderwriting.png';
-import motor from '../assets/pageimages/MotorClaimsManagement.png';
-import fraud from '../assets/pageimages/frauddetection.png';
-import ekyc from '../assets/pageimages/eKYC.png';
-import epos from '../assets/pageimages/ePOS.png';
-import aml from '../assets/pageimages/digitalAMl.png';
+import { solutionHeroes } from './submenuHeroes';
 
 export const solutions = [
   {
@@ -14,9 +6,9 @@ export const solutions = [
     title: 'Intelligent Process Automation',
     headline: 'Leverage AI and RPA to automate complex business workflows efficiently.',
     lede: 'Combine artificial intelligence with robotic process automation to streamline operations, reduce manual effort, and eliminate bottlenecks across your organization for enhanced productivity.',
-    image: ipa,
+    image: solutionHeroes['intelligent-process-automation'],
     imageAlt: 'Intelligent Process Automation across new business, underwriting, servicing, and claims',
-    pillarsEyebrow: 'Lifecycle',
+    pillarsEyebrow: '',
     pillarsTitle: 'Four stages. One automated spine.',
     pillars: [
       {
@@ -42,7 +34,7 @@ export const solutions = [
     title: 'Smart Case Management',
     headline: 'Data-driven visibility and intelligent insights for streamlined end-to-end case resolution.',
     lede: 'Centralize case information, automate task assignments, and utilize intelligent insights to ensure timely handling, improved collaboration, and better decision-making for complex scenarios.',
-    image: caseMgmt,
+    image: solutionHeroes['smart-case-management'],
     imageAlt: 'Smart Case Management from intake through resolve',
     pillarsEyebrow: 'How it works',
     pillarsTitle: 'Intake to resolve, without losing context.',
@@ -70,7 +62,7 @@ export const solutions = [
     title: 'Insurance Core Modernization',
     headline: 'Transform legacy systems into agile, future-ready digital insurance core platforms.',
     lede: 'Upgrade outdated policy administration, billing, and claims systems to flexible, scalable architectures that enable rapid product launches and seamless digital customer experiences.',
-    image: core,
+    image: solutionHeroes['insurance-core-modernization'],
     imageAlt: 'Insurance Core Modernization — modernize, integrate, optimize, strengthen, deliver',
     pillarsEyebrow: 'Transformation path',
     pillarsTitle: 'Modernize the core without stalling the business.',
@@ -102,7 +94,7 @@ export const solutions = [
     title: 'Medical Underwriting',
     headline: 'Accelerate risk assessment with automated analysis of digital medical data.',
     lede: 'Leverage digital health data, AI algorithms, and rule-based engines to streamline applicant evaluation, improve risk accuracy, and significantly reduce underwriting turnaround times.',
-    image: medical,
+    image: solutionHeroes['medical-underwriting'],
     imageAlt: 'Medical Underwriting — collect, assess, evaluate, and decide',
     pillarsEyebrow: 'How it works',
     pillarsTitle: 'From evidence to decision, faster.',
@@ -130,7 +122,7 @@ export const solutions = [
     title: 'Motor Claims Management',
     headline: 'Optimize the entire claims lifecycle for faster, fairer auto settlements.',
     lede: 'Digitizes FNOL, automates damage assessment via image recognition, and integrates with repair networks to decrease claim cycle times and enhance customer satisfaction.',
-    image: motor,
+    image: solutionHeroes['motor-claims-management'],
     imageAlt: 'Motor Claims Management — intake, assess, settle, and close',
     pillarsEyebrow: 'How it works',
     pillarsTitle: 'A faster path from FNOL to close.',
@@ -158,7 +150,7 @@ export const solutions = [
     title: 'Fraud Detection & Management',
     headline: 'Proactively identify and mitigate fraudulent activities across all business lines.',
     lede: 'Utilize advanced analytics, machine learning models, and pattern recognition to detect anomalies in real-time, reducing financial losses and protecting your organization\'s reputation.',
-    image: fraud,
+    image: solutionHeroes['fraud-detection'],
     imageAlt: 'Fraud Detection and Management — detect, alert, verify, and protect',
     pillarsEyebrow: 'Defense loop',
     pillarsTitle: 'See it, score it, stop it.',
@@ -186,7 +178,7 @@ export const solutions = [
     title: 'e-KYC & Customer Onboarding',
     headline: 'Seamless, compliant, and fully digital identity verification for frictionless customer onboarding.',
     lede: 'Implement secure, paperless Know Your Customer (KYC) processes using biometrics and digital document verification to onboard customers quickly while ensuring strict regulatory compliance.',
-    image: ekyc,
+    image: solutionHeroes['ekyc-onboarding'],
     imageAlt: 'e-KYC and Customer Onboarding — scan, process, verify, and issue',
     pillarsEyebrow: 'How it works',
     pillarsTitle: 'Secure identity in minutes, not days.',
@@ -214,7 +206,7 @@ export const solutions = [
     title: 'ePOS & Agency Management',
     headline: 'Empower agents with digital point-of-sale tools and effective channel management.',
     lede: 'Provide agents with mobile-friendly ePOS capabilities and comprehensive agency dashboards to streamline sales, track performance, and improve distributor engagement.',
-    image: epos,
+    image: solutionHeroes['epos-agency'],
     imageAlt: 'ePOS and Agency Management — quoting, analytics, network, and partnerships',
     pillarsEyebrow: 'Distribution',
     pillarsTitle: 'Quote, manage, and grow the agency force.',
@@ -242,7 +234,7 @@ export const solutions = [
     title: 'Digital AML & Compliance',
     headline: 'Automate and strengthen Anti-Money Laundering (AML) risk management and compliance programs.',
     lede: 'Leverage technology for robust customer screening, transaction monitoring, and regulatory reporting to ensure ongoing compliance with evolving global regulations and reduce operational risk.',
-    image: aml,
+    image: solutionHeroes['digital-aml'],
     imageAlt: 'Digital AML and Compliance — identity, monitoring, screening, and reporting',
     pillarsEyebrow: 'How it works',
     pillarsTitle: 'From identity to regulatory report.',

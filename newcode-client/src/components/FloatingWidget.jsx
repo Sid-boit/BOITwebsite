@@ -4,6 +4,7 @@ import './FloatingWidget.css';
 
 const WIDTH = 300;
 const MARGIN = 28;
+const MARGIN_SM = 14; // phones: tuck closer to the corner
 const DEMO = '/contact';
 const DRAG_THRESHOLD = 6;
 
@@ -14,10 +15,6 @@ const CARDS = [
   { id: 'fraud', title: 'Fraud Detection', sub: 'Spot risk before it pays out', bar: '81%' },
   { id: 'ekyc', title: 'e-KYC Onboarding', sub: 'Verify customers in minutes', bar: '70%' },
 ];
-
-function depthOf(index, active) {
-  return (index - active + CARDS.length) % CARDS.length;
-}
 
 export default function FloatingWidget() {
   const { pathname } = useLocation();
@@ -31,10 +28,12 @@ export default function FloatingWidget() {
 
   useEffect(() => {
     const place = () => {
-      const h = cardRef.current?.offsetHeight || 180;
+      const w = cardRef.current?.offsetWidth || WIDTH;
+      const h = cardRef.current?.offsetHeight || 90;
+      const m = window.innerWidth <= 900 ? MARGIN_SM : MARGIN;
       setPos({
-        x: window.innerWidth - WIDTH - MARGIN,
-        y: window.innerHeight - h - MARGIN,
+        x: window.innerWidth - w - m,
+        y: window.innerHeight - h - m,
       });
     };
     place();
@@ -55,7 +54,7 @@ export default function FloatingWidget() {
   const clamp = (x, y) => {
     const el = cardRef.current;
     const w = el?.offsetWidth || WIDTH;
-    const h = el?.offsetHeight || 180;
+    const h = el?.offsetHeight || 90;
     return {
       x: Math.min(Math.max(x, 8), window.innerWidth - w - 8),
       y: Math.min(Math.max(y, 8), window.innerHeight - h - 8),
@@ -146,44 +145,14 @@ export default function FloatingWidget() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="fwidget__stage">
-        {CARDS.map((card, index) => {
-          const depth = depthOf(index, active);
-          return (
-            <div key={card.id} className="fwidget__card" data-depth={depth} aria-hidden="true">
-              <div className="fwidget__thumb">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill={`url(#fwidget-bolt-${card.id})`} />
-                  <defs>
-                    <linearGradient
-                      id={`fwidget-bolt-${card.id}`}
-                      x1="4"
-                      y1="2"
-                      x2="19"
-                      y2="22"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop stopColor="#eef3f1" />
-                      <stop offset="1" stopColor="#d5deda" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </div>
-              <div className="fwidget__body">
-                <div className="fwidget__title">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="var(--accent)" />
-                  </svg>
-                  {card.title}
-                </div>
-                <p className="fwidget__sub">{card.sub}</p>
-                <div className="fwidget__bar">
-                  <span style={{ width: card.bar }} />
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      <div className="fwidget__card" key={focused.id}>
+        <div className="fwidget__body">
+          <div className="fwidget__title">{focused.title}</div>
+          <p className="fwidget__sub">{focused.sub}</p>
+          <div className="fwidget__bar">
+            <span style={{ width: focused.bar }} />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -20,6 +20,7 @@ export default function NotFound() {
     >
       <div style={{ position: 'relative' }}>
         <h1
+          className="notfound-code"
           style={{
             fontSize: 'clamp(84px, 18vw, 220px)',
             lineHeight: 0.86,
@@ -41,7 +42,7 @@ export default function NotFound() {
           className="btn btn--primary fade-up"
           style={{ marginTop: 28, animationDelay: '.42s' }}
         >
-          {notFound.cta.label} <span>→</span>
+          {notFound.cta.label}
         </Magnetic>
       </div>
     </section>

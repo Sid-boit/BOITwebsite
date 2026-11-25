@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
 import { serviceCategories, categoryChrome } from '../data/services';
 import PageHero from '../components/PageHero';
 import ScrollDeck from '../components/ScrollDeck';
 import CtaBand from '../components/CtaBand';
+import GlassPanel from '../components/GlassPanel';
 import Reveal from '../components/motion/Reveal';
 import SplitText from '../components/motion/SplitText';
+import useTiltPanels from '../hooks/useTiltPanels';
+import '../styles/brand-surfaces.css';
+import './ServiceCategory.css';
 
 export default function ServiceCategory() {
   const { slug } = useParams();
   const category = serviceCategories[slug];
+  const rootRef = useRef(null);
+  useTiltPanels(rootRef, []);
 
   if (!category) return <Navigate to="/services" replace />;
 
@@ -27,8 +33,9 @@ export default function ServiceCategory() {
   }));
 
   return (
-    <>
+    <div className="brand-page service-category-page" ref={rootRef}>
       <PageHero
+        wash
         eyebrow={category.pillar}
         title={category.label}
         subtitle={categoryChrome.subtitle(category.label)}
@@ -36,18 +43,19 @@ export default function ServiceCategory() {
 
       <ScrollDeck
         id={`${slug}-deck`}
-        eyebrow="01 — Focus areas"
+        mode="hover"
+        spotlight
+        eyebrow="Focus areas"
         title={`How we modernise ${category.label.toLowerCase()}.`}
         allLink="/contact"
         allLabel="Talk to our team"
         cards={deckCards}
       />
 
-      {/* ------------------------------------------------- full sections */}
-      <section className="panel-light" style={{ marginTop: 128 }}>
-        <div className="shell" style={{ padding: '112px 40px' }}>
+      <section className="brand-section brand-wash" style={{ marginTop: 48 }}>
+        <div className="shell" style={{ padding: '0 var(--gutter)' }}>
           <Reveal as="p" className="eyebrow">
-            02 — In detail
+            In detail
           </Reveal>
           <SplitText
             as="h2"
@@ -56,21 +64,13 @@ export default function ServiceCategory() {
             style={{ margin: '22px 0 64px', maxWidth: '22ch' }}
           />
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 96 }}>
+          <div className="svc-detail-list">
             {category.sections.map((s, i) => (
-              <article key={s.id} id={s.id} style={{ scrollMarginTop: 110 }}>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'minmax(0,.8fr) minmax(0,1fr)',
-                    gap: 64,
-                    alignItems: 'start',
-                  }}
-                  data-stack="1"
-                >
-                  <div style={{ position: 'sticky', top: 110 }}>
+              <article key={s.id} id={s.id} className="svc-detail">
+                <div className="svc-detail__grid" data-stack="1">
+                  <div className="svc-detail__sticky">
                     <Reveal as="div" className="eyebrow eyebrow--accent">
-                      {`0${i + 1} — ${s.name}`}
+                      {s.name}
                     </Reveal>
                     <SplitText
                       as="h3"
@@ -83,28 +83,35 @@ export default function ServiceCategory() {
                         margin: '18px 0 22px',
                       }}
                     />
-                    <div className="rowlist">
-                      <Reveal className="rowlist__row" delay={1}>
-                        <div className="k">Challenge</div>
+                    <div className="rowlist rowlist--side">
+                      <Reveal className="rowlist__row rowlist__row--side" delay={1}>
+                        <h4 className="rowlist__title">Challenge</h4>
                         <p>{s.challenge}</p>
                       </Reveal>
-                      <Reveal className="rowlist__row" delay={2}>
-                        <div className="k">Solution</div>
+                      <Reveal className="rowlist__row rowlist__row--side" delay={2}>
+                        <h4 className="rowlist__title">Solution</h4>
                         <p>{s.solution}</p>
                       </Reveal>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 26 }}>
+                  <div className="svc-detail__cards">
                     <div>
                       <p className="eyebrow" style={{ marginBottom: 14 }}>
                         Capabilities
                       </p>
-                      <div className="grid-hair" style={{ gridTemplateColumns: '1fr' }}>
+                      <div className="svc-cap-grid">
                         {s.capabilities.map((c, ci) => (
-                          <Reveal key={c.title} delay={ci + 1} className="hair-cell lift">
-                            <h4>{c.title}</h4>
-                            <p>{c.body}</p>
+                          <Reveal key={c.title} delay={ci + 1}>
+                            <GlassPanel
+                              accent
+                              className={`svc-card svc-card--tone-${
+                                (i + ci) % 2 === 0 ? 'violet' : 'teal'
+                              }`}
+                            >
+                              <h4>{c.title}</h4>
+                              <p>{c.body}</p>
+                            </GlassPanel>
                           </Reveal>
                         ))}
                       </div>
@@ -114,16 +121,19 @@ export default function ServiceCategory() {
                       <p className="eyebrow" style={{ marginBottom: 14 }}>
                         Impact
                       </p>
-                      <div
-                        className="grid-hair"
-                        style={{ gridTemplateColumns: 'repeat(3, minmax(0,1fr))' }}
-                        data-stack="1"
-                      >
+                      <div className="svc-impact-grid" data-stack="1">
                         {s.impact.map((im, ii) => (
-                          <Reveal key={im.title} delay={ii + 1} className="hair-cell">
-                            <div className="tag">Outcome</div>
-                            <h4 style={{ fontSize: 16.5 }}>{im.title}</h4>
-                            <p style={{ fontSize: 13.5 }}>{im.body}</p>
+                          <Reveal key={im.title} delay={ii + 1}>
+                            <GlassPanel
+                              accent
+                              className={`svc-card svc-card--tone-${
+                                ii % 2 === 0 ? 'teal' : 'violet'
+                              }`}
+                            >
+                              <div className="tag eyebrow eyebrow--accent">Outcome</div>
+                              <h4>{im.title}</h4>
+                              <p>{im.body}</p>
+                            </GlassPanel>
                           </Reveal>
                         ))}
                       </div>
@@ -142,6 +152,6 @@ export default function ServiceCategory() {
         body={categoryChrome.ctaBody}
         buttons={categoryChrome.buttons}
       />
-    </>
+    </div>
   );
 }

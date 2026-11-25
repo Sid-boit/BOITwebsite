@@ -81,7 +81,7 @@ export default function Contact() {
               style={{
                 display: 'inline-block',
                 margin: '16px 0 14px',
-                fontSize: 'clamp(22px, 2.4vw, 32px)',
+                fontSize: 'var(--fs-h3)',
                 fontWeight: 600,
                 letterSpacing: '-.03em',
               }}
@@ -102,17 +102,16 @@ export default function Contact() {
                   <div
                     key={l.city}
                     style={{
-                      display: 'flex',
-                      gap: 10,
+                      display: 'grid',
+                      gridTemplateColumns: '1.5em 7.5em minmax(0, 1fr)',
+                      columnGap: 10,
                       alignItems: 'baseline',
                       fontSize: 14,
                       color: 'var(--body-2)',
                     }}
                   >
                     <span aria-hidden="true">{l.flag}</span>
-                    <span style={{ color: 'var(--ink)', fontWeight: 500, minWidth: 96 }}>
-                      {l.city}
-                    </span>
+                    <span style={{ color: 'var(--ink)', fontWeight: 500 }}>{l.city}</span>
                     <span>{l.company}</span>
                   </div>
                 ))}
@@ -213,7 +212,7 @@ export default function Contact() {
 
                 <div style={{ gridColumn: '1 / -1' }}>
                   <button type="submit" className="btn btn--primary" disabled={submitting}>
-                    {submitting ? 'Sending…' : contact.submit} <span>→</span>
+                    {submitting ? 'Sending…' : contact.submit}
                   </button>
                   {error ? (
                     <p

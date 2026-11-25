@@ -1,0 +1,283 @@
+/* RotatingHero — the auto-rotating photo/caption "scene" used in the
+   Services and Home hero sections. Base .playful-hero/.hero-layout/etc live
+   in global.css (shared with the Product page's Boit2Intro hero). */
+
+.mia-motion-heading .gradient-text {
+  display: inline-block;
+  min-height: 2.2em;
+}
+
+.assets-heading {
+  line-height: 1.12 !important;
+}
+
+.assets-heading .gradient-text {
+  display: block;
+  /* Every rotating phrase fits one line at desktop widths. */
+  min-height: 1.2em;
+  margin-top: 20px;
+  line-height: 1.15;
+}
+
+.home-sculpture {
+  margin: 0;
+  width: 100%;
+  position: relative;
+}
+
+.home-sculpture img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+  box-shadow: 0 24px 65px #503d9c14;
+}
+
+.home-sculpture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  box-shadow: inset 0 0 0 1px #ffffff55;
+  pointer-events: none;
+}
+
+.motion-scene {
+  overflow: hidden;
+  border-radius: 30px;
+  background: #182142;
+  min-height: 500px;
+}
+
+.motion-scene img {
+  height: 500px;
+  border-radius: 0;
+  transform: scale(1.05);
+  animation: hero-drift 18s ease-in-out infinite alternate;
+  transition: opacity 0.18s ease;
+}
+
+.motion-scene img.hero-image-out {
+  opacity: 0;
+}
+
+.motion-scene.is-paused img {
+  animation-play-state: paused;
+}
+
+.scene-wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 20%, #17223bcc 75%, #17223bf5);
+}
+
+.motion-scene[data-stage='1'] .scene-wash {
+  background: linear-gradient(180deg, transparent 20%, #33206ccc 75%, #251747f5);
+}
+
+.motion-scene[data-stage='2'] .scene-wash {
+  background: linear-gradient(180deg, transparent 20%, #073e49cc 75%, #122b3bf5);
+}
+
+.scene-caption {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 28px;
+  color: white;
+}
+
+.scene-caption > span {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #97eee2;
+}
+
+.scene-caption > strong {
+  display: block;
+  font-size: clamp(22px, 2vw, 29px);
+  line-height: 1.15;
+  margin: 12px 0;
+}
+
+.scene-caption p {
+  color: #e0e6f6;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 22px;
+  max-width: 48ch;
+}
+
+.scene-stages {
+  display: flex;
+  gap: 7px;
+}
+
+.scene-stages button {
+  position: relative;
+  flex: 1;
+  border: 0;
+  border-top: 2px solid #ffffff40;
+  background: transparent;
+  color: #c9d0e1;
+  font-size: 8px;
+  padding: 12px 0 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.scene-stages button[aria-pressed='true'] {
+  border-color: #7de7d6;
+  color: white;
+}
+
+.scene-stages button[aria-pressed='true']::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  height: 2px;
+  background: #fff;
+  animation: hero-progress 3.2s linear forwards;
+}
+
+.motion-scene.is-paused .scene-stages button::before {
+  animation-play-state: paused;
+}
+
+.hero-transition {
+  animation: hero-text-in 0.6s ease both;
+}
+
+.scene-pause {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #ffffff77;
+  border-radius: 50%;
+  background: #18223d99;
+  color: white;
+  cursor: pointer;
+}
+
+/* ---------- dot pagination (Home's 8-asset hero) ---------- */
+
+.asset-dots {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 11px;
+  margin-top: 22px;
+}
+
+.asset-dots button {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffff66;
+  transition: background 0.2s, width 0.2s;
+  position: relative;
+}
+
+.asset-dots button::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+}
+
+.asset-dots button[aria-pressed='true'] {
+  width: 25px;
+  background: #85eadb;
+  border-radius: 8px;
+}
+
+.asset-dots button[aria-pressed='true']::before {
+  display: none;
+}
+
+.asset-dots button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 5px;
+}
+
+@keyframes hero-drift {
+  from {
+    transform: scale(1.05) translateX(-1%);
+  }
+  to {
+    transform: scale(1.14) translateX(1%);
+  }
+}
+
+@keyframes hero-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .motion-scene {
+    min-height: 460px;
+  }
+  .motion-scene img {
+    height: 460px;
+  }
+  /* At phone widths each rotating phrase wraps to two lines — reserve both
+     so the copy below doesn't jump as the phrase changes. */
+  .assets-heading .gradient-text {
+    min-height: 2.35em;
+    margin-top: 12px;
+  }
+  .hero-copy h1.assets-heading {
+    margin-bottom: 20px;
+  }
+  /* The desktop line break strands a single word at phone widths. */
+  .assets-heading br {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .scene-stages button span {
+    font-size: 0;
+  }
+  .scene-stages button {
+    padding-top: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-scene img,
+  .scene-stages button::before,
+  .hero-transition {
+    animation: none;
+  }
+  .motion-scene img {
+    transform: none;
+    transition: none;
+  }
+  .scene-pause {
+    display: none;
+  }
+}

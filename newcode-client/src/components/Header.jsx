@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { brand, navCta, platformMenu, productMenu, servicesMenu } from '../data/site';
 import Magnetic from './motion/Magnetic';
-import logoFull from '../assets/new_logo_boit-removebg-preview.png';
-import logoShort from '../assets/new_logo_short_boit-removebg-preview.png';
+import ThemeToggle from './ThemeToggle';
+import { logoFull } from '../brand/logos';
 import './Header.css';
 
 /* Contextual line icons for mega-menu items. */
@@ -41,7 +41,7 @@ function ItemIcon({ name }) {
 }
 
 const tabs = [
-  { key: 'platform', label: 'Platform', to: '/product/capabilities', mega: true },
+  { key: 'platform', label: 'Platform', to: '/platform/insurance', mega: true },
   { key: 'product', label: 'Product', to: '/product', mega: true },
   { key: 'services', label: 'Services', to: '/services', mega: true },
   { key: 'case-studies', label: 'Case Studies', to: '/case-studies' },
@@ -49,19 +49,42 @@ const tabs = [
   { key: 'about', label: 'About', to: '/about' },
 ];
 
+/* Product routes under /product/* used to steal the Platform active state
+   (prefix match on /product). Keep Platform and Product mutually exclusive. */
+function tabIsActive(key, pathname) {
+  if (key === 'platform') {
+    return (
+      pathname.startsWith('/platform') || pathname.startsWith('/product/capabilities')
+    );
+  }
+  if (key === 'product') {
+    if (pathname.startsWith('/product/capabilities')) return false;
+    return pathname === '/product' || pathname.startsWith('/product/');
+  }
+  if (key === 'services') return pathname.startsWith('/services');
+  if (key === 'case-studies') return pathname.startsWith('/case-studies');
+  if (key === 'media') return pathname.startsWith('/media');
+  if (key === 'about') return pathname.startsWith('/about');
+  return false;
+}
+
 const panelContent = {
   platform: {
     title: 'Platform',
-    to: platformMenu.to,
+    to: '/platform/insurance',
     subtitle: platformMenu.subtitle,
     sections: [
+      {
+        heading: 'Industry platforms',
+        items: platformMenu.platforms,
+      },
       {
         heading: 'Capabilities',
         items: platformMenu.items,
       },
     ],
     actions: [
-      { label: 'Explore the platform →', to: '/product/capabilities', primary: true },
+      { label: 'Explore the platform', to: '/platform/capabilities', primary: true },
       { label: 'Talk to us', to: '/contact', primary: false },
     ],
   },
@@ -80,7 +103,7 @@ const panelContent = {
       },
     ],
     actions: [
-      { label: 'Explore products →', to: '/product', primary: true },
+      { label: 'Explore products', to: '/product', primary: true },
       { label: 'Talk to us', to: '/contact', primary: false },
     ],
   },
@@ -97,11 +120,49 @@ const panelContent = {
   },
 };
 
+/* Mobile drawer: mega-menu tabs become collapsible groups. */
+const drawerGroups = [
+  {
+    key: 'platform',
+    label: 'Platform',
+    to: platformMenu.to,
+    overview: 'Platform overview',
+    sections: [
+      { heading: 'Industry platforms', items: platformMenu.platforms },
+      { heading: 'Capabilities', items: platformMenu.items },
+    ],
+  },
+  {
+    key: 'product',
+    label: 'Product',
+    to: '/product',
+    overview: 'All products',
+    sections: [
+      { heading: 'Business Verticals', items: productMenu.verticals },
+      { heading: 'Business Solutions', items: productMenu.strip.chips },
+    ],
+  },
+  {
+    key: 'services',
+    label: 'Services',
+    to: '/services',
+    overview: 'All services',
+    sections: [
+      { heading: 'Service lines', items: servicesMenu.top },
+      ...servicesMenu.pillars.map((p) => ({ heading: p.label, items: p.groups })),
+    ],
+  },
+];
+
+const drawerLinks = tabs.filter((t) => !t.mega);
+
 export default function Header() {
   const [open, setOpen] = useState(null); // 'platform' | 'product' | 'services' | null
   const [panelKey, setPanelKey] = useState('platform'); // keep last panel mounted to avoid flicker
   const [drawer, setDrawer] = useState(false);
+  const [expanded, setExpanded] = useState(null); // open group in the mobile drawer
   const [scrolled, setScrolled] = useState(false);
+  const [solid, setSolid] = useState(false); // mobile bar gets a backdrop once off the top
   const location = useLocation();
   const closeTimer = useRef(null);
 
@@ -122,14 +183,25 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    // Wait for a real scroll before compacting — avoids early trigger on tiny nudges.
-    const onScroll = () => setScrolled(window.scrollY > 140);
+    // Fade the large left logo early so it clears page headings before they scroll under it.
+    const onScroll = () => {
+      setScrolled(window.scrollY > 48);
+      setSolid(window.scrollY > 8);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => () => clearTimeout(closeTimer.current), []);
+
+  // Lock page scroll behind the open drawer; collapse groups when it closes.
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle('nav-open', drawer);
+    if (!drawer) setExpanded(null);
+    return () => root.classList.remove('nav-open');
+  }, [drawer]);
 
   const cancelClose = () => clearTimeout(closeTimer.current);
 
@@ -147,20 +219,33 @@ export default function Header() {
   const multiSection = panel.sections.length > 1;
 
   return (
-    <header className="hdr" data-scrolled={scrolled ? '1' : '0'}>
+    <header
+      className="hdr"
+      data-scrolled={scrolled ? '1' : '0'}
+      data-solid={solid || drawer ? '1' : '0'}
+      data-drawer={drawer ? '1' : '0'}
+    >
       <div className="hdr__bar">
         <Link to="/" className="hdr__logo" aria-label={brand.ariaLabel} data-compact={scrolled ? '1' : '0'}>
           <img src={logoFull} alt={brand.name} className="hdr__logo-img" />
         </Link>
 
-        <button
-          className="hdr__burger"
-          onClick={() => setDrawer((d) => !d)}
-          aria-expanded={drawer}
-          aria-label="Toggle navigation"
-        >
-          {drawer ? 'Close' : 'Menu'}
-        </button>
+        <div className="hdr__bar-actions">
+          <ThemeToggle className="theme-toggle--mobile" />
+          <button
+            className="hdr__burger"
+            onClick={() => setDrawer((d) => !d)}
+            aria-expanded={drawer}
+            aria-controls="hdr-drawer"
+            aria-label={drawer ? 'Close navigation' : 'Open navigation'}
+          >
+            <span className="hdr__burger-icon" aria-hidden="true">
+              <i />
+              <i />
+            </span>
+            {drawer ? 'Close' : 'Menu'}
+          </button>
+        </div>
       </div>
 
       <div
@@ -179,7 +264,7 @@ export default function Header() {
             tabIndex={scrolled ? undefined : -1}
             aria-hidden={scrolled ? 'false' : 'true'}
           >
-            <img src={logoShort} alt="" className="hdr__mark-img" />
+            <img src={logoFull} alt="" className="hdr__mark-img" />
           </Link>
 
           <nav className="hdr__tabs">
@@ -191,9 +276,13 @@ export default function Header() {
               >
                 <NavLink
                   to={t.to}
-                  className={({ isActive }) =>
-                    `hdr__tablink ${isActive ? 'active' : ''} ${open === t.key ? 'is-open' : ''}`
-                  }
+                  end={t.key === 'product'}
+                  className={() => {
+                    const active = tabIsActive(t.key, location.pathname);
+                    return `hdr__tablink ${active ? 'active' : ''} ${
+                      open === t.key ? 'is-open' : ''
+                    }`;
+                  }}
                   aria-expanded={t.mega ? open === t.key : undefined}
                 >
                   {t.label}
@@ -201,6 +290,8 @@ export default function Header() {
               </span>
             ))}
           </nav>
+
+          <ThemeToggle />
 
           <Magnetic as={Link} to={navCta.to} className="btn btn--primary hdr__cta">
             {navCta.label}
@@ -210,9 +301,6 @@ export default function Header() {
         <div className="hdr__panel" aria-hidden={open ? 'false' : 'true'}>
           <Link to={panel.to} className="hdr__panel-title" tabIndex={open ? undefined : -1}>
             {panel.title}
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M7 17 17 7M9 7h8v8" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
           </Link>
           <p className="hdr__panel-sub">{panel.subtitle}</p>
           <div className="hdr__panel-divider" />
@@ -260,57 +348,82 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="hdr__drawer" data-open={drawer ? '1' : '0'}>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to={platformMenu.to}>Platform</Link>
-          <div className="sub">
-            <span className="sublabel">Capabilities</span>
-            {platformMenu.items.map((it) => (
-              <Link key={it.label} to={it.to}>
-                {it.label}
-              </Link>
-            ))}
-          </div>
-          <Link to="/product">Product</Link>
-          <div className="sub">
-            <span className="sublabel">Business Verticals</span>
-            {productMenu.verticals.map((v) => (
-              <Link key={v.label} to={v.to}>
-                {v.label}
-              </Link>
-            ))}
-            <span className="sublabel">Business Solutions</span>
-            {productMenu.strip.chips.map((c) => (
-              <Link key={c.label} to={c.to}>
-                {c.label}
-              </Link>
-            ))}
-          </div>
-          <Link to="/services">Services</Link>
-          <div className="sub">
-            <span className="sublabel">Service lines</span>
-            {servicesMenu.top.map((item) => (
-              <Link key={item.label} to={item.to}>
-                {item.label}
-              </Link>
-            ))}
-            {servicesMenu.pillars.map((p) => (
-              <React.Fragment key={p.label}>
-                <span className="sublabel">{p.label}</span>
-                {p.groups.map((g) => (
-                  <Link key={g.label} to={g.to}>
-                    {g.label}
+      <div
+        className="hdr__drawer"
+        id="hdr-drawer"
+        data-open={drawer ? '1' : '0'}
+        // Close on any link tap — also covers links to the page already open.
+        onClick={(e) => {
+          if (e.target.closest('a')) setDrawer(false);
+        }}
+      >
+        <nav className="hdr__drawer-nav" aria-label="Mobile">
+          <NavLink to="/" end className="hdr__drawer-link">
+            Home
+          </NavLink>
+
+          {drawerGroups.map((g) => {
+            const isOpen = expanded === g.key;
+            return (
+              <div className="hdr__group" data-open={isOpen ? '1' : '0'} key={g.key}>
+                <button
+                  type="button"
+                  className={`hdr__group-btn ${
+                    tabIsActive(g.key, location.pathname) ? 'active' : ''
+                  }`}
+                  aria-expanded={isOpen}
+                  aria-controls={`hdr-group-${g.key}`}
+                  onClick={() => setExpanded(isOpen ? null : g.key)}
+                >
+                  {g.label}
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="m6 9 6 6 6-6"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+                <div className="hdr__group-body" id={`hdr-group-${g.key}`} hidden={!isOpen}>
+                  <Link to={g.to} className="hdr__group-overview">
+                    {g.overview} →
                   </Link>
-                ))}
-              </React.Fragment>
-            ))}
-          </div>
-          <Link to="/case-studies">Case Studies</Link>
-          <Link to="/media">Media</Link>
-          <Link to="/about">About</Link>
-          <Link to={navCta.to}>{navCta.label}</Link>
+                  {g.sections.map((section) => (
+                    <div className="hdr__group-section" key={section.heading}>
+                      <span className="sublabel">{section.heading}</span>
+                      {section.items.map((it) => (
+                        <Link key={it.label} to={it.to} className="hdr__group-item">
+                          {it.icon ? <ItemIcon name={it.icon} /> : null}
+                          {it.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+
+          {drawerLinks.map((t) => (
+            <NavLink
+              key={t.key}
+              to={t.to}
+              className={() =>
+                `hdr__drawer-link ${tabIsActive(t.key, location.pathname) ? 'active' : ''}`
+              }
+            >
+              {t.label}
+            </NavLink>
+          ))}
         </nav>
+
+        <div className="hdr__drawer-foot">
+          <Link to={navCta.to} className="btn btn--primary hdr__drawer-cta">
+            Request a demo
+          </Link>
+        </div>
       </div>
     </header>
   );

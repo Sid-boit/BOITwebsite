@@ -1,0 +1,309 @@
+/* Shared glass surfaces, section washes, and card shells used by Home, Platform, etc. */
+
+.brand-page {
+  --about-violet: #4931bd;
+  --about-violet-2: #5736c3;
+  --about-teal: #13a99b;
+  --brand-glass: color-mix(in srgb, var(--surface) 72%, transparent);
+  --brand-glass-alt: color-mix(in srgb, var(--surface-alt) 70%, transparent);
+  --brand-glass-shadow: 0 22px 48px -30px rgba(12, 21, 18, 0.32);
+
+  /* Home aliases so existing Home.css selectors keep working */
+  --home-glass: var(--brand-glass);
+  --home-glass-alt: var(--brand-glass-alt);
+  --home-glass-shadow: var(--brand-glass-shadow);
+
+  /*
+    Tinted card glows — soft violet/teal shade under glass cards.
+    REVERT: set `--brand-card-glow: 0` (or delete the “TINTED CARD GLOWS” block below).
+  */
+  --brand-card-glow: 1;
+  --brand-glow-violet: color-mix(
+    in srgb,
+    var(--about-violet) calc(32% * var(--brand-card-glow)),
+    transparent
+  );
+  --brand-glow-teal: color-mix(
+    in srgb,
+    var(--about-teal) calc(32% * var(--brand-card-glow)),
+    transparent
+  );
+  --brand-glow-violet-strong: color-mix(
+    in srgb,
+    var(--about-violet) calc(48% * var(--brand-card-glow)),
+    transparent
+  );
+  --brand-glow-teal-strong: color-mix(
+    in srgb,
+    var(--about-teal) calc(48% * var(--brand-card-glow)),
+    transparent
+  );
+}
+
+:root[data-theme='dark'] .brand-page {
+  --brand-glass: color-mix(in srgb, var(--surface) 78%, transparent);
+  --brand-glass-alt: color-mix(in srgb, var(--surface-alt) 74%, transparent);
+  --brand-glass-shadow: 0 22px 48px -28px rgba(0, 0, 0, 0.55);
+}
+
+:root[data-theme='dark'] .brand-band {
+  background:
+    radial-gradient(at 12% 0%, color-mix(in srgb, #8b7cf0 14%, transparent), transparent 48%),
+    radial-gradient(at 88% 100%, color-mix(in srgb, #13a99b 12%, transparent), transparent 42%),
+    var(--brand-glass-alt);
+}
+
+:root[data-theme='dark'] .brand-wash {
+  background:
+    radial-gradient(at 10% 0%, color-mix(in srgb, #8b7cf0 16%, transparent), transparent 50%),
+    radial-gradient(at 90% 100%, color-mix(in srgb, #13a99b 14%, transparent), transparent 45%),
+    var(--brand-glass);
+}
+
+.brand-section {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.brand-section h2 {
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  margin: 20px 0;
+}
+
+.brand-band {
+  position: relative;
+  background:
+    radial-gradient(at 12% 0%, #e0d7ff36, transparent 48%),
+    radial-gradient(at 88% 100%, #b7f2eb2e, transparent 42%),
+    var(--brand-glass-alt);
+  backdrop-filter: blur(22px) saturate(1.15);
+  -webkit-backdrop-filter: blur(22px) saturate(1.15);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.brand-wash {
+  position: relative;
+  background:
+    radial-gradient(at 10% 0%, #e0d7ff40, transparent 50%),
+    radial-gradient(at 90% 100%, #b7f2eb33, transparent 45%),
+    var(--brand-glass);
+  backdrop-filter: blur(24px) saturate(1.18);
+  -webkit-backdrop-filter: blur(24px) saturate(1.18);
+}
+
+.brand-panel {
+  background: var(--brand-glass);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--brand-glass-shadow);
+  transform-style: preserve-3d;
+  transition: box-shadow 0.4s var(--ease), border-color 0.35s ease;
+  will-change: transform;
+}
+
+.brand-panel > p,
+.brand-panel .platform-lede,
+.platform-feature-card p,
+.platform-inventory-card p,
+.platform-ai-card p,
+.platform-lede {
+  text-align: left;
+}
+
+.brand-panel:hover {
+  border-color: color-mix(in srgb, var(--about-violet) 35%, var(--line));
+  box-shadow:
+    0 28px 56px -28px rgba(12, 21, 18, 0.4),
+    0 0 0 1px color-mix(in srgb, var(--about-teal) 18%, transparent);
+}
+
+.brand-panel--accent {
+  border-top: 3px solid var(--about-violet);
+}
+
+/* When panels sit inside Reveal wrappers, alternate via the grid child */
+.brand-panel--accent:nth-child(even),
+.brand-card-grid > *:nth-child(even) .brand-panel--accent {
+  border-top-color: var(--about-teal);
+}
+
+/* ==========================================================================
+   TINTED CARD SHADOWS (outside box-shadow only)
+   Soft violet/teal shade under accent cards + glass face.
+   REVERT: set `--brand-card-glow: 0` above, or delete this block.
+   ========================================================================== */
+
+.brand-panel--accent,
+.home-panel.home-panel {
+  background: var(--surface);
+  color: var(--ink);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow:
+    var(--brand-glass-shadow),
+    0 18px 42px -14px var(--brand-glow-violet),
+    0 6px 18px -8px var(--brand-glow-violet);
+  animation: brand-shadow-violet 5.5s ease-in-out infinite;
+}
+
+.brand-panel--accent:nth-child(even),
+.brand-card-grid > *:nth-child(even) .brand-panel--accent,
+.brand-panel--accent[class*='--tone-teal'],
+[class*='--tone-teal'].brand-panel--accent,
+.home-outcomes article.home-panel:nth-child(even) {
+  box-shadow:
+    var(--brand-glass-shadow),
+    0 18px 42px -14px var(--brand-glow-teal),
+    0 6px 18px -8px var(--brand-glow-teal);
+  animation-name: brand-shadow-teal;
+}
+
+.brand-panel--accent[class*='--tone-violet'],
+[class*='--tone-violet'].brand-panel--accent {
+  box-shadow:
+    var(--brand-glass-shadow),
+    0 18px 42px -14px var(--brand-glow-violet),
+    0 6px 18px -8px var(--brand-glow-violet);
+  animation-name: brand-shadow-violet;
+}
+
+/* Motion addon: only the drop-shadow color breathes — card face unchanged */
+@keyframes brand-shadow-violet {
+  0%,
+  100% {
+    box-shadow:
+      var(--brand-glass-shadow),
+      0 18px 42px -14px var(--brand-glow-violet),
+      0 10px 28px -10px var(--brand-glow-teal),
+      0 6px 18px -8px var(--brand-glow-violet);
+  }
+  50% {
+    box-shadow:
+      var(--brand-glass-shadow),
+      0 22px 48px -12px var(--brand-glow-violet-strong),
+      0 12px 32px -8px var(--brand-glow-teal),
+      0 8px 20px -6px var(--brand-glow-violet);
+  }
+}
+
+@keyframes brand-shadow-teal {
+  0%,
+  100% {
+    box-shadow:
+      var(--brand-glass-shadow),
+      0 18px 42px -14px var(--brand-glow-teal),
+      0 10px 28px -10px var(--brand-glow-violet),
+      0 6px 18px -8px var(--brand-glow-teal);
+  }
+  50% {
+    box-shadow:
+      var(--brand-glass-shadow),
+      0 22px 48px -12px var(--brand-glow-teal-strong),
+      0 12px 32px -8px var(--brand-glow-violet),
+      0 8px 20px -6px var(--brand-glow-teal);
+  }
+}
+
+.brand-panel--accent:hover,
+.brand-panel--accent[class*='--tone-violet']:hover,
+[class*='--tone-violet'].brand-panel--accent:hover {
+  animation: none;
+  box-shadow:
+    0 28px 56px -28px rgba(12, 21, 18, 0.38),
+    0 22px 48px -12px var(--brand-glow-violet-strong),
+    0 10px 28px -10px var(--brand-glow-teal);
+}
+
+.brand-panel--accent:nth-child(even):hover,
+.brand-card-grid > *:nth-child(even) .brand-panel--accent:hover,
+.brand-panel--accent[class*='--tone-teal']:hover,
+[class*='--tone-teal'].brand-panel--accent:hover,
+.home-outcomes article.home-panel:nth-child(even):hover {
+  animation: none;
+  box-shadow:
+    0 28px 56px -28px rgba(12, 21, 18, 0.38),
+    0 22px 48px -12px var(--brand-glow-teal-strong),
+    0 10px 28px -10px var(--brand-glow-violet);
+}
+
+.brand-kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--about-violet-2);
+}
+
+.brand-card-grid {
+  display: grid;
+  gap: 22px;
+  margin-top: 30px;
+  perspective: 1200px;
+}
+
+.brand-card-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.brand-card-grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.brand-card-grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.brand-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+@media (max-width: 1100px) {
+  .brand-card-grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .brand-section {
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+
+  .brand-card-grid--3,
+  .brand-card-grid--2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .brand-card-grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-panel {
+    transition: none;
+    will-change: auto;
+  }
+
+  .brand-panel--accent,
+  .home-panel.home-panel {
+    animation: none;
+  }
+
+  .brand-panel:hover,
+  .brand-panel--accent:hover {
+    box-shadow:
+      var(--brand-glass-shadow),
+      0 18px 42px -14px var(--brand-glow-violet);
+  }
+}

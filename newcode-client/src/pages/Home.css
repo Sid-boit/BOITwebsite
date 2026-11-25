@@ -1,0 +1,469 @@
+/* Home page v2 — layout-specific styles. Shared glass tokens/panels live in
+   brand-surfaces.css (imported via Home.jsx). */
+
+.home-page {
+  /* brand-page tokens applied via className="brand-page home-page" */
+}
+
+.home-section {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.home-section h2 {
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  margin: 20px 0;
+}
+
+.home-section > p,
+.home-section p.home-intro {
+  color: var(--body);
+  line-height: 1.7;
+  text-align: left;
+}
+
+.home-intro {
+  max-width: 750px;
+}
+
+/* ---------- glass section bands ---------- */
+
+.home-band {
+  position: relative;
+  background:
+    radial-gradient(at 12% 0%, #e0d7ff36, transparent 48%),
+    radial-gradient(at 88% 100%, #b7f2eb2e, transparent 42%),
+    var(--home-glass-alt);
+  backdrop-filter: blur(22px) saturate(1.15);
+  -webkit-backdrop-filter: blur(22px) saturate(1.15);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.home-outcomes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 30px;
+  perspective: 1200px;
+}
+
+/* Alias home-panel → brand-panel tokens (brand-surfaces.css) */
+.home-panel {
+  background: var(--brand-glass);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--brand-glass-shadow);
+  transform-style: preserve-3d;
+  transition: box-shadow 0.4s var(--ease), border-color 0.35s ease;
+  will-change: transform;
+}
+
+.home-panel:hover {
+  border-color: color-mix(in srgb, var(--about-violet) 35%, var(--line));
+  /* Outside glow only — see brand-surfaces.css TINTED CARD GLOWS */
+  box-shadow:
+    0 28px 56px -28px rgba(12, 21, 18, 0.38),
+    0 22px 48px -12px var(--brand-glow-violet-strong, transparent);
+}
+
+.home-outcomes article.home-panel:nth-child(even):hover {
+  box-shadow:
+    0 28px 56px -28px rgba(12, 21, 18, 0.38),
+    0 22px 48px -12px var(--brand-glow-teal-strong, transparent);
+}
+
+.home-outcomes article.home-panel {
+  border-top: 3px solid var(--about-violet);
+  padding: 22px 20px 24px;
+}
+
+.home-outcomes article.home-panel:nth-child(even) {
+  border-top-color: var(--about-teal);
+}
+
+.home-outcomes h3 {
+  font-size: 23px;
+  margin: 0 0 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.home-outcomes p {
+  font-size: 15px;
+  color: var(--body-2);
+  margin: 0;
+  text-align: left;
+}
+
+.home-paths {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 30px;
+  perspective: 1200px;
+}
+
+.home-paths article.home-panel {
+  padding: 30px;
+  border-radius: 24px;
+}
+
+.home-paths span {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--about-violet-2);
+}
+
+.home-paths h3 {
+  font-size: 28px;
+  margin: 20px 0;
+}
+
+.home-paths p {
+  color: var(--body-2);
+  margin: 0 0 16px;
+  text-align: left;
+}
+
+/* ---------- BOIT difference ---------- */
+
+.boit-intelligence {
+  position: relative;
+  padding: 68px 0;
+  background:
+    radial-gradient(at 10% 0%, #e0d7ff40, transparent 50%),
+    radial-gradient(at 90% 100%, #b7f2eb33, transparent 45%),
+    var(--home-glass);
+  backdrop-filter: blur(24px) saturate(1.18);
+  -webkit-backdrop-filter: blur(24px) saturate(1.18);
+}
+
+.boit-intelligence h2 {
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin: 20px 0;
+}
+
+.intelligence-lede {
+  max-width: 800px;
+  color: var(--body);
+  font-size: 18px;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.intelligence-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 32px;
+  perspective: 1200px;
+}
+
+.intelligence-cards article.home-panel {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.intelligence-cards article > span {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--about-violet);
+}
+
+.intelligence-cards h3 {
+  font-size: 24px;
+  margin: 0 0 12px;
+  min-height: 2.4em;
+  line-height: 1.2;
+  white-space: pre-line;
+}
+
+.intelligence-cards p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--body-2);
+  white-space: pre-line;
+  flex: 1;
+  text-align: left;
+}
+
+.diff-benefit {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  margin-top: auto;
+  color: var(--about-violet) !important;
+  font-weight: 600;
+  text-align: left;
+}
+
+.agentic-journey.home-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  background: var(--home-glass-alt);
+  padding: 28px;
+  margin-top: 28px;
+}
+
+.agentic-journey span {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--about-violet);
+}
+
+.agentic-journey h3 {
+  font-size: 25px;
+  margin: 15px 0;
+}
+
+.agentic-journey p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--body);
+}
+
+.agentic-journey ol {
+  margin: 0;
+  padding-left: 25px;
+  display: grid;
+  gap: 14px;
+  color: var(--ink-2);
+  align-content: center;
+}
+
+.agentic-journey li::marker {
+  color: var(--about-teal);
+  font-weight: 700;
+}
+
+.intelligence-note {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 16px;
+}
+
+/* ---------- meet MIA ---------- */
+
+.home-mia {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.home-mia-photo {
+  width: 100%;
+  border-radius: 28px;
+  display: block;
+}
+
+.home-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 20px;
+}
+
+/* ---------- why BOIT / trust ---------- */
+
+.home-trust {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+
+.home-trust-partners,
+.home-trust-markets.home-panel {
+  width: 100%;
+}
+
+.home-trust-markets.home-panel {
+  padding: 22px 24px 26px;
+}
+
+.home-trust h3,
+.home-trust-markets h3 {
+  font-size: 15px;
+  margin: 0 0 18px;
+}
+
+.home-trust-markets {
+  margin-top: 28px;
+}
+
+.home-trust-logos--partners,
+.home-trust-logos--markets {
+  display: grid;
+  gap: 16px 22px;
+  align-items: stretch;
+}
+
+.home-trust-logos--partners {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.home-trust-logos--markets {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.home-trust-logo-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 92px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border-radius: 14px;
+  border: 1px solid var(--line-soft);
+  overflow: hidden;
+}
+
+.home-trust-logo-cell img {
+  width: 100%;
+  max-width: 168px;
+  height: 52px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.home-trust-market-cell {
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  padding: 10px 10px 14px;
+  overflow: hidden;
+}
+
+.home-trust-market-photo {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--surface-alt) 70%, transparent);
+}
+
+.home-trust-market-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+.home-trust-market-name {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--ink, #0c1512);
+  line-height: 1.25;
+}
+
+.home-trust-customers {
+  width: 100%;
+  min-width: 0;
+}
+
+.home-customer-marquee .marquee__logo,
+.home-partner-marquee .marquee__logo {
+  min-width: 170px;
+  height: 92px;
+}
+
+.home-customer-marquee .marquee__logo img,
+.home-partner-marquee .marquee__logo img {
+  width: 130px;
+  height: 60px;
+}
+
+.home-trust-markets + .link-arrow {
+  margin-top: 28px;
+  display: inline-flex;
+}
+
+/* ---------- closing contact band ---------- */
+
+.home-contact {
+  position: relative;
+  background:
+    radial-gradient(at 15% 10%, #e0d7ff40, transparent 50%),
+    radial-gradient(at 90% 90%, #b7f2eb33, transparent 45%),
+    var(--home-glass);
+  backdrop-filter: blur(24px) saturate(1.18);
+  -webkit-backdrop-filter: blur(24px) saturate(1.18);
+}
+
+.home-contact p {
+  max-width: 48ch;
+}
+
+@media (max-width: 900px) {
+  .home-outcomes {
+    grid-template-columns: 1fr 1fr;
+  }
+  .home-paths,
+  .home-mia {
+    grid-template-columns: 1fr;
+  }
+  .home-trust-logos--partners {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-trust-logos--markets {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .home-section {
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+  .home-mia {
+    gap: 30px;
+  }
+  .intelligence-cards {
+    grid-template-columns: 1fr;
+  }
+  .agentic-journey.home-panel {
+    grid-template-columns: 1fr;
+  }
+  .boit-intelligence {
+    padding: 44px 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .home-outcomes {
+    grid-template-columns: 1fr;
+  }
+
+  .home-trust-logos--markets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-panel {
+    transition: none;
+    will-change: auto;
+  }
+
+  .home-panel:hover {
+    box-shadow: var(--home-glass-shadow);
+  }
+}

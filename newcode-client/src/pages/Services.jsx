@@ -1,21 +1,119 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { servicesOverview, serviceCategories, serviceCategoryOrder } from '../data/services';
-import PageHero from '../components/PageHero';
+import RotatingHero from '../components/RotatingHero';
 import ScrollDeck from '../components/ScrollDeck';
 import Commitment from '../components/Commitment';
 import CtaBand from '../components/CtaBand';
+import GlassPanel from '../components/GlassPanel';
 import Reveal from '../components/motion/Reveal';
 import SplitText from '../components/motion/SplitText';
-import Magnetic from '../components/motion/Magnetic';
+import useTiltPanels from '../hooks/useTiltPanels';
+import '../styles/brand-surfaces.css';
+import './Services.css';
 
-/* The four service groups become the horizontal deck; each card lists its
-   sub-disciplines and carries the full column inventory in the side panel. */
+import planningRequirements from '../assets/services/planning-requirements.png';
+import designArchitecture from '../assets/services/design-architecture.png';
+import buildCoding from '../assets/services/build-coding.png';
+import testingQualityAssurance from '../assets/services/testing-quality-assurance.png';
+import deploymentRelease from '../assets/services/deployment-release.png';
+import maintenanceMonitoring from '../assets/services/maintenance-monitoring.png';
+import digitalTransformationVisual from '../assets/digitaltransformations.png';
+import applicationManagementVisual from '../assets/applicationManagement.png';
+import comprehensiveResourceVisual from '../assets/comprehensiveResource.png';
+import specialisedResourceVisual from '../assets/SpecialisedResource.png';
+
+/* The services hero rotates through the AI-assisted software delivery
+   lifecycle — one scene per stage, matching the BOIT preview's home hero. */
+const heroSlides = [
+  {
+    label: 'Plan',
+    word: 'AI-shaped requirements.',
+    kicker: '',
+    title: 'From feedback to validated specs.',
+    copy: '',
+    image: planningRequirements,
+    alt: 'Planning and requirements stage of software delivery',
+  },
+  {
+    label: 'Design',
+    word: 'Architecture, accelerated.',
+    kicker: '',
+    title: 'Turn intent into a technical blueprint.',
+    copy: '',
+    image: designArchitecture,
+    alt: 'Design and architecture stage of software delivery',
+  },
+  {
+    label: 'Build',
+    word: 'Spec first. Code next.',
+    kicker: '',
+    title: 'Give coding agents a clear brief.',
+    copy: '',
+    image: buildCoding,
+    alt: 'Build and coding stage of software delivery',
+  },
+  {
+    label: 'Test',
+    word: 'Quality at every step.',
+    kicker: '',
+    title: 'Evaluate continuously, not just at release.',
+    copy: '',
+    image: testingQualityAssurance,
+    alt: 'Testing and quality assurance stage of software delivery',
+  },
+  {
+    label: 'Release',
+    word: 'AI-assisted releases.',
+    kicker: '',
+    title: 'Prepare delivery with control.',
+    copy: '',
+    image: deploymentRelease,
+    alt: 'Deployment and release stage of software delivery',
+  },
+  {
+    label: 'Monitor',
+    word: 'Proactive operations.',
+    kicker: '',
+    title: 'Keep learning after launch.',
+    copy: '',
+    image: maintenanceMonitoring,
+    alt: 'Maintenance and monitoring stage of software delivery',
+  },
+];
+
+const serviceVisuals = {
+  'digital-transformation': {
+    image: digitalTransformationVisual,
+    imageAlt: 'Digital transformation across platforms, devices, and connected workflows',
+  },
+  'application-support': {
+    image: applicationManagementVisual,
+    imageAlt: 'Application management teams collaborating across build, support, and enhancement',
+  },
+  'resource-augmentation': {
+    image: comprehensiveResourceVisual,
+    imageAlt: 'Specialists joining client teams with end-to-end delivery support',
+  },
+  'specialised-services': {
+    image: specialisedResourceVisual,
+    imageAlt: 'Specialized consulting across architecture, process, and operating model',
+  },
+};
+
+/* The four service groups become the hover deck; each card lists its
+   sub-disciplines and expands with matched imagery on hover. */
+const serviceTitles = {
+  'digital-transformation': 'Digital\nTransformation',
+  'application-support': 'Application\nManagement',
+  'resource-augmentation': 'Resource\nAugmentation',
+  'specialised-services': 'Specialized\nServices',
+};
+
 const deckCards = servicesOverview.groups.map((g, i) => ({
   index: i + 1,
-  tag: g.title,
-  title: g.title.replace(' Solutions', '').replace(' & Consulting', ''),
+  title: serviceTitles[g.id] || g.title,
   body: g.body,
   dark: i % 2 === 1,
   bullets: g.columns.map((c) => `${c.title} — ${c.items.slice(0, 3).join(', ')}`),
@@ -27,27 +125,33 @@ const deckCards = servicesOverview.groups.map((g, i) => ({
   }[g.id],
   linkLabel: 'See the full breakdown',
   facts: g.columns.map((c) => ({ k: c.title, v: c.items.join(' · ') })),
+  ...(serviceVisuals[g.id] || {}),
 }));
 
 export default function Services() {
-  const { hero, groups, sidebarCta, whyPartner } = servicesOverview;
+  const { groups, sidebarCta, whyPartner } = servicesOverview;
+  const rootRef = useRef(null);
+  useTiltPanels(rootRef, []);
 
   return (
-    <>
-      <PageHero eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle}>
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <Magnetic as={Link} to="/contact" className="btn btn--primary">
-            {sidebarCta.cta.label} <span>→</span>
-          </Magnetic>
-          <Magnetic as={Link} to="/product" className="btn btn--ghost">
-            Explore the platform
-          </Magnetic>
-        </div>
-      </PageHero>
+    <div className="brand-page services-page" ref={rootRef}>
+      <RotatingHero
+        eyebrow=""
+        headingLines={['Banking & Insurance.']}
+        lede="BOIT brings specialist expertise, AI agents, and connected workflows together to simplify operations and improve customer experiences."
+        primary={{ label: 'Meet MIA', to: '/contact' }}
+        secondary={{ label: 'Explore solutions', to: '#service-groups' }}
+        tags={['', '']}
+        bottomLeft=""
+        bottomRight="PLAN / BUILD / RUN"
+        slides={heroSlides}
+        pagination="stages"
+      />
 
       <ScrollDeck
         id="service-groups"
-        eyebrow="01 — What we deliver"
+        mode="hover"
+        spotlight
         title="Four ways we move your roadmap."
         allLink="/contact"
         allLabel="Request a demo"
@@ -55,165 +159,85 @@ export default function Services() {
       />
 
       {/* ------------------------------------------- full group inventory */}
-      <section className="panel-light" style={{ marginTop: 128 }}>
-        <div className="shell" style={{ padding: '112px 40px' }}>
-          <Reveal as="p" className="eyebrow">
-            02 — Service inventory
-          </Reveal>
+      <section className="brand-band">
+        <div className="shell brand-section">
           <SplitText
             as="h2"
             text="Every discipline, spelled out."
-            className="h2"
-            style={{ margin: '22px 0 64px', maxWidth: '22ch' }}
+            style={{ margin: '0 0 48px', maxWidth: '22ch' }}
           />
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 72 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             {groups.map((g) => (
-              <div key={g.id} id={g.id} style={{ scrollMarginTop: 110 }}>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'minmax(0,.7fr) minmax(0,1fr)',
-                    gap: 48,
-                    alignItems: 'start',
-                  }}
-                  data-stack="1"
-                >
-                  <div>
-                    <Reveal as="div" className="eyebrow eyebrow--accent">
-                      {g.n}
-                    </Reveal>
-                    <SplitText
-                      as="h3"
-                      text={g.title}
-                      style={{
-                        fontSize: 'clamp(24px, 2.6vw, 36px)',
-                        letterSpacing: '-.03em',
-                        fontWeight: 600,
-                        lineHeight: 1.05,
-                        margin: '14px 0 14px',
-                      }}
-                    />
-                    <Reveal as="p" delay={2} className="lede" style={{ fontSize: 16 }}>
+              <article key={g.id} id={g.id} className="services-detail">
+                <div className="services-detail-grid">
+                  <div className="services-detail-sticky">
+                    <h3>{g.title}</h3>
+                    <Reveal as="p" delay={2} className="lede">
                       {g.body}
                     </Reveal>
                   </div>
 
-                  <div
-                    className="grid-hair"
-                    style={{
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                    }}
-                  >
+                  <div className="services-feature-list">
                     {g.columns.map((c, ci) => (
-                      <Reveal key={c.title} delay={(ci % 4) + 1} className="hair-cell">
-                        <h4>{c.title}</h4>
-                        <ul
-                          style={{
-                            margin: 0,
-                            padding: 0,
-                            listStyle: 'none',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 6,
-                          }}
-                        >
-                          {c.items.map((i) => (
-                            <li
-                              key={i}
-                              style={{
-                                display: 'flex',
-                                gap: 10,
-                                alignItems: 'baseline',
-                                fontSize: 14,
-                                color: 'var(--body-2)',
-                              }}
-                            >
-                              <b
-                                style={{
-                                  width: 5,
-                                  height: 5,
-                                  borderRadius: '50%',
-                                  background: 'var(--bright)',
-                                  flex: 'none',
-                                  transform: 'translateY(-3px)',
-                                }}
-                              />
-                              {i}
-                            </li>
-                          ))}
-                        </ul>
+                      <Reveal key={c.title} delay={ci + 1}>
+                        <GlassPanel accent className="services-column-card">
+                          <h4>{c.title}</h4>
+                          <ul>
+                            {c.items.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        </GlassPanel>
                       </Reveal>
                     ))}
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       {/* ------------------------------------------------ category routes */}
-      <section className="section">
-        <Reveal as="p" className="eyebrow">
-          03 — Industry practices
-        </Reveal>
+      <section className="shell brand-section services-section">
         <SplitText
           as="h2"
           text="Deep benches for insurance and banking."
-          className="h2"
-          style={{ margin: '22px 0 48px', maxWidth: '22ch' }}
+          style={{ margin: '0 0 8px', maxWidth: '22ch' }}
         />
 
-        <div
-          className="grid-hair"
-          style={{ gridTemplateColumns: 'repeat(3, minmax(0,1fr))' }}
-          data-stack="1"
-        >
+        <div className="brand-card-grid brand-card-grid--3">
           {serviceCategoryOrder.map((slug, i) => {
             const cat = serviceCategories[slug];
             return (
-              <Reveal
-                key={slug}
-                delay={(i % 4) + 1}
-                className="hair-cell lift"
-                style={{ minHeight: 236 }}
-              >
-                <div className="tag">{cat.pillar}</div>
-                <h4>{cat.label}</h4>
-                <ul
-                  style={{
-                    margin: 0,
-                    padding: 0,
-                    listStyle: 'none',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 5,
-                  }}
-                >
-                  {cat.sections.map((s) => (
-                    <li key={s.id} style={{ fontSize: 14, color: 'var(--body-2)' }}>
-                      {s.name}
-                    </li>
-                  ))}
-                </ul>
-                <Link
+              <Reveal key={slug} delay={(i % 4) + 1}>
+                <GlassPanel
+                  as={Link}
                   to={`/services/${slug}`}
-                  className="link-arrow"
-                  style={{ marginTop: 'auto' }}
+                  accent
+                  className="services-practice-card"
                 >
-                  Explore {cat.label} <span>→</span>
-                </Link>
+                  <h4>{cat.label}</h4>
+                  <ul>
+                    {cat.sections.map((s) => (
+                      <li key={s.id}>{s.name}</li>
+                    ))}
+                  </ul>
+                  <span className="link-arrow">Explore {cat.label}</span>
+                </GlassPanel>
               </Reveal>
             );
           })}
         </div>
       </section>
 
-      <Commitment eyebrow={whyPartner.eyebrow} title={whyPartner.title} />
+      <div className="services-section">
+        <Commitment eyebrow={whyPartner.eyebrow} title={whyPartner.title} />
+      </div>
 
       <CtaBand
-        eyebrow="Next step"
+        eyebrow=""
         title={sidebarCta.title}
         body={sidebarCta.body}
         buttons={[
@@ -221,6 +245,6 @@ export default function Services() {
           { label: 'View case studies', to: '/case-studies' },
         ]}
       />
-    </>
+    </div>
   );
 }

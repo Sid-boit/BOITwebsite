@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import Magnetic from './motion/Magnetic';
 import SplitText from './motion/SplitText';
@@ -6,13 +7,18 @@ import Reveal from './motion/Reveal';
 import './ScrollDeck.css';
 
 /*
-  Scroll-driven horizontal card deck.
+  Scroll-driven horizontal card deck (mode="scroll", default).
 
   The section is tall; a sticky viewport-height stage is pinned inside it. As the
   page scrolls the cards first sit side-by-side as small tabs, then blend into a
   single-file track that moves right-to-left — one card held at full size at a
-  time. Ported from the Home design and generalised to any number of cards so the
-  Services and Products pages can reuse it.
+  time.
+
+  Hover deck (mode="hover"): all cards sit in a compact row; hover expands one
+  with left copy + preview image. Scroll engine is kept but not run in this mode.
+
+  spotlight: with mode="hover", opens a centered ~60vw overlay card and blurs
+  the rest of the page (Product page trial).
 */
 
 const smoothstep = (v) => {
@@ -31,11 +37,6 @@ function CardFace({ card, n }) {
       </div>
 
       <div className="deck__body">
-        <div className="deck__kicker">
-          <span>{num}</span>
-          <i />
-          <span className="hl">{card.tag}</span>
-        </div>
         <h3>{card.title}</h3>
         <p>{card.body}</p>
 
@@ -59,15 +60,22 @@ function CardFace({ card, n }) {
         ) : null}
 
         {card.to ? (
-          <Magnetic as={Link} to={card.to} className="deck__cta">
-            {card.linkLabel || `Explore ${card.title}`} →
+          <Magnetic as={Link} to={card.to} className="btn btn--primary deck__cta">
+            {card.linkLabel || `Explore ${card.title}`}
           </Magnetic>
         ) : null}
       </div>
 
       <div className="deck__visual" data-hide-sm="1">
-        <div className="frame">
-          {card.facts?.length ? (
+        <div className={`frame${card.image ? ' frame--image' : ''}`}>
+          {card.image ? (
+            <img
+              className="deck__image"
+              src={card.image}
+              alt={card.imageAlt || card.title}
+              loading="lazy"
+            />
+          ) : card.facts?.length ? (
             <div className="deck__facts">
               {card.facts.map((f) => (
                 <div key={f.k}>
@@ -76,12 +84,6 @@ function CardFace({ card, n }) {
                 </div>
               ))}
             </div>
-          ) : card.image ? (
-            <img
-              src={card.image}
-              alt={card.imageAlt || card.title}
-              style={{ maxHeight: '100%', objectFit: 'contain' }}
-            />
           ) : (
             <span
               style={{
@@ -104,7 +106,283 @@ function CardFace({ card, n }) {
   );
 }
 
-export default function ScrollDeck({ id, eyebrow, title, allLink, allLabel, cards }) {
+function ExpandedCardBody({ card }) {
+  return (
+    <>
+      <div className="deck-hover__expanded-body">
+        <div className="deck-hover__expanded-scroll">
+          {card.tag ? <span className="deck-hover__tag">{card.tag}</span> : null}
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+          {card.bullets?.length ? (
+            <ul className="deck__list">
+              {card.bullets.map((b) => (
+                <li key={b}>
+                  <b />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          {card.chips?.length ? (
+            <div className="deck__chips">
+              {card.chips.map((c) => (
+                <span key={c}>{c}</span>
+              ))}
+            </div>
+          ) : null}
+        </div>
+        {card.to ? (
+          <Magnetic as={Link} to={card.to} className="btn btn--primary deck__cta">
+            {card.linkLabel || `Explore ${card.title}`}
+          </Magnetic>
+        ) : null}
+      </div>
+      {card.image ? (
+        <div className="deck-hover__expanded-visual">
+          <img src={card.image} alt={card.imageAlt || card.title} loading="lazy" />
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+function HoverCard({ card, active, dimmed, spotlight, onEnter, onLeave, onFocusOpen, onClickOpen }) {
+  return (
+    <article
+      className={`deck-hover__card${card.dark ? ' deck-hover__card--dark' : ''}${
+        active ? ' is-active' : ''
+      }${dimmed ? ' is-dimmed' : ''}${spotlight ? ' deck-hover__card--spotlight' : ''}`}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      onFocus={onFocusOpen || onEnter}
+      onBlur={onLeave}
+      onClick={(e) => {
+        if (e.target.closest('a, button')) return;
+        onClickOpen?.();
+      }}
+    >
+      <div className="deck-hover__compact">
+        <div className="deck-hover__copy">
+          {card.tag ? <span className="deck-hover__tag">{card.tag}</span> : null}
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+        </div>
+        {card.image ? (
+          <div className="deck-hover__thumb">
+            <img src={card.image} alt="" loading="lazy" />
+          </div>
+        ) : null}
+      </div>
+
+      {!spotlight ? (
+        <div className="deck-hover__expanded">
+          <ExpandedCardBody card={card} />
+        </div>
+      ) : null}
+    </article>
+  );
+}
+
+function SpotlightOverlay({ card, onEnter, onLeave, onClose, onNavigate }) {
+  // Only dismiss on panel-leave after the pointer has actually entered the panel.
+  // Opening the overlay steals hover from the source card — that must not close us.
+  const enteredPanel = useRef(false);
+
+  useEffect(() => {
+    enteredPanel.current = false;
+
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onClose, card.title]);
+
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
+    <div className="deck-spotlight" role="dialog" aria-modal="true" aria-label={card.title}>
+      <div
+        className="deck-spotlight__backdrop"
+        aria-hidden="true"
+        onClick={onClose}
+      />
+      <article
+        className={`deck-spotlight__panel${card.dark ? ' deck-spotlight__panel--dark' : ''}`}
+        onMouseEnter={() => {
+          enteredPanel.current = true;
+          onEnter();
+        }}
+        onMouseLeave={() => {
+          if (!enteredPanel.current) return;
+          onLeave();
+        }}
+        // Following a link (e.g. "See the module" → #section) should reveal the page.
+        onClick={(e) => {
+          if (e.target.closest('a')) onNavigate();
+        }}
+      >
+        <ExpandedCardBody card={card} />
+      </article>
+    </div>,
+    document.body,
+  );
+}
+
+/* Delay before hover expands a card — stops scroll-past from opening them. */
+const HOVER_OPEN_MS = 700;
+
+function HoverDeck({ id, eyebrow, title, allLink, allLabel, cards, spotlight = false }) {
+  const [active, setActive] = useState(null);
+  const closeTimer = useRef(null);
+  const openTimer = useRef(null);
+  // After a link in the spotlight is followed, the card under the pointer would
+  // reopen it straight away while the page scrolls — hold hover off briefly.
+  const holdUntil = useRef(0);
+
+  const clearClose = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
+  const clearOpen = () => {
+    if (openTimer.current) {
+      clearTimeout(openTimer.current);
+      openTimer.current = null;
+    }
+  };
+
+  const openCardNow = (i) => {
+    if (Date.now() < holdUntil.current) return;
+    clearClose();
+    clearOpen();
+    setActive(i);
+  };
+
+  const scheduleOpen = (i) => {
+    if (Date.now() < holdUntil.current) return;
+    clearClose();
+    if (active === i) {
+      clearOpen();
+      return;
+    }
+    clearOpen();
+    openTimer.current = setTimeout(() => {
+      openTimer.current = null;
+      if (Date.now() < holdUntil.current) return;
+      setActive(i);
+    }, HOVER_OPEN_MS);
+  };
+
+  const scheduleClose = () => {
+    clearOpen();
+    clearClose();
+    closeTimer.current = setTimeout(() => setActive(null), spotlight ? 120 : 0);
+  };
+
+  const closeNow = () => {
+    clearOpen();
+    clearClose();
+    setActive(null);
+  };
+
+  useEffect(
+    () => () => {
+      clearClose();
+      clearOpen();
+    },
+    [],
+  );
+
+  const activeCard = active !== null ? cards[active] : null;
+
+  return (
+    <section
+      id={id}
+      className={`deck deck--hover shell${spotlight ? ' deck--spotlight' : ''}`}
+    >
+      <div className="deck__head">
+        <div>
+          {eyebrow ? (
+            <Reveal as="p" className="eyebrow">
+              {eyebrow}
+            </Reveal>
+          ) : null}
+          {title ? <SplitText as="h2" text={title} /> : null}
+        </div>
+        {allLink ? (
+          <Magnetic as={Link} to={allLink} className="deck__all">
+            {allLabel}
+          </Magnetic>
+        ) : null}
+      </div>
+
+      <div
+        className="deck-hover__row"
+        onMouseLeave={() => {
+          // Spotlight overlay is a portal — leaving the row/card must not close it
+          // (that was closing the panel the instant it opened).
+          if (spotlight) {
+            clearOpen();
+            return;
+          }
+          closeNow();
+        }}
+      >
+        {cards.map((card, i) => (
+          <HoverCard
+            key={card.title}
+            card={card}
+            spotlight={spotlight}
+            active={!spotlight && active === i}
+            dimmed={active !== null && active !== i}
+            onEnter={() => scheduleOpen(i)}
+            onFocusOpen={() => openCardNow(i)}
+            onClickOpen={() => openCardNow(i)}
+            onLeave={() => {
+              if (spotlight) clearOpen();
+            }}
+          />
+        ))}
+      </div>
+
+      {spotlight && activeCard ? (
+        <SpotlightOverlay
+          card={activeCard}
+          onEnter={clearClose}
+          onLeave={scheduleClose}
+          onClose={closeNow}
+          onNavigate={() => {
+            holdUntil.current = Date.now() + 1200;
+            clearOpen();
+            clearClose();
+            setActive(null);
+          }}
+        />
+      ) : null}
+    </section>
+  );
+}
+
+export default function ScrollDeck({
+  id,
+  eyebrow,
+  title,
+  allLink,
+  allLabel,
+  cards,
+  mode = 'scroll',
+  spotlight = false,
+  actions, // stacked (mobile) layout: button row in place of the plain allLink
+}) {
   const sectionRef = useRef(null);
   const stageRef = useRef(null);
   const backdropRef = useRef(null);
@@ -115,11 +393,19 @@ export default function ScrollDeck({ id, eyebrow, title, allLink, allLabel, card
   );
 
   const n = cards.length;
+  const isHover = mode === 'hover';
 
   useEffect(() => {
     const mqNarrow = window.matchMedia('(max-width: 900px)');
     const mqMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => setIsStatic(mqNarrow.matches || mqMotion.matches);
+    const sync = () => {
+      if (isHover) {
+        // Hover deck only stacks on narrow viewports; reduced-motion still gets hover CSS.
+        setIsStatic(mqNarrow.matches);
+      } else {
+        setIsStatic(mqNarrow.matches || mqMotion.matches);
+      }
+    };
     sync();
     mqNarrow.addEventListener('change', sync);
     mqMotion.addEventListener('change', sync);
@@ -127,10 +413,11 @@ export default function ScrollDeck({ id, eyebrow, title, allLink, allLabel, card
       mqNarrow.removeEventListener('change', sync);
       mqMotion.removeEventListener('change', sync);
     };
-  }, []);
+  }, [isHover]);
 
+  /* ---- scroll engine (preserved; only runs in mode="scroll") ---- */
   useEffect(() => {
-    if (isStatic) return undefined;
+    if (isHover || isStatic) return undefined;
     const section = sectionRef.current;
     const stage = stageRef.current;
     if (!section || !stage) return undefined;
@@ -246,25 +533,25 @@ export default function ScrollDeck({ id, eyebrow, title, allLink, allLabel, card
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
     };
-  }, [isStatic, n, cards]);
+  }, [isHover, isStatic, n, cards]);
 
   /* ---- stacked fallback ---- */
   if (isStatic) {
     return (
       <section id={id} className="deck deck--static shell">
-        <p className="eyebrow">{eyebrow}</p>
-        <SplitText as="h2" text={title} className="h2" style={{ marginTop: 14 }} />
+        {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
+        <SplitText as="h2" text={title} className="h2" style={{ marginTop: eyebrow ? 14 : 0 }} />
         <div className="deck__stack">
           {cards.map((card) => (
             <Reveal
               key={card.title}
               className={`deck__scard ${card.dark ? 'deck__scard--dark' : ''}`}
             >
-              <div className="deck__kicker">
-                <span>{String(card.index).padStart(2, '0')}</span>
-                <i />
-                <span className="hl">{card.tag}</span>
-              </div>
+              {card.image ? (
+                <div className="deck__scard-thumb">
+                  <img src={card.image} alt={card.imageAlt || card.title} loading="lazy" />
+                </div>
+              ) : null}
               <h3 style={{ margin: 0, fontSize: 26, letterSpacing: '-.03em' }}>
                 {card.title}
               </h3>
@@ -289,19 +576,41 @@ export default function ScrollDeck({ id, eyebrow, title, allLink, allLabel, card
                 </div>
               ) : null}
               {card.to ? (
-                <Link to={card.to} className="deck__cta">
-                  {card.linkLabel || `Explore ${card.title}`} →
+                <Link to={card.to} className="btn btn--primary deck__cta">
+                  {card.linkLabel || `Explore ${card.title}`}
                 </Link>
               ) : null}
             </Reveal>
           ))}
-          {allLink ? (
+          {actions?.length ? (
+            <div className="deck__actions">
+              {actions.map((a) => (
+                <Link key={a.label} to={a.to} className="btn btn--primary">
+                  {a.label}
+                </Link>
+              ))}
+            </div>
+          ) : allLink ? (
             <Link to={allLink} className="deck__all" style={{ alignSelf: 'start' }}>
-              {allLabel} →
+              {allLabel}
             </Link>
           ) : null}
         </div>
       </section>
+    );
+  }
+
+  if (isHover) {
+    return (
+      <HoverDeck
+        id={id}
+        eyebrow={eyebrow}
+        title={title}
+        allLink={allLink}
+        allLabel={allLabel}
+        cards={cards}
+        spotlight={spotlight}
+      />
     );
   }
 
@@ -317,14 +626,16 @@ export default function ScrollDeck({ id, eyebrow, title, allLink, allLabel, card
         <div className="deck__inner">
           <div className="deck__head">
             <div>
-              <Reveal as="p" className="eyebrow">
-                {eyebrow}
-              </Reveal>
+              {eyebrow ? (
+                <Reveal as="p" className="eyebrow">
+                  {eyebrow}
+                </Reveal>
+              ) : null}
               <SplitText as="h2" text={title} />
             </div>
             {allLink ? (
               <Magnetic as={Link} to={allLink} className="deck__all">
-                {allLabel} →
+                {allLabel}
               </Magnetic>
             ) : null}
           </div>

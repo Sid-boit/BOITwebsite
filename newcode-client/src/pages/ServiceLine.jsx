@@ -1,36 +1,30 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 
 import { serviceLines } from '../data/services';
 import CtaBand from '../components/CtaBand';
+import GlassPanel from '../components/GlassPanel';
 import Reveal from '../components/motion/Reveal';
 import SplitText from '../components/motion/SplitText';
 import Magnetic from '../components/motion/Magnetic';
-import heroImage from '../assets/pageimages/bankingFinance.png';
+import useTiltPanels from '../hooks/useTiltPanels';
+import { serviceLineHeroes } from '../data/submenuHeroes';
+import '../styles/brand-surfaces.css';
+import './ServiceLine.css';
 
 export default function ServiceLine({ slug }) {
   const line = serviceLines[slug];
+  const heroImage = serviceLineHeroes[slug];
+  const rootRef = useRef(null);
+  useTiltPanels(rootRef, []);
+
   if (!line) return <Navigate to="/services" replace />;
 
   return (
-    <>
-      <section
-        style={{
-          position: 'relative',
-          maxWidth: 'var(--shell)',
-          margin: '0 auto',
-          padding: '148px var(--gutter) 72px',
-        }}
-      >
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 0.85fr) minmax(0, 1.25fr)',
-            gap: 40,
-            alignItems: 'center',
-          }}
-          data-stack="1"
-        >
+    <div className="brand-page service-line-page" ref={rootRef}>
+      <section className="page-hero page-hero--wash service-line-page__hero">
+        <div className="page-hero__wash" aria-hidden="true" />
+        <div className="service-line-page__hero-inner" data-stack="1">
           <div>
             <h1
               className="h1 fade-up"
@@ -40,11 +34,10 @@ export default function ServiceLine({ slug }) {
             </h1>
 
             <p
-              className="fade-up"
+              className="fade-up page-tagline"
               style={{
                 margin: '22px 0 0',
                 maxWidth: '42ch',
-                fontSize: 'clamp(18px, 1.8vw, 24px)',
                 fontWeight: 700,
                 lineHeight: 1.25,
                 letterSpacing: '-0.02em',
@@ -54,43 +47,41 @@ export default function ServiceLine({ slug }) {
               <span className="grad-text">{line.headline}</span>
             </p>
 
-            <p className="lede fade-up" style={{ marginTop: 18, maxWidth: '42ch', animationDelay: '.18s' }}>
+            <p
+              className="lede fade-up"
+              style={{ marginTop: 18, maxWidth: '42ch', animationDelay: '.18s' }}
+            >
               {line.lede}
             </p>
 
             <div
               className="fade-up"
-              style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 32, animationDelay: '.28s' }}
+              style={{
+                display: 'flex',
+                gap: 12,
+                flexWrap: 'wrap',
+                marginTop: 32,
+                animationDelay: '.28s',
+              }}
             >
               <Magnetic as={Link} to="/contact" className="btn btn--primary">
                 Demo
               </Magnetic>
               <Magnetic as={Link} to="/services" className="btn btn--ghost">
-                All services <span>→</span>
+                All services
               </Magnetic>
             </div>
           </div>
 
-          <Reveal className="lam-hero-visual" style={{ justifySelf: 'stretch', width: '100%', maxWidth: 'none' }}>
-            <img
-              src={heroImage}
-              alt={line.imageAlt}
-              style={{
-                display: 'block',
-                width: '100%',
-                height: 'auto',
-                minHeight: 420,
-                borderRadius: 28,
-                objectFit: 'contain',
-              }}
-            />
+          <Reveal className="lam-hero-visual service-line-page__visual">
+            <img src={heroImage} alt={line.imageAlt} />
           </Reveal>
         </div>
       </section>
 
       {line.sections?.map((section) => (
-        <section className="panel-light" key={section.title}>
-          <div className="shell" style={{ padding: '96px var(--gutter)' }}>
+        <section className="brand-section brand-wash" key={section.title}>
+          <div className="shell" style={{ padding: '0 var(--gutter)' }}>
             <Reveal as="p" className="eyebrow">
               {section.eyebrow}
             </Reveal>
@@ -101,16 +92,18 @@ export default function ServiceLine({ slug }) {
               style={{ margin: '18px 0 48px', maxWidth: '18ch' }}
             />
 
-            <div
-              className="grid-hair"
-              style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}
-              data-stack="1"
-            >
+            <div className="service-line-page__grid brand-card-grid" data-stack="1">
               {section.items.map((item, i) => (
-                <Reveal key={item.title} delay={(i % 4) + 1} className="hair-cell lift">
-                  <div className="tag">{String(i + 1).padStart(2, '0')}</div>
-                  <h3 style={{ fontSize: 22, letterSpacing: '-.03em', margin: '10px 0 12px' }}>{item.title}</h3>
-                  <p style={{ margin: 0, color: 'var(--body-2)', fontSize: 15, lineHeight: 1.55 }}>{item.body}</p>
+                <Reveal key={item.title} delay={(i % 4) + 1}>
+                  <GlassPanel
+                    accent
+                    className={`service-line-page__card service-line-page__card--tone-${
+                      i % 2 === 0 ? 'violet' : 'teal'
+                    }`}
+                  >
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                  </GlassPanel>
                 </Reveal>
               ))}
             </div>
@@ -119,8 +112,8 @@ export default function ServiceLine({ slug }) {
       ))}
 
       {line.skillGroups ? (
-        <section className="panel-light">
-          <div className="shell" style={{ padding: '96px var(--gutter)' }}>
+        <section className="brand-section brand-band">
+          <div className="shell" style={{ padding: '0 var(--gutter)' }}>
             <Reveal as="p" className="eyebrow">
               Skill sets
             </Reveal>
@@ -131,50 +124,25 @@ export default function ServiceLine({ slug }) {
               style={{ margin: '18px 0 48px', maxWidth: '16ch' }}
             />
 
-            <div
-              className="grid-hair"
-              style={{ gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }}
-              data-stack="1"
-            >
+            <div className="service-line-page__skills brand-card-grid brand-card-grid--3" data-stack="1">
               {line.skillGroups.map((group, i) => (
-                <Reveal key={group.title} delay={(i % 4) + 1} className="hair-cell">
-                  <h3 style={{ fontSize: 22, letterSpacing: '-.03em', margin: '0 0 14px' }}>{group.title}</h3>
-                  <ul
-                    style={{
-                      margin: 0,
-                      padding: 0,
-                      listStyle: 'none',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 8,
-                    }}
+                <Reveal key={group.title} delay={(i % 4) + 1}>
+                  <GlassPanel
+                    accent
+                    className={`service-line-page__card service-line-page__card--tone-${
+                      i % 2 === 0 ? 'teal' : 'violet'
+                    }`}
                   >
-                    {group.items.map((item) => (
-                      <li
-                        key={item}
-                        style={{
-                          display: 'flex',
-                          gap: 10,
-                          alignItems: 'baseline',
-                          fontSize: 15,
-                          lineHeight: 1.45,
-                          color: 'var(--body-2)',
-                        }}
-                      >
-                        <b
-                          style={{
-                            width: 5,
-                            height: 5,
-                            borderRadius: '50%',
-                            background: 'var(--bright)',
-                            flex: 'none',
-                            transform: 'translateY(-3px)',
-                          }}
-                        />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                    <h3>{group.title}</h3>
+                    <ul className="service-line-page__list">
+                      {group.items.map((item) => (
+                        <li key={item}>
+                          <b />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </GlassPanel>
                 </Reveal>
               ))}
             </div>
@@ -191,6 +159,6 @@ export default function ServiceLine({ slug }) {
           { label: 'All services', to: '/services' },
         ]}
       />
-    </>
+    </div>
   );
 }

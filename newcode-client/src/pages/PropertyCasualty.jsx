@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductVerticalPage from '../components/ProductVerticalPage';
-import heroImage from '../assets/pageimages/propertyCasuality.png';
+import { verticalHeroes } from '../data/submenuHeroes';
+const heroImage = verticalHeroes.property;
 
 export default function PropertyCasualty() {
   return (
@@ -28,7 +29,7 @@ export default function PropertyCasualty() {
       ]}
       acceleratorsTitle="Engagement, operations, and distribution — built for P&C."
       platformLabel="Insurance Platform"
-      platformTo="/product/insurance"
+      platformTo="/platform/insurance"
     />
   );
 }

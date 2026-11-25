@@ -3,7 +3,7 @@
 
 export const productHub = {
   hero: {
-    eyebrow: 'Accelerate Automation Platform',
+    eyebrow: '',
     title: 'One platform. Every touchpoint.',
     subtitle:
       'A comprehensive suite of integrated solutions designed to transform insurance and banking operations through intelligent automation and seamless customer experiences.',
@@ -13,14 +13,14 @@ export const productHub = {
     {
       key: 'insurance',
       title: 'Insurance',
-      to: '/product/insurance',
+      to: '/platform/insurance',
       linkLabel: 'Explore Insurance',
       body: 'AI-powered engagement, operations, and distribution modules purpose-built for life, health, and general insurers.',
     },
     {
       key: 'banking',
       title: 'Banking',
-      to: '/product/banking',
+      to: '/platform/banking',
       linkLabel: 'Explore Banking',
       body: 'Intelligent engagement, operations, and channel modules that modernize retail, corporate, and investment banking experiences.',
     },
@@ -54,7 +54,7 @@ export const platforms = {
       body: 'Explore the AI capability layer or talk to our team about a tailored rollout.',
       buttons: [
         { label: 'Demo', to: '/contact', primary: true },
-        { label: 'AI Capabilities', to: '/product/capabilities' },
+        { label: 'AI Capabilities', to: '/product/capabilities', primary: true},
       ],
     },
     modules: [
@@ -66,7 +66,7 @@ export const platforms = {
           'Accelerate customer engagement with personalized experiences and seamless interactions. AI orchestration unifies portals, apps, RPA, and conversational channels so every member and agent touchpoint feels intelligent, consistent, and always-on.',
         features: [
           {
-            title: 'Engagement Portals / App',
+            title: 'Engagement Portals / Apps',
             body: 'AI-assisted self-service portals and mobile apps that personalize journeys, surface next-best actions, and keep customers engaged across policy, claims, and servicing.',
           },
           {
@@ -101,7 +101,7 @@ export const platforms = {
         name: 'Accelerate Distribution',
         headline: 'Empower Agents, Delight Customers',
         solution:
-          'Streamline distribution with better lead management, faster policy issuance, and smarter channel optimization. AI scores leads, guides agents, and keeps a living single view of every customer.',
+          'Streamline distribution with better lead management, faster policy issuance, and smarter channel optimization. AI scores leads, guides agents, and keeps a single, living view of every customer.',
         features: [
           {
             title: 'Lead Management',
@@ -113,7 +113,7 @@ export const platforms = {
           },
           {
             title: 'SVOC',
-            body: 'Single View of Customer that fuses policies, interactions, and propensity signals into one AI-ready customer graph.',
+            body: 'A Single View of Customer that fuses policies, interactions, and propensity signals into one AI-ready customer graph.',
           },
         ],
       },
@@ -131,7 +131,7 @@ export const platforms = {
       body: 'Explore the AI capability layer or talk to our team about a tailored rollout.',
       buttons: [
         { label: 'Demo', to: '/contact', primary: true },
-        { label: 'AI Capabilities', to: '/product/capabilities' },
+        { label: 'AI Capabilities', to: '/product/capabilities', primary: true },
       ],
     },
     modules: [
@@ -147,7 +147,7 @@ export const platforms = {
             body: 'Native and progressive banking experiences enriched with AI insights, biometric security, and contextual product offers.',
           },
           {
-            title: 'Website / Portals / App · RPA & Chatbots',
+            title: 'Website / Portals / App / RPA & Chatbots',
             body: 'Omnichannel portals backed by RPA and conversational AI that automate service requests and escalate only when judgment is required.',
           },
         ],
@@ -157,7 +157,7 @@ export const platforms = {
         name: 'Accelerate Operations',
         headline: 'Optimize Faster, Operate Smarter',
         solution:
-          'Achieve higher STP, enhanced accuracy, and cost efficiency with smart process automation. AI decides, documents, and continuously improves core banking workflows.',
+          'Achieve higher STP, enhanced accuracy, and cost efficiency with smart process automation. AI automates decisions, processes documents, and continuously improves core banking workflows',
         features: [
           {
             title: 'BPM and Case Management',
@@ -175,7 +175,7 @@ export const platforms = {
       },
       {
         id: 'accelerate-channel',
-        name: 'Accelerate Channel',
+        name: 'Accelerate Distribution',
         headline: 'Empower Agents, Delight Customers',
         solution:
           'Streamline agency and branch with smarter channel optimization. AI unifies CRM, campaigns, and customer intelligence so every banker and agent acts with precision.',
@@ -209,8 +209,8 @@ export const capabilities = {
     title: 'See it in context',
     body: 'Explore insurance and banking modules powered by these capabilities.',
     links: [
-      { label: 'Insurance', to: '/product/insurance' },
-      { label: 'Banking', to: '/product/banking' },
+      { label: 'Insurance', to: '/platform/insurance' },
+      { label: 'Banking', to: '/platform/banking' },
     ],
   },
   items: [
@@ -358,14 +358,14 @@ export const featureInventory = {
   insurance: [
     {
       n: '01',
-      title: 'Accelerated Engagement',
+      title: 'Accelerate Engagement',
       tagline:
-        'Engage smarter, connect faster. Accelerate customer engagement with personalized experiences and seamless interactions across all touchpoints.',
+        '',
       banner:
         'Elevate experiences. Deliver personalized, seamless, and intelligent interactions across every touchpoint. Empower customers with self-service, unify agent experiences, and accelerate engagement with AI-driven solutions.',
       features: [
         {
-          title: 'Single View Of Customer',
+          title: 'Single View of Customer',
           body: '360-degree customer insights for personalized service delivery.',
         },
         {
@@ -373,7 +373,7 @@ export const featureInventory = {
           body: 'Seamless interactions across web, mobile, email, and social channels.',
         },
         {
-          title: 'Self-Serving Portal',
+          title: 'Self-Service Portal',
           body: 'Empower customers with self-service for policy management and claims.',
         },
         {
@@ -396,14 +396,14 @@ export const featureInventory = {
     },
     {
       n: '02',
-      title: 'Accelerated Operation',
+      title: 'Accelerate Operations',
       tagline:
-        'Optimize faster, operate smarter. Achieve higher STP, enhanced accuracy, and cost efficiency with smart process automation and assisted decision making.',
+        '',
       banner:
         'Simplify processes. Streamline processes, reduce risks, and boost efficiency with intelligent automation. Simplify onboarding, accelerate claims, enhance fraud detection, and drive operational excellence.',
       features: [
         {
-          title: 'CaseX — Case Management',
+          title: 'CaseX - Case Management',
           body: 'Comprehensive case management across all business processes.',
         },
         {
@@ -415,7 +415,7 @@ export const featureInventory = {
           body: 'AI-powered fraud detection and prevention with real-time monitoring.',
         },
         {
-          title: 'E-KYC',
+          title: 'e-KYC',
           body: 'Digital KYC with automated verification, compliance, and risk assessment.',
         },
         {
@@ -434,9 +434,9 @@ export const featureInventory = {
     },
     {
       n: '03',
-      title: 'Accelerated Distribution',
+      title: 'Accelerate Distribution',
       tagline:
-        'Empower agents, delight customers. Streamline distribution with better lead management, faster policy issuance and smarter channel optimization.',
+        '',
       banner: 'Scale smarter. Expand market presence and empower every channel with smarter tools.',
       features: [
         {
@@ -444,7 +444,7 @@ export const featureInventory = {
           body: 'AI-powered lead capture, scoring, and nurturing for higher conversions.',
         },
         {
-          title: 'Electronic Point Of Sale',
+          title: 'Electronic Point of Sale',
           body: 'EPOS for seamless policy issuance, premium collection, and onboarding.',
         },
         {
@@ -461,10 +461,10 @@ export const featureInventory = {
   banking: [
     {
       n: '01',
-      title: 'Accelerated Engagement',
+      title: 'Accelerate Engagement',
       tagline: 'Engage smarter, connect faster.',
       banner:
-        'Accelerated Engagement. Deepen Connections. Deliver personalized, proactive, and unified interactions across every touchpoint.',
+        'Accelerate Engagement. Deepen Connections. Deliver personalized, proactive, and unified interactions across every touchpoint.',
       features: [
         {
           title: 'Personalized Customer Journeys',
@@ -486,10 +486,10 @@ export const featureInventory = {
     },
     {
       n: '02',
-      title: 'Accelerated Operation',
+      title: 'Accelerate Operations',
       tagline: 'Optimize faster, operate smarter.',
       banner:
-        'Accelerated Operations. Drive Efficiency. Streamline core banking processes, mitigate risks, and boost straight-through processing with intelligent automation.',
+        'Accelerate Operations. Drive Efficiency. Streamline core banking processes, mitigate risks, and boost straight-through processing with intelligent automation.',
       features: [
         {
           title: 'Intelligent Process Automation',
@@ -511,10 +511,10 @@ export const featureInventory = {
     },
     {
       n: '03',
-      title: 'Accelerated Channel',
+      title: 'Accelerate Distribution',
       tagline: 'Empower agents, delight customers.',
       banner:
-        'Accelerated Channels. Expand Reach. Empower every banking touchpoint and expand customer reach with smarter optimization.',
+        'Accelerate Distribution. Expand Reach. Empower every banking touchpoint and expand customer reach with smarter optimization.',
       features: [
         {
           title: 'Unified Channel Management',
@@ -522,7 +522,7 @@ export const featureInventory = {
         },
         {
           title: 'Digital KYC & Onboarding',
-          body: 'Facial recognition, geo-tagging, and liveness verification.',
+          body: 'Facial recognition, geotagging, and liveness verification.',
         },
         {
           title: 'Agent Empowerment Tools',

@@ -14,7 +14,7 @@ export const servicesOverview = {
     cta: { label: 'Request Demo', to: '/contact' },
   },
   whyPartner: {
-    eyebrow: 'Our Commitment',
+    eyebrow: '',
     title: 'Why partner with us',
   },
   groups: [
@@ -374,7 +374,7 @@ export const serviceCategories = {
         ],
         impact: [
           {
-            title: 'Accelerated Market Expansion',
+            title: 'Accelerate Market Expansion',
             body: 'Launch new product types across different demographic segments rapidly.',
           },
           {
@@ -529,7 +529,7 @@ export const serviceCategories = {
         ],
         impact: [
           {
-            title: 'Accelerated Market Expansion',
+            title: 'Accelerate Market Expansion',
             body: 'Quickly deploy new health products to diverse demographic segments without IT bottlenecks.',
           },
           {
@@ -758,7 +758,7 @@ export const serviceCategories = {
         ],
         impact: [
           {
-            title: 'Accelerated Time-to-Market',
+            title: 'Accelerate Time-to-Market',
             body: 'Launch new products and react to market changes in days, not months.',
           },
           {
@@ -994,7 +994,7 @@ export const serviceCategories = {
         ],
         impact: [
           {
-            title: 'Accelerated Client Acquisition',
+            title: 'Accelerate Client Acquisition',
             body: 'Attract top-tier enterprise clients and large SMEs with a modern, feature-rich corporate banking portal.',
           },
           {
@@ -1153,7 +1153,7 @@ export const serviceCategories = {
             body: 'Uncover hidden market opportunities and execute data-driven strategies faster than the competition.',
           },
           {
-            title: 'Accelerated Decision-Making',
+            title: 'Accelerate Decision-Making',
             body: 'Replace siloed spreadsheets with centralized, real-time analytics that empower immediate, confident capital allocation.',
           },
           {

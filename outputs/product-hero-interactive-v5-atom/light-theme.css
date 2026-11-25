@@ -1,0 +1,20 @@
+/* Light palette variant. Layout and interactions remain shared with v3. */
+.hero{background:radial-gradient(ellipse at 0 100%,#e0f8f2,transparent 48%),radial-gradient(ellipse at 78% 20%,#f1edff,transparent 59%),#fff}
+.visual{color:#25344d;background:radial-gradient(ellipse at 52% 43%,#e3eafb 0,transparent 50%),radial-gradient(ellipse at 8% 78%,#daf7f1 0,transparent 55%),linear-gradient(130deg,#fbfdff,#f1effc 67%,#f4f2ff);border:1px solid #e6e8f3;box-shadow:0 24px 55px #5261a513,inset 0 1px 0 #ffffff}
+.visual::before{background-image:radial-gradient(#7e8db437 .7px,transparent .8px);mask-image:radial-gradient(ellipse,#000,transparent 77%)}
+.visual-top>span{color:#667691}.visual-top i{background:#0faaa5;box-shadow:0 0 8px #33cfb64d}
+.visual-top button{background:#ffffffb8;color:#586b95;border-color:#d6dded;box-shadow:0 3px 9px #5b6bb009}
+.track{opacity:.48;stroke-width:1}.track.outer{stroke:#a3a6ca;opacity:.3}.inner-track{stroke:#8583bc;opacity:.32}.inner-track.second{stroke:#369fae;opacity:.24}
+.product-wire{stroke:#6f8ab7;opacity:.24}.product-wire.selected{stroke:#168eaa;opacity:.85;stroke-width:1.6}.wire-pulse{stroke:#16a8b8;filter:drop-shadow(0 0 3px #41c7cd44)}
+.stars{fill:#7387bd;opacity:.55}.stars path{stroke:#8b8ac0}
+.brain-halo{background:radial-gradient(ellipse,#69bee32b,transparent 65%)}
+.brain-button{color:#354a82}.brain-button svg{filter:drop-shadow(0 9px 12px #4f61b032)}
+.brain-label{color:#374882;text-shadow:0 1px 0 #fff,0 0 17px #b7c5f1a6}.brain-subtitle{color:#69789c}
+.orbit-node{color:#344769;border-color:#d0ddef;background:linear-gradient(135deg,#ffffffee,#f5f8ffec);box-shadow:inset 0 1px 0 #fff,0 7px 18px #53649316;backdrop-filter:blur(12px)}
+.orbit-node.vertical{border-color:#d9cff0;background:linear-gradient(130deg,#ffffffee,#f3effbec)}
+.orbit-node:hover,.orbit-node.selected{border-color:#43b6c0;background:linear-gradient(130deg,#faffff,#e9f7fb);box-shadow:0 0 0 2px #42b6c018,0 8px 24px #29aeb524}
+.orbit-node.vertical.selected,.orbit-node.vertical:hover{border-color:#aa8ee0;background:linear-gradient(130deg,#fff,#f1eafd);box-shadow:0 0 0 2px #a98bdc18,0 8px 24px #8453c922}
+.node-icon{background:#dff2f7;color:#178fa6}.vertical .node-icon{background:#ede5fb;color:#7957b6}
+.node-mobile-number{color:#26798e}.vertical .node-mobile-number{color:#7850aa}
+.visual-bottom{color:#70809c}.legend i{background:#9c7bc9}.legend b{background:#329faa}
+@media(max-width:700px){.orbit-node{background:#f6fbfffa}.orbit-node.vertical{background:#f6f0fffa}.orbit-node:hover,.orbit-node.selected{background:#e6f8fc}.orbit-node.vertical:hover,.orbit-node.vertical.selected{background:#eee6fc}}

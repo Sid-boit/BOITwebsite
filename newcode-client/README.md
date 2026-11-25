@@ -44,7 +44,7 @@ src/
 | `/services` | Services overview |
 | `/services/:slug` | 6 category pages (life/health/general insurance, retail/corporate/investment banking) |
 | `/product` | Product hub |
-| `/product/insurance`, `/product/banking` | Platform pillars |
+| `/platform/insurance`, `/platform/banking` | Platform pillars |
 | `/product/capabilities` | AI-powered capabilities |
 | `/case-studies`, `/media`, `/contact` | — |
 | `*` | 404 |

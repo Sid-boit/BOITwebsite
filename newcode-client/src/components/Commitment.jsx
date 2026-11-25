@@ -24,23 +24,11 @@ export default function Commitment({ title, eyebrow = commitment.eyebrow }) {
           ) : null}
         </div>
 
-        <div className="rowlist">
+        <div className="rowlist rowlist--side">
           {commitment.items.map((c, i) => (
-            <Reveal className="rowlist__row" key={c.title} delay={i + 1}>
-              <div className="k">{`0${i + 1}`}</div>
-              <div>
-                <h4
-                  style={{
-                    margin: '0 0 8px',
-                    fontSize: 20,
-                    fontWeight: 600,
-                    letterSpacing: '-.02em',
-                  }}
-                >
-                  {c.title}
-                </h4>
-                <p>{c.body}</p>
-              </div>
+            <Reveal className="rowlist__row rowlist__row--side" key={c.title} delay={i + 1}>
+              <h4 className="rowlist__title">{c.title}</h4>
+              <p>{c.body}</p>
             </Reveal>
           ))}
         </div>

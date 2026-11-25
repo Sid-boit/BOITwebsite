@@ -1,0 +1,141 @@
+/* Capabilities — brand washes + glass cards (aligned with Product / Case Studies) */
+
+.capabilities-page {
+  background:
+    radial-gradient(ellipse at 90% 12%, #f0edff66, transparent 55%),
+    radial-gradient(ellipse at 0% 55%, #e3faf555, transparent 48%),
+    var(--bg);
+}
+
+.capabilities-page .cap-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+  gap: 64px;
+  align-items: start;
+}
+
+.capabilities-page .cap-aside {
+  position: sticky;
+  top: 110px;
+}
+
+.capabilities-page .cap-index {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0 32px;
+}
+
+.capabilities-page .cap-index__link {
+  font-size: 14px;
+  color: var(--body-2);
+  text-decoration: none;
+  line-height: 1.35;
+  transition: color 0.2s ease;
+}
+
+.capabilities-page .cap-index__link:hover {
+  color: var(--accent);
+}
+
+.capabilities-page .cap-sidebar-card {
+  padding: 22px;
+}
+
+.capabilities-page .cap-sidebar-card h4 {
+  margin: 0;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+}
+
+.capabilities-page .cap-sidebar-card > p {
+  margin: 8px 0 16px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--body-2);
+}
+
+.capabilities-page .cap-sidebar-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.capabilities-page .cap-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.capabilities-page .cap-section {
+  scroll-margin-top: 110px;
+}
+
+.capabilities-page .cap-groups {
+  margin-top: 26px;
+  gap: 18px;
+}
+
+.capabilities-page .cap-group-card {
+  padding: 28px 26px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.capabilities-page .cap-group-card h4 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.capabilities-page .cap-group-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.capabilities-page .cap-group-card li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 14px;
+  color: var(--body-2);
+}
+
+.capabilities-page .cap-group-card li b {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--bright);
+  flex: none;
+  transform: translateY(-3px);
+}
+
+.capabilities-page .cap-group-card--tone-violet.brand-panel--accent {
+  border-top-color: var(--about-violet);
+}
+
+.capabilities-page .cap-group-card--tone-teal.brand-panel--accent {
+  border-top-color: var(--about-teal);
+}
+
+@media (max-width: 900px) {
+  .capabilities-page .cap-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .capabilities-page .cap-aside {
+    position: static;
+  }
+
+  .capabilities-page .cap-groups.brand-card-grid--2 {
+    grid-template-columns: 1fr;
+  }
+}

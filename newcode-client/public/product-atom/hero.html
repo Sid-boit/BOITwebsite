@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BOIT — Product Atom</title>
+  <link rel="stylesheet" href="./universe.css" />
+  <link rel="stylesheet" href="./light-theme.css" />
+  <link rel="stylesheet" href="./atom.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" />
+  <style>
+    /* Match the main site type scale in global.css. Also override universe.css
+       media-query font locks that break the left copy column on resize. */
+    :root {
+      --fs-heading: clamp(26px, 2.6vw, 40px);
+      --fs-sub: clamp(17px, 1.3vw, 21px);
+      --fs-body: clamp(14.5px, 0.95vw, 16px);
+      --fs-small: 12.5px;
+    }
+    body, button, h1, h2, .nucleus-label, .brain-label {
+      font-family: 'Schibsted Grotesk', Helvetica, Arial, sans-serif !important;
+    }
+    .copy > h1, h1 {
+      font-size: var(--fs-heading) !important;
+      font-weight: 600 !important;
+      line-height: 1.08 !important;
+      letter-spacing: -0.035em !important;
+      max-width: 14ch;
+    }
+    .selection h2 {
+      font-size: var(--fs-sub) !important;
+      font-weight: 600 !important;
+      line-height: 1.25 !important;
+      letter-spacing: -0.02em !important;
+    }
+    .intro,
+    .selection > p:not(.selection-kicker) {
+      font-size: var(--fs-body) !important;
+      line-height: 1.65 !important;
+    }
+    .eyebrow, .copy > .eyebrow, .selection-kicker,
+    .cta, .quiet-link, .selection > a, .selection-tags span,
+    .visual-top > span, .visual-top button, .visual-bottom {
+      font-size: var(--fs-small) !important;
+    }
+    .eyebrow, .copy > .eyebrow, .selection-kicker, .visual-top > span {
+      letter-spacing: 0.14em !important;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      overflow-x: hidden;
+      /* Allow height to report full content to the parent iframe sizing sync */
+      overflow-y: visible;
+    }
+    .header { display: none !important; }
+    .portfolio { display: none !important; }
+    #boit-universe {
+      min-height: 0;
+    }
+    .hero {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: none;
+      margin: 0 auto;
+      padding: 148px clamp(24px, 4vw, 72px) 40px !important;
+      min-height: 0 !important;
+      gap: clamp(20px, 3vw, 36px);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      align-items: start;
+      background: transparent !important;
+      overflow: visible !important;
+    }
+    .copy {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-self: stretch;
+      width: 100%;
+      min-width: 0;
+      max-width: none;
+      text-align: left;
+      box-sizing: border-box;
+      padding: 0 !important;
+    }
+    .copy > h1,
+    .copy > .intro,
+    .copy > .hero-actions,
+    .copy > .selection {
+      grid-column: auto !important;
+      grid-row: auto !important;
+    }
+    .intro {
+      max-width: min(48ch, 100%);
+    }
+    .selection {
+      max-width: min(48ch, 100%);
+      min-height: 0 !important;
+    }
+    .visual {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    /* Site-style CTAs — no arrows */
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px !important;
+    }
+    .cta {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      gap: 0 !important;
+      padding: 12px 22px !important;
+      border-radius: 999px !important;
+      font-size: 13.5px !important;
+      font-weight: 600 !important;
+      color: #fff !important;
+      background-image: linear-gradient(
+        to right,
+        rgb(84, 45, 169),
+        rgb(0, 134, 158),
+        rgb(84, 45, 169)
+      ) !important;
+      background-size: 220% 220% !important;
+      box-shadow: none !important;
+      text-decoration: none !important;
+    }
+    .cta span { display: none !important; }
+    .quiet-link {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 20px !important;
+      border-radius: 999px !important;
+      border: 1px solid rgba(12, 21, 18, 0.18) !important;
+      font-size: 13.5px !important;
+      font-weight: 600 !important;
+      color: var(--ink, #101d20) !important;
+      background: #fff !important;
+      text-decoration: none !important;
+    }
+    .selection > a span { display: none !important; }
+
+    /* Orbit cards: full title visible; type scales with viewport (no mid-word breaks) */
+    .orbit-node,
+    .orbit-node.vertical {
+      align-items: center !important;
+      min-height: 0 !important;
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+    }
+    .node-title {
+      display: block !important;
+      overflow-wrap: normal !important;
+      word-break: normal !important;
+      hyphens: none !important;
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: unset !important;
+      min-width: 0 !important;
+      flex: 1 1 auto !important;
+      font-size: clamp(7.5px, 0.72vw + 0.15rem, 11px) !important;
+      line-height: 1.25 !important;
+      font-weight: 700 !important;
+    }
+    .selection-tags {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 6px !important;
+    }
+
+    /* Kill universe.css mid-width locks that explode type / split the copy. */
+    @media (max-width: 1100px) {
+      .hero {
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr) !important;
+        padding-left: clamp(24px, 4vw, 72px) !important;
+        padding-right: clamp(24px, 4vw, 72px) !important;
+        min-height: 0 !important;
+      }
+      .copy > h1, h1 {
+        font-size: var(--fs-heading) !important;
+        letter-spacing: -0.035em !important;
+      }
+      .intro {
+        font-size: var(--fs-body) !important;
+      }
+      .selection h2 {
+        font-size: var(--fs-sub) !important;
+      }
+    }
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+        padding: 132px clamp(20px, 4vw, 40px) 28px !important;
+        min-height: 0 !important;
+      }
+      .copy {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      .copy > h1, h1 {
+        font-size: clamp(28px, 6vw, 40px) !important;
+        max-width: 16ch;
+      }
+      .visual {
+        max-width: 720px;
+        justify-self: center;
+        width: 100%;
+      }
+    }
+    @media (max-width: 700px) {
+      .hero {
+        padding: 118px 20px 24px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 0 !important;
+      }
+      .copy {
+        display: contents !important;
+      }
+      .copy > h1, h1 {
+        font-size: clamp(26px, 7.2vw, 36px) !important;
+        margin-bottom: 14px !important;
+      }
+      .orbit-node,
+      .orbit-node.vertical {
+        min-height: 0 !important;
+        height: auto !important;
+      }
+      .node-title {
+        display: block !important;
+        font-size: clamp(7px, 2.1vw, 9px) !important;
+      }
+    }
+
+    @media (max-width: 1100px) and (min-width: 701px) {
+      .node-title {
+        font-size: clamp(7.5px, 0.85vw, 10px) !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<main id="boit-universe">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="copy">
+      <h1 id="hero-title">Every product.<br>Connected by<br><em>intelligence.</em></h1>
+      <p class="intro">A connected product portfolio for Banking and Insurance. Bringing AI to customer acquisition, underwriting, claims, servicing, distribution, risk, and compliance.</p>
+      <div class="hero-actions">
+        <a class="cta" href="/product#pillars" target="_parent">Explore the portfolio</a>
+        <a class="quiet-link" href="/contact" target="_parent">Request a demo</a>
+      </div>
+      <div class="selection" aria-live="polite" aria-atomic="true">
+        <p class="selection-kicker" id="selection-kicker">ONE CONNECTED PORTFOLIO</p>
+        <h2 id="selection-title">Many solutions. One intelligent foundation.</h2>
+        <p id="selection-description">Explore every offering around the AI nucleus. Each connects industry workflows with shared intelligence and coordinated execution.</p>
+        <div class="selection-tags" id="selection-tags"><span>3 business verticals</span><span>9 business solutions</span></div>
+        <a id="selection-link" href="/product#pillars" target="_parent">View all offerings</a>
+      </div>
+    </div>
+
+    <div class="visual">
+      <div class="visual-top">
+        <button id="orbit-toggle" type="button" aria-label="Pause product orbit" aria-pressed="false">Ⅱ <span>Pause</span></button>
+      </div>
+      <div class="stage" id="orbit-stage" role="group" aria-label="Twelve BOIT offerings with image thumbnails revolving around a spherical AI nucleus. Select a product to explore its details.">
+        <svg class="orbital-space" viewBox="0 0 900 620" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="orbit-gradient" x1="0" x2="1">
+              <stop stop-color="#13aeb5"/>
+              <stop offset=".5" stop-color="#6c81d6"/>
+              <stop offset="1" stop-color="#a37bd3"/>
+            </linearGradient>
+            <radialGradient id="ambient">
+              <stop stop-color="#6665d3" stop-opacity=".26"/>
+              <stop offset="1" stop-color="#3b4f8f" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <g id="atom-orbits">
+            <ellipse class="atom-track" cx="450" cy="300" rx="350" ry="122"/>
+            <ellipse class="atom-track" cx="450" cy="300" rx="290" ry="115" transform="rotate(-52 450 300)"/>
+            <ellipse class="atom-track" cx="450" cy="300" rx="290" ry="115" transform="rotate(52 450 300)"/>
+          </g>
+          <g id="product-connections"></g>
+          <g class="stars">
+            <circle cx="262" cy="54" r="2"/>
+            <circle cx="687" cy="83" r="2"/>
+            <circle cx="120" cy="245" r="1.5"/>
+            <circle cx="771" cy="388" r="2"/>
+            <circle cx="280" cy="553" r="2"/>
+            <circle cx="610" cy="541" r="1.5"/>
+            <path d="M728 184h9m-4.5-4.5v9M234 452h9m-4.5-4.5v9" fill="none" stroke="#b1c5fa"/>
+          </g>
+        </svg>
+        <button id="nucleus-button" class="nucleus-button" type="button" aria-label="Explore the BOIT AI nucleus: domain LLM, specialist agents and orchestration">
+          <span class="nucleus-halo"></span>
+          <span class="nucleus" aria-hidden="true"></span>
+          <span class="nucleus-label">BOIT AI</span>
+          <span class="nucleus-caption">LLM · Agents · Orchestration</span>
+        </button>
+        <div id="product-nodes"></div>
+      </div>
+      <div class="visual-bottom">
+        <span class="legend">12 connected offerings · One intelligent nucleus</span>
+        <span id="orbit-status">Hover to pause · Select to explore</span>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="./universe.js"></script>
+<script>
+  // Tell the parent SPA the true content height (avoids intermittent blank iframe).
+  function postAtomSize() {
+    if (!window.parent || window.parent === window) return;
+    const hero = document.querySelector('.hero');
+    const root = document.getElementById('boit-universe') || document.body;
+    const height = Math.ceil(
+      Math.max(
+        hero ? Math.max(hero.scrollHeight, hero.offsetHeight) : 0,
+        root ? Math.max(root.scrollHeight, root.offsetHeight) : 0,
+        document.documentElement.scrollHeight || 0,
+      ),
+    );
+    window.parent.postMessage({ type: 'boit-product-atom-size', height }, '*');
+  }
+  window.addEventListener('load', () => {
+    postAtomSize();
+    [50, 150, 400, 900].forEach((ms) => setTimeout(postAtomSize, ms));
+  });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(postAtomSize);
+  }
+  window.addEventListener('resize', postAtomSize);
+  window.boitPostAtomSize = postAtomSize;
+
+  // Open product detail links in the parent SPA window.
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    const href = a.getAttribute('href') || '';
+    if (href.startsWith('/') && window.parent && window.parent !== window) {
+      e.preventDefault();
+      window.parent.location.assign(href);
+    }
+  });
+</script>
+</body>
+</html>

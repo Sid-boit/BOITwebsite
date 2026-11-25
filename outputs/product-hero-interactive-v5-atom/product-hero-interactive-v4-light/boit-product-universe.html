@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BOIT — Product Universe · Light Edition</title><style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--ink:#101d20;--muted:#5b6970;--teal:#009fac;--purple:#7546d0;--brand:linear-gradient(105deg,#008da5,#3d58c7 55%,#6236b7)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:'DM Sans',Arial,sans-serif}button,a{-webkit-tap-highlight-color:transparent;touch-action:manipulation}button{font:inherit;cursor:pointer}a{text-decoration:none;color:inherit}button:focus-visible,a:focus-visible{outline:3px solid #22b6c0;outline-offset:5px}.header{display:flex;align-items:center;justify-content:space-between;height:100px;padding:0 4.5%}.logo{font-family:Manrope,Arial,sans-serif;font-weight:800;font-size:55px;letter-spacing:-5px;background:var(--brand);color:transparent;background-clip:text;-webkit-background-clip:text}.logo sup{font-size:27px;letter-spacing:-1.5px;vertical-align:super}.header nav{display:flex;align-items:center;gap:32px;font-size:14px;color:#5f6b70}.header nav a[aria-current]{color:#152225;font-weight:700}.nav-cta{color:white!important;padding:15px 23px;border-radius:28px;background:var(--brand);font-weight:600}.hero{padding:32px 3% 40px 4.5%;display:grid;grid-template-columns:.75fr 1.25fr;gap:28px;align-items:center;background:radial-gradient(ellipse at 0 100%,#def8f1,transparent 44%),radial-gradient(ellipse at 50% 0,#f3efff,transparent 55%),#fff;min-height:725px;overflow:hidden}.copy{min-width:0;padding:13px 0}.eyebrow{display:flex;gap:9px;align-items:center;letter-spacing:2.2px;font-size:9px;font-weight:600;color:#697a82;margin:0 0 23px}.eyebrow>span{width:6px;height:6px;flex-shrink:0;border-radius:50%;background:#20baaa}h1{font-family:Manrope,Arial,sans-serif;font-size:clamp(46px,4.45vw,68px);letter-spacing:-3px;font-weight:800;line-height:1.09;margin:0 0 25px}h1 em{font-style:normal;background:linear-gradient(95deg,#0093a9,#4059d8 52%,#7540c6);color:transparent;background-clip:text;-webkit-background-clip:text}.intro{font-size:16px;line-height:1.75;max-width:440px;color:var(--muted);margin:0 0 25px}.hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:22px}.cta{display:flex;justify-content:space-between;align-items:center;gap:22px;padding:17px 21px;border-radius:30px;color:#fff;background:var(--brand);font-size:13px;font-weight:700;box-shadow:0 10px 21px #3b56b82b;transition:transform .2s}.cta:hover{transform:translateY(-2px)}.quiet-link{font-size:12px;font-weight:600;color:#38475c}.selection{margin-top:30px;padding:18px 0 0 17px;border-top:1px solid #d6e3e5;position:relative;max-width:450px;min-height:205px}.selection::before{content:'';width:2px;background:var(--brand);position:absolute;left:0;top:24px;bottom:0;border-radius:3px}.selection-kicker{font-size:8px;color:#687c8e;letter-spacing:1.7px;font-weight:600;margin:0 0 9px}.selection h2{font-family:Manrope,Arial,sans-serif;font-size:20px;line-height:1.3;letter-spacing:-.5px;margin:0 0 8px;font-weight:800}.selection>p:not(.selection-kicker){font-size:12px;line-height:1.6;margin:0;color:#647382;max-width:400px}.selection-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}.selection-tags span{padding:4px 7px;background:#eaeaf7;color:#625591;border-radius:12px;font-size:9px}.selection>a{display:inline-flex;align-items:center;gap:17px;color:#1b7899;font-size:12px;font-weight:700;margin-top:12px}.selection[data-selected=true]{animation:reveal .25s ease-out}.visual{border-radius:34px;position:relative;isolation:isolate;background:radial-gradient(ellipse at 48% 45%,#3c428c 0,transparent 49%),radial-gradient(ellipse at 12% 85%,#007b8d66,transparent 55%),linear-gradient(130deg,#121d3c,#18183b 65%,#282044);box-shadow:0 28px 60px #2e317c22,inset 0 1px 0 #c8d5ff33;color:#fff;min-width:0;overflow:hidden;padding:21px 13px 17px;align-self:center}.visual::before{content:'';position:absolute;z-index:-1;inset:0;background:radial-gradient(#c1c3f12e .7px,transparent .8px);background-size:25px 25px;mask-image:radial-gradient(ellipse,#000,transparent 74%)}.visual-top{display:flex;justify-content:space-between;align-items:center;padding:0 13px;gap:12px}.visual-top>span{font-size:8px;letter-spacing:1.4px;color:#b7c8e4;display:flex;align-items:center;gap:7px}.visual-top i{height:4px;width:4px;background:#53d8cf;border-radius:50%;box-shadow:0 0 8px #53d8cf}.visual-top button{display:flex;align-items:center;gap:6px;background:#d2d5ff0c;color:#c6d4ed;border:1px solid #a2b9f12d;border-radius:20px;padding:7px 10px;white-space:nowrap;font-size:9px;min-height:30px}.stage{aspect-ratio:900/620;position:relative;width:100%;margin:12px 0;isolation:isolate;overflow:visible}.orbital-space{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.track{fill:none;stroke:url(#orbit-gradient);stroke-width:.9;opacity:.42}.track.outer{stroke-width:.6;opacity:.12;stroke-dasharray:2 9}.inner-track{fill:none;stroke:#adb3ee;stroke-width:.6;opacity:.24}.inner-track.second{stroke:#6cd9e7;opacity:.16}.product-wire{stroke:#748bc5;stroke-width:.7;opacity:.19;transition:stroke .3s,opacity .3s}.product-wire.selected{stroke:#88eaf0;stroke-width:1.6;opacity:.75}.wire-pulse{stroke:#b5f8fb;stroke-width:2;stroke-dasharray:3 87;stroke-linecap:round;opacity:0;animation:data-flow 4s linear infinite}.wire-pulse.selected{opacity:.9}.stars{fill:#bfd6fa;opacity:.6}.brain-button{position:absolute;left:50%;top:49%;width:31%;max-width:295px;aspect-ratio:400/390;transform:translate(-50%,-50%);padding:0;border:0;color:#fff;background:none;display:flex;align-items:center;flex-direction:column;justify-content:center;z-index:3}.brain-button:focus-visible{outline-offset:-4px;border-radius:30%}.brain-halo{position:absolute;inset:5% -30% 15%;border-radius:50%;background:radial-gradient(ellipse,#5b9deb33,transparent 65%);filter:blur(10px);z-index:-1}.brain-button svg{width:100%;overflow:visible;filter:drop-shadow(0 7px 12px #0c1838aa);animation:brain-hover 7s ease-in-out infinite}.brain-label{display:block;font-family:Manrope,Arial,sans-serif;font-size:clamp(14px,1.65vw,23px);font-weight:800;letter-spacing:3px;margin-top:-7%;text-shadow:0 0 18px #8eb6ff99}.brain-subtitle{font-size:clamp(6px,.67vw,9px);letter-spacing:.5px;color:#b2c5e4;margin-top:6px;white-space:nowrap}.brain-folds{stroke:#d2f5ff;stroke-width:2.3;opacity:.65;filter:drop-shadow(0 0 2px #9ed7f6)}.neural-line{stroke:#d5e8ff;stroke-width:.7;opacity:.35}.neural-dot{fill:#ecffff;opacity:.8}.neural-pulses{fill:#dcffff;filter:drop-shadow(0 0 4px #a8fbff)}.neural-pulses circle{animation:neural-pulse 4s ease-in-out infinite}.neural-pulses circle:nth-child(2n){animation-delay:-1.7s}.neural-pulses circle:nth-child(3n){animation-delay:-2.8s}.orbit-node{position:absolute;left:0;top:0;will-change:transform;display:flex;align-items:center;gap:8px;text-align:left;width:clamp(116px,10.8vw,164px);min-height:54px;padding:9px 10px;border-radius:14px;border:1px solid #b7caff55;background:linear-gradient(130deg,#34476de8,#2f2c5cec);box-shadow:inset 0 1px 0 #e2e9ff23,0 7px 14px #050c2244;backdrop-filter:blur(12px);color:#edf3ff;transition:border-color .2s,background .2s,box-shadow .2s}.orbit-node:hover,.orbit-node.selected{border-color:#7ce5e4;background:linear-gradient(130deg,#245c73f5,#40417bf5);box-shadow:0 0 0 2px #69deda22,0 0 23px #36cbd626}.orbit-node.vertical{border-color:#a6a1eb77;background:linear-gradient(130deg,#49416fe8,#353257ec)}.orbit-node.vertical.selected,.orbit-node.vertical:hover{border-color:#c9afff;box-shadow:0 0 0 2px #c9afff22,0 0 23px #b07aff26}.node-icon{display:grid;place-items:center;flex-shrink:0;width:25px;height:28px;border-radius:8px;background:#8ec8f517;color:#8fe1e5}.vertical .node-icon{background:#b69afa1a;color:#c9b2fc}.node-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.node-title{font-size:clamp(8px,.72vw,11px);line-height:1.3;font-weight:600}.node-mobile-number{display:none}.visual-bottom{padding:8px 12px 0;display:flex;justify-content:space-between;align-items:center;gap:14px;color:#9caccc;font-size:8px;line-height:1.4}.legend{display:flex;align-items:center;gap:5px;white-space:nowrap}.legend i,.legend b{width:5px;height:5px;border-radius:50%;background:#b99ae9;display:inline-block}.legend b{background:#73d6dd;margin-left:6px}.paused .brain-button svg,.paused .wire-pulse,.paused .neural-pulses circle{animation-play-state:paused}.portfolio{padding:65px 5% 85px;background:#fff;max-width:1550px;margin:auto;scroll-margin-top:25px}.portfolio-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:35px}.portfolio-heading .eyebrow{margin-bottom:12px}.portfolio h2{font:800 clamp(28px,2.8vw,40px)/1.2 Manrope,Arial,sans-serif;letter-spacing:-1.3px;margin:0}.portfolio-heading>p{font-size:13px;color:#73808b;max-width:270px;line-height:1.6;margin:0}.portfolio>h3{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:#78818e;margin:32px 0 16px}.portfolio-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 30px}.portfolio-item{padding:18px 0;border-top:1px solid #e4e8ed;min-width:0}.portfolio-item button{border:0;background:none;text-align:left;padding:0;display:flex;gap:11px;align-items:flex-start;width:100%;color:#24353e;font-size:14px;font-weight:600;line-height:1.4}.portfolio-item .index{font-size:10px;color:#959bad;font-weight:400;line-height:2}.portfolio-item p{font-size:12px;color:#74808a;line-height:1.6;margin:8px 0 9px 26px}.portfolio-item>a{font-size:10px;font-weight:600;color:#3b6c9f;margin-left:26px;display:inline-flex;gap:8px}.portfolio-item.selected button{color:#3764bf}.portfolio-item.selected{border-color:#24b8bc}.portfolio-item button:hover{color:#3662be}@keyframes data-flow{to{stroke-dashoffset:-180}}@keyframes neural-pulse{0%,100%{opacity:.25}50%{opacity:1}}@keyframes brain-hover{0%,100%{translate:0 0}50%{translate:0 -5px}}@keyframes reveal{from{opacity:.6;translate:0 3px}to{opacity:1;translate:0 0}}
+@media(min-width:1600px){.hero{padding-left:max(4.5%,calc((100vw - 1520px)/2));padding-right:max(3%,calc((100vw - 1520px)/2))}.selection{min-height:220px}.intro{font-size:18px}.selection h2{font-size:23px}.selection>p:not(.selection-kicker){font-size:14px}.node-title{font-size:11px}.orbit-node{width:164px;min-height:60px}.visual{padding-top:27px;padding-bottom:25px}.visual-top>span{font-size:10px}.visual-bottom{font-size:10px}}
+@media(max-width:1100px){.hero{grid-template-columns:.78fr 1.22fr;gap:18px;padding-left:4%;padding-right:2.5%;min-height:670px}h1{font-size:47px;letter-spacing:-2.8px}.intro{font-size:14px;line-height:1.7}.eyebrow{font-size:8px;letter-spacing:1.5px}.selection h2{font-size:18px}.selection{margin-top:25px;min-height:220px}.hero-actions{gap:14px}.cta{font-size:12px;padding:16px 18px;gap:15px}.quiet-link{font-size:11px}.visual{padding:19px 6px 17px;border-radius:27px}.visual-top{padding:0 9px}.visual-top>span{font-size:7px;letter-spacing:.8px}.visual-top button{padding:6px 8px;font-size:8px}.orbit-node{width:116px;min-height:51px;padding:7px;gap:6px;border-radius:11px}.node-title{font-size:8px}.node-icon{width:20px;height:24px}.node-icon svg{width:16px;height:16px}.visual-bottom{font-size:7px;padding:8px 7px 0;gap:10px}.legend{gap:4px}.legend b{margin-left:3px}.brain-label{font-size:16px}.brain-subtitle{font-size:6px}.portfolio{padding-top:45px}}
+@media(max-width:850px) and (min-width:701px){.hero{grid-template-columns:1fr;gap:32px;padding:30px 5%}.copy{display:grid;grid-template-columns:1fr 1fr;gap:0 30px}.copy>.eyebrow{grid-column:1/-1}.copy>h1{grid-column:1;grid-row:2/4;font-size:55px}.copy>.intro{grid-column:2;grid-row:2}.hero-actions{grid-column:2;grid-row:3;align-self:start}.selection{grid-column:1/-1;min-height:170px;max-width:none;margin-top:10px}.selection>p:not(.selection-kicker){max-width:600px}.visual{max-width:850px;width:100%;justify-self:center}.orbit-node{width:147px;min-height:59px;padding:9px;gap:7px}.node-title{font-size:10px}.node-icon{width:25px;height:28px}.visual-top>span{font-size:9px;letter-spacing:1px}.visual-bottom{font-size:9px}.brain-label{font-size:22px}.brain-subtitle{font-size:8px}.portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.header{height:80px;padding:0 6%}.logo{font-size:43px}.logo sup{font-size:22px}.header nav{gap:18px}.header nav>a:not([aria-current]):not(.nav-cta){display:none}.nav-cta{font-size:12px;padding:12px 17px}.hero{display:flex;flex-direction:column;align-items:stretch;padding:29px 6% 34px;gap:0}.copy{display:contents}.copy>.eyebrow{font-size:8px;margin-bottom:20px}h1{font-size:clamp(46px,9vw,62px);line-height:1.07;letter-spacing:-2.8px;margin-bottom:21px}.intro{font-size:15px;max-width:500px;margin-bottom:23px}.hero-actions{order:1;margin-bottom:30px;gap:23px}.visual{order:2;padding:17px 5px 16px;border-radius:24px;align-self:stretch}.visual-top>span{font-size:7px;letter-spacing:.8px}.visual-top button{font-size:8px;min-height:30px}.visual-top button>span{display:none}.stage{aspect-ratio:1.23;margin:13px 0 2px}.orbit-node{width:38px;min-height:38px;height:38px;padding:0;justify-content:center;border-radius:12px;background:#253d63f5;box-shadow:inset 0 1px 0 #e2e9ff23,0 4px 10px #050c2266}.orbit-node.vertical{background:#44356bf5}.node-title,.node-icon{display:none}.node-mobile-number{display:block;font-size:10px;font-weight:600;color:#d3f5ff}.vertical .node-mobile-number{color:#e0ceff}.brain-button{width:45%;top:49%}.brain-label{font-size:18px;letter-spacing:2px}.brain-subtitle{font-size:7px;letter-spacing:0}.visual-bottom{font-size:7px;gap:8px;padding-left:8px;padding-right:8px;align-items:flex-start}.visual-bottom #orbit-status{max-width:110px;text-align:right}.legend{gap:4px;line-height:1.6;flex-wrap:wrap;max-width:165px}.selection{order:3;margin-top:24px;min-height:220px;max-width:none;padding-left:16px}.selection h2{font-size:23px}.selection>p:not(.selection-kicker){font-size:13px;max-width:none}.selection-tags span{font-size:10px}.selection>a{font-size:13px}.selection-kicker{font-size:9px}.portfolio{padding:38px 6% 55px}.portfolio-heading{display:block;margin-bottom:25px}.portfolio-heading>p{max-width:none;margin-top:13px;font-size:12px}.portfolio h2{font-size:29px}.portfolio-grid{grid-template-columns:1fr}.portfolio-item{padding:16px 0}.portfolio-item button{font-size:15px}.portfolio-item p{font-size:12px}.portfolio-item>a{font-size:11px}.portfolio>h3{margin-top:28px}.brain-folds{stroke-width:2.1px}}
+.node-title{overflow-wrap:anywhere;min-width:0}.visual-top button:disabled{cursor:default;opacity:.6}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.orbit-node{will-change:auto}}
+
+</style><style>
+/* Light palette variant. Layout and interactions remain shared with v3. */
+.hero{background:radial-gradient(ellipse at 0 100%,#e0f8f2,transparent 48%),radial-gradient(ellipse at 78% 20%,#f1edff,transparent 59%),#fff}
+.visual{color:#25344d;background:radial-gradient(ellipse at 52% 43%,#e3eafb 0,transparent 50%),radial-gradient(ellipse at 8% 78%,#daf7f1 0,transparent 55%),linear-gradient(130deg,#fbfdff,#f1effc 67%,#f4f2ff);border:1px solid #e6e8f3;box-shadow:0 24px 55px #5261a513,inset 0 1px 0 #ffffff}
+.visual::before{background-image:radial-gradient(#7e8db437 .7px,transparent .8px);mask-image:radial-gradient(ellipse,#000,transparent 77%)}
+.visual-top>span{color:#667691}.visual-top i{background:#0faaa5;box-shadow:0 0 8px #33cfb64d}
+.visual-top button{background:#ffffffb8;color:#586b95;border-color:#d6dded;box-shadow:0 3px 9px #5b6bb009}
+.track{opacity:.48;stroke-width:1}.track.outer{stroke:#a3a6ca;opacity:.3}.inner-track{stroke:#8583bc;opacity:.32}.inner-track.second{stroke:#369fae;opacity:.24}
+.product-wire{stroke:#6f8ab7;opacity:.24}.product-wire.selected{stroke:#168eaa;opacity:.85;stroke-width:1.6}.wire-pulse{stroke:#16a8b8;filter:drop-shadow(0 0 3px #41c7cd44)}
+.stars{fill:#7387bd;opacity:.55}.stars path{stroke:#8b8ac0}
+.brain-halo{background:radial-gradient(ellipse,#69bee32b,transparent 65%)}
+.brain-button{color:#354a82}.brain-button svg{filter:drop-shadow(0 9px 12px #4f61b032)}
+.brain-label{color:#374882;text-shadow:0 1px 0 #fff,0 0 17px #b7c5f1a6}.brain-subtitle{color:#69789c}
+.orbit-node{color:#344769;border-color:#d0ddef;background:linear-gradient(135deg,#ffffffee,#f5f8ffec);box-shadow:inset 0 1px 0 #fff,0 7px 18px #53649316;backdrop-filter:blur(12px)}
+.orbit-node.vertical{border-color:#d9cff0;background:linear-gradient(130deg,#ffffffee,#f3effbec)}
+.orbit-node:hover,.orbit-node.selected{border-color:#43b6c0;background:linear-gradient(130deg,#faffff,#e9f7fb);box-shadow:0 0 0 2px #42b6c018,0 8px 24px #29aeb524}
+.orbit-node.vertical.selected,.orbit-node.vertical:hover{border-color:#aa8ee0;background:linear-gradient(130deg,#fff,#f1eafd);box-shadow:0 0 0 2px #a98bdc18,0 8px 24px #8453c922}
+.node-icon{background:#dff2f7;color:#178fa6}.vertical .node-icon{background:#ede5fb;color:#7957b6}
+.node-mobile-number{color:#26798e}.vertical .node-mobile-number{color:#7850aa}
+.visual-bottom{color:#70809c}.legend i{background:#9c7bc9}.legend b{background:#329faa}
+@media(max-width:700px){.orbit-node{background:#f6fbfffa}.orbit-node.vertical{background:#f6f0fffa}.orbit-node:hover,.orbit-node.selected{background:#e6f8fc}.orbit-node.vertical:hover,.orbit-node.vertical.selected{background:#eee6fc}}
+
+</style></head>
+<body>
+<header class="header"><a class="logo" href="https://ericaceous-christiana-proscribable.ngrok-free.dev/" aria-label="BOIT home">bo<sup>IT</sup></a><nav aria-label="Main navigation"><a href="https://ericaceous-christiana-proscribable.ngrok-free.dev/platform/insurance">Platform</a><a href="https://ericaceous-christiana-proscribable.ngrok-free.dev/product" aria-current="page">Product</a><a href="https://ericaceous-christiana-proscribable.ngrok-free.dev/services">Services</a><a class="nav-cta" href="https://ericaceous-christiana-proscribable.ngrok-free.dev/contact">Request demo ↗</a></nav></header>
+<main id="boit-universe">
+<section class="hero" aria-labelledby="hero-title">
+  <div class="copy">
+    <p class="eyebrow"><span></span> THE BOIT PRODUCT UNIVERSE</p>
+    <h1 id="hero-title">Every product.<br>Connected by<br><em>intelligence.</em></h1>
+    <p class="intro">A connected product portfolio for Banking and Insurance. Bringing AI to customer acquisition, underwriting, claims, servicing, distribution, risk, and compliance.</p>
+    <div class="hero-actions"><a class="cta" href="#portfolio">Explore the portfolio <span>↓</span></a><a class="quiet-link" href="https://ericaceous-christiana-proscribable.ngrok-free.dev/contact">Request a demo ↗</a></div>
+    <div class="selection" aria-live="polite" aria-atomic="true">
+      <p class="selection-kicker" id="selection-kicker">ONE CONNECTED PORTFOLIO</p>
+      <h2 id="selection-title">Many solutions. One intelligent foundation.</h2>
+      <p id="selection-description">Explore every offering around the AI brain. Each connects industry workflows with shared intelligence and coordinated execution.</p>
+      <div class="selection-tags" id="selection-tags"><span>3 business verticals</span><span>9 business solutions</span></div>
+      <a id="selection-link" href="#portfolio">View all offerings <span>→</span></a>
+    </div>
+  </div>
+  <div class="visual">
+    <div class="visual-top"><span><i></i> AI AT THE CENTRE. EVERY PRODUCT CONNECTED.</span><button id="orbit-toggle" type="button" aria-label="Pause product orbit" aria-pressed="false">Ⅱ <span>Pause</span></button></div>
+    <div class="stage" id="orbit-stage" role="group" aria-label="Twelve BOIT offerings revolving around a central AI brain. Select a product to explore its details.">
+      <svg class="orbital-space" viewBox="0 0 900 620" preserveAspectRatio="none" aria-hidden="true">
+        <defs><linearGradient id="orbit-gradient" x1="0" x2="1"><stop stop-color="#13aeb5"/><stop offset=".5" stop-color="#6c81d6"/><stop offset="1" stop-color="#a37bd3"/></linearGradient><radialGradient id="ambient"><stop stop-color="#6665d3" stop-opacity=".26"/><stop offset="1" stop-color="#3b4f8f" stop-opacity="0"/></radialGradient></defs>
+        <ellipse cx="450" cy="300" rx="290" ry="230" fill="url(#ambient)"/>
+        <ellipse class="track" cx="450" cy="300" rx="344" ry="208"/><ellipse class="track outer" cx="450" cy="300" rx="374" ry="232"/>
+        <ellipse class="inner-track" cx="450" cy="300" rx="185" ry="105" transform="rotate(-28 450 300)"/>
+        <ellipse class="inner-track second" cx="450" cy="300" rx="186" ry="105" transform="rotate(28 450 300)"/>
+        <g id="product-connections"></g>
+        <g class="stars"><circle cx="262" cy="54" r="2"/><circle cx="687" cy="83" r="2"/><circle cx="120" cy="245" r="1.5"/><circle cx="771" cy="388" r="2"/><circle cx="280" cy="553" r="2"/><circle cx="610" cy="541" r="1.5"/><path d="M728 184h9m-4.5-4.5v9M234 452h9m-4.5-4.5v9" fill="none" stroke="#b1c5fa"/></g>
+      </svg>
+      <button id="brain-button" class="brain-button" type="button" aria-label="Explore the BOIT AI foundation: domain LLM, specialist agents and orchestration">
+        <span class="brain-halo"></span>
+        <svg id="neural-brain" viewBox="0 0 400 360" role="img" aria-label="Luminous intelligent brain with connected neural pathways">
+          <defs>
+            <linearGradient id="left-brain" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b3f8fa" stop-opacity=".94"/><stop offset=".35" stop-color="#29b6cf" stop-opacity=".85"/><stop offset=".75" stop-color="#416fcf"/><stop offset="1" stop-color="#252c88"/></linearGradient>
+            <linearGradient id="right-brain" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9b3ff"/><stop offset=".4" stop-color="#8973e7"/><stop offset=".8" stop-color="#6443ad"/><stop offset="1" stop-color="#2f2879"/></linearGradient>
+            <radialGradient id="brain-highlight" cx=".35" cy=".15" r=".85"><stop stop-color="#f4ffff" stop-opacity=".6"/><stop offset=".6" stop-color="#a0deff" stop-opacity=".06"/><stop offset="1" stop-color="#1c1b5e" stop-opacity=".5"/></radialGradient>
+            <filter id="neural-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter>
+            <path id="lobe-left" d="M196 76C180 46 149 44 129 63C104 47 78 64 73 88C45 89 29 113 38 138C17 156 24 187 45 198C35 222 52 247 79 248C83 279 111 294 137 282C155 307 184 298 196 275C204 241 188 221 198 195C207 165 189 139 198 113Z"/>
+            <path id="lobe-right" d="M204 76C220 46 251 44 271 63C296 47 322 64 327 88C355 89 371 113 362 138C383 156 376 187 355 198C365 222 348 247 321 248C317 279 289 294 263 282C245 307 216 298 204 275C196 241 212 221 202 195C193 165 211 139 202 113Z"/>
+            <clipPath id="brain-clip"><use href="#lobe-left"/><use href="#lobe-right"/></clipPath>
+          </defs>
+          <ellipse cx="200" cy="327" rx="119" ry="17" fill="#468cdb" opacity=".14"/>
+          <use href="#lobe-left" transform="translate(0 9)" fill="#4b77a1"/><use href="#lobe-right" transform="translate(0 9)" fill="#71589b"/>
+          <use href="#lobe-left" fill="url(#left-brain)" stroke="#a3f5fa" stroke-width="1.8"/><use href="#lobe-right" fill="url(#right-brain)" stroke="#cec0ff" stroke-width="1.8"/>
+          <g clip-path="url(#brain-clip)"><rect width="400" height="330" fill="url(#brain-highlight)"/><g id="neural-mesh"></g></g>
+          <g class="brain-folds" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M130 64C111 82 123 104 139 108C159 114 163 137 147 153M75 89C68 113 86 126 110 119C122 116 128 128 125 140M40 137C63 135 78 153 70 173C63 190 76 204 95 202M46 198C64 198 61 222 83 226C104 230 108 211 124 217M82 248C106 239 119 254 117 271M138 282C133 262 151 253 163 261C176 269 187 260 192 249M194 93C172 78 156 91 162 110C170 133 187 135 178 157C168 179 146 174 136 189C122 210 145 233 162 222C178 213 184 228 192 232M92 163C101 146 117 155 111 173C105 194 121 201 135 192"/>
+            <path d="M270 64C289 82 277 104 261 108C241 114 237 137 253 153M325 89C332 113 314 126 290 119C278 116 272 128 275 140M360 137C337 135 322 153 330 173C337 190 324 204 305 202M354 198C336 198 339 222 317 226C296 230 292 211 276 217M318 248C294 239 281 254 283 271M262 282C267 262 249 253 237 261C224 269 213 260 208 249M206 93C228 78 244 91 238 110C230 133 213 135 222 157C232 179 254 174 264 189C278 210 255 233 238 222C222 213 216 228 208 232M308 163C299 146 283 155 289 173C295 194 279 201 265 192"/>
+          </g>
+          <g class="neural-pulses"><circle cx="139" cy="108" r="4"/><circle cx="70" cy="173" r="3"/><circle cx="162" cy="222" r="4"/><circle cx="261" cy="108" r="4"/><circle cx="330" cy="173" r="3"/><circle cx="238" cy="222" r="4"/></g>
+        </svg>
+        <span class="brain-label">BOIT AI</span><span class="brain-subtitle">LLM · Agents · Orchestration</span>
+      </button>
+      <div id="product-nodes"></div>
+    </div>
+    <div class="visual-bottom"><span class="legend"><i></i> Business verticals <b></b> Business solutions</span><span id="orbit-status">Hover to pause · Select to explore</span></div>
+  </div>
+</section>
+<section class="portfolio" id="portfolio" aria-labelledby="portfolio-title"><div class="portfolio-heading"><div><p class="eyebrow">THE COMPLETE PRODUCT MENU</p><h2 id="portfolio-title">An offering for every ambition.</h2></div><p>All 12 offerings, connected to the same intelligent core.</p></div><h3>Business verticals</h3><div class="portfolio-grid vertical-grid" id="vertical-directory"></div><h3>Business solutions</h3><div class="portfolio-grid" id="solution-directory"></div></section>
+</main><script>
+(() => {
+  'use strict';
+  const root=document.getElementById('boit-universe');
+  if(!root) return;
+  const base='https://ericaceous-christiana-proscribable.ngrok-free.dev';
+  const offerings=[
+    {id:'life',title:'Life, Annuity & Medical Insurance',type:'vertical',path:'/platform/insurance/life-annuity-medical',description:'Connect life, annuity, and medical insurance journeys—from new business and underwriting to policy servicing, claims, and customer engagement.',tags:['Life & takaful','Annuity','Medical & TPA'],icon:'heart'},
+    {id:'property',title:'Property & Casualty Insurance',type:'vertical',path:'/platform/insurance/property-casualty',description:'Unify personal and commercial lines with intelligent underwriting, policy servicing, claims, and recovery across home, motor, fleet, and specialty risks.',tags:['Personal lines','Commercial lines','Claims & recovery'],icon:'home'},
+    {id:'banking',title:'Banking & Financial Services',type:'vertical',path:'/platform/banking/financial-services',description:'Connect retail, corporate, and investment banking through digital channels, automated operations, customer intelligence, and stronger risk oversight.',tags:['Retail banking','Corporate banking','Investment banking'],icon:'bank'},
+    {id:'automation',title:'Intelligent Process Automation',type:'solution',path:'/product/solutions/intelligent-process-automation',description:'Combine AI and RPA to coordinate new business, underwriting, policy servicing, and claims—reducing manual handoffs and keeping exceptions visible.',tags:['New business','Underwriting','Servicing & claims'],icon:'workflow'},
+    {id:'case',title:'Smart Case Management',type:'solution',path:'/product/solutions/smart-case-management',description:'Bring intake, evidence review, task assignment, and resolution into one case view, with preserved context, collaboration, and SLA-aware routing.',tags:['Intake & review','SLA-aware routing','Case resolution'],icon:'case'},
+    {id:'core',title:'Insurance Core Modernization',type:'solution',path:'/product/solutions/insurance-core-modernization',description:'Modernize policy administration, billing, and claims on a modular architecture that connects systems and supports new products and digital experiences.',tags:['Modernize','Integrate','Optimize & scale'],icon:'layers'},
+    {id:'medical',title:'Medical Underwriting',type:'solution',path:'/product/solutions/medical-underwriting',description:'Organize medical evidence, analyze health and applicant data, and surface risk insights and recommended decisions for expert underwriting review.',tags:['Collect evidence','Assess risk','Support decisions'],icon:'pulse'},
+    {id:'motor',title:'Motor Claims Management',type:'solution',path:'/product/solutions/motor-claims-management',description:'Digitize the motor claims journey from first notice of loss to closure, connecting image-based damage assessment, repair networks, and settlement workflows.',tags:['Digital FNOL','Damage assessment','Settlement'],icon:'car'},
+    {id:'fraud',title:'Fraud Detection & Management',type:'solution',path:'/product/solutions/fraud-detection',description:'Analyze claims, applications, payments, and identity signals to identify anomalies, prioritize alerts, and package evidence for investigators.',tags:['Anomaly detection','Investigation','Evidence trails'],icon:'shield'},
+    {id:'kyc',title:'e-KYC & Customer Onboarding',type:'solution',path:'/product/solutions/ekyc-onboarding',description:'Guide digital identity capture, document extraction, face matching, and liveness checks through to account, policy, or card onboarding.',tags:['Document verification','Biometrics','Digital onboarding'],icon:'identity'},
+    {id:'agency',title:'ePOS & Agency Management',type:'solution',path:'/product/solutions/epos-agency',description:'Equip agents with digital quoting and issuance, pipeline analytics, and agency management tools across branches, distribution partners, and mobile channels.',tags:['Quote & issue','Agency network','Sales analytics'],icon:'growth'},
+    {id:'aml',title:'Digital AML & Compliance',type:'solution',path:'/product/solutions/digital-aml',description:'Connect customer screening, transaction monitoring, sanctions and PEP checks, and regulatory reporting with risk context and auditable evidence.',tags:['Screen & monitor','Risk assessment','Regulatory reporting'],icon:'compliance'}
+  ];
+  const paths={
+    heart:'M12 20S3 14 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 12-9 12Z',
+    home:'m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7',
+    bank:'m3 8 9-5 9 5ZM3 21h18M5 10v8m7-8v8m7-8v8',
+    workflow:'M3 3h7v6H3ZM14 15h7v6h-7ZM3 15h7v6H3ZM10 6h8v9M6 9v6m4 3h4',
+    case:'M3 6h7l2 2h9v12H3ZM6 12h12M6 16h8',
+    layers:'m3 7 9-4 9 4-9 4Zm0 5 9 4 9-4M3 17l9 4 9-4',
+    pulse:'M2 12h5l3-8 4 16 3-8h5',
+    car:'m5 7-2 7v6h3v-3h12v3h3v-6l-2-7ZM3 13h18M7 7h10M6 14h2m8 0h2',
+    shield:'M12 3 21 7v6c0 4-9 9-9 9s-9-5-9-9V7Zm-4 9 3 3 5-6',
+    identity:'M3 5h18v14H3ZM7 14c0-3 5-3 5 0m-1-5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 0h3m-3 4h3',
+    growth:'M3 21V10m6 11V7m6 14v-9m6 9V3M3 7l6-4 6 5 6-5',
+    compliance:'M5 3h10l4 4v14H5ZM15 3v5h4M8 12h8m-8 4h4'
+  };
+  const $=id=>document.getElementById(id);
+  const stage=$('orbit-stage'),nodeRoot=$('product-nodes'),wireRoot=$('product-connections');
+  const ns='http://www.w3.org/2000/svg';
+  const makeSvg=(tag,attrs)=>{const el=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,String(v)));return el;};
+  const nodes=[],wires=[],pulses=[],directory=[];
+  let selected=null,manualPause=false,hoverPause=false,focusPause=false,hidden=document.hidden;
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const mobile=window.matchMedia('(max-width: 700px)');
+  let width=0,height=0,phase=0,last=0,frame=0;
+  offerings.forEach((p,index)=>{
+    const button=document.createElement('button');button.type='button';button.className='orbit-node '+p.type;button.dataset.product=p.id;button.setAttribute('aria-label',p.title+'. Show product details.');button.setAttribute('aria-pressed','false');
+    const icon=document.createElement('span');icon.className='node-icon';icon.setAttribute('aria-hidden','true');const svg=makeSvg('svg',{viewBox:'0 0 24 24'});svg.append(makeSvg('path',{d:paths[p.icon]}));icon.append(svg);
+    const title=document.createElement('span');title.className='node-title';title.textContent=p.title;
+    const number=document.createElement('span');number.className='node-mobile-number';number.setAttribute('aria-hidden','true');number.textContent=String(index+1).padStart(2,'0');button.append(icon,title,number);button.addEventListener('click',()=>select(p.id));nodeRoot.append(button);nodes.push(button);
+    const wire=makeSvg('line',{x1:450,y1:300,x2:450,y2:300,class:'product-wire'});const pulse=makeSvg('line',{x1:450,y1:300,x2:450,y2:300,class:'wire-pulse'});wireRoot.append(wire,pulse);wires.push(wire);pulses.push(pulse);
+    const item=document.createElement('article');item.className='portfolio-item';
+    const choose=document.createElement('button');choose.type='button';const count=document.createElement('span');count.className='index';count.textContent=String(index+1).padStart(2,'0');const label=document.createElement('span');label.textContent=p.title;choose.append(count,label);choose.addEventListener('click',()=>{select(p.id);$('selection-title').scrollIntoView({behavior:reduced.matches?'instant':'smooth',block:'center'});});
+    const summary=document.createElement('p');summary.textContent=p.description;
+    const link=document.createElement('a');link.href=base+p.path;link.textContent='Explore offering ↗';link.setAttribute('aria-label','Explore '+p.title);
+    item.append(choose,summary,link);$(p.type==='vertical'?'vertical-directory':'solution-directory').append(item);directory.push(item);
+  });
+  function select(id){
+    const p=offerings.find(p=>p.id===id);if(!p)return;
+    selected=p.id;
+    $('selection-kicker').textContent=p.type==='vertical'?'BUSINESS VERTICAL':'BUSINESS SOLUTION';$('selection-title').textContent=p.title;$('selection-description').textContent=p.description;
+    $('selection-tags').replaceChildren(...p.tags.map(text=>{const el=document.createElement('span');el.textContent=text;return el;}));
+    $('selection-link').href=base+p.path;$('selection-link').replaceChildren(document.createTextNode('Explore this offering '));const arrow=document.createElement('span');arrow.textContent='↗';$('selection-link').append(arrow);
+    offerings.forEach((p,i)=>{const active=p.id===id;nodes[i].classList.toggle('selected',active);nodes[i].setAttribute('aria-pressed',String(active));wires[i].classList.toggle('selected',active);pulses[i].classList.toggle('selected',active);directory[i].classList.toggle('selected',active);});
+    const panel=root.querySelector('.selection');panel.removeAttribute('data-selected');requestAnimationFrame(()=>panel.setAttribute('data-selected','true'));
+    root.dataset.selected=id;
+  }
+  function reset(){
+    selected=null;delete root.dataset.selected;
+    $('selection-kicker').textContent='THE INTELLIGENCE AT THE CENTRE';$('selection-title').textContent='One AI brain. A connected product universe.';$('selection-description').textContent='BOIT’s domain-focused LLM, specialist agents, and AI orchestration connect industry context, execution, and human oversight across the portfolio.';
+    $('selection-tags').replaceChildren(...['Domain LLM','Specialist agents','AI orchestration'].map(text=>{const el=document.createElement('span');el.textContent=text;return el;}));$('selection-link').href='#portfolio';$('selection-link').textContent='Explore all 12 offerings →';
+    nodes.forEach((n,i)=>{n.classList.remove('selected');n.setAttribute('aria-pressed','false');wires[i].classList.remove('selected');pulses[i].classList.remove('selected');directory[i].classList.remove('selected');});
+  }
+  $('brain-button').addEventListener('click',reset);
+  function layout(){
+    const rect=stage.getBoundingClientRect();width=rect.width;height=rect.height;
+    nodes.forEach(node=>node.style.width=mobile.matches?'38px':Math.min(164,width*.185)+'px');
+    position();
+  }
+  function position(){
+    if(!width||!height)return;
+    offerings.forEach((p,i)=>{
+      const angle=-Math.PI/2+i*Math.PI*2/offerings.length+phase;
+      const x=450+344*Math.cos(angle),y=300+208*Math.sin(angle);
+      const depth=(Math.sin(angle)+1)/2;
+      nodes[i].style.transform='translate3d('+x/900*width+'px,'+y/620*height+'px,0) translate(-50%,-50%)';nodes[i].style.zIndex=String(4+Math.round(depth*10));
+      wires[i].setAttribute('x2',x.toFixed(2));wires[i].setAttribute('y2',y.toFixed(2));pulses[i].setAttribute('x2',x.toFixed(2));pulses[i].setAttribute('y2',y.toFixed(2));
+    });
+  }
+  const isPaused=()=>manualPause||hoverPause||focusPause||hidden||reduced.matches;
+  function syncMotion(){
+    root.classList.toggle('paused',isPaused());$('orbit-toggle').setAttribute('aria-pressed',String(manualPause));$('orbit-toggle').setAttribute('aria-label',manualPause?'Resume product orbit':'Pause product orbit');$('orbit-toggle').replaceChildren(document.createTextNode(manualPause?'▶ ':'Ⅱ '));const text=document.createElement('span');text.textContent=manualPause?'Resume':'Pause';$('orbit-toggle').append(text);
+    $('orbit-toggle').disabled=reduced.matches;
+    if(reduced.matches){$('orbit-toggle').textContent='Motion off';$('orbit-toggle').setAttribute('aria-label','Orbit disabled by reduced motion preference');}
+    $('orbit-status').textContent=reduced.matches?'Motion reduced · Select to explore':manualPause?'Orbit paused · Select to explore':hoverPause||focusPause?'Paused for exploration':'Hover to pause · Select to explore';
+  }
+  $('orbit-toggle').addEventListener('click',()=>{manualPause=!manualPause;syncMotion();});
+  stage.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch'){hoverPause=true;syncMotion();}});
+  stage.addEventListener('pointerleave',()=>{hoverPause=false;syncMotion();});
+  stage.addEventListener('focusin',()=>{focusPause=true;syncMotion();});
+  stage.addEventListener('focusout',event=>{if(!stage.contains(event.relatedTarget)){focusPause=false;syncMotion();}});
+  document.addEventListener('visibilitychange',()=>{hidden=document.hidden;syncMotion();});reduced.addEventListener('change',syncMotion);
+  // Add a subtle connected neural mesh inside the sculpted brain silhouette.
+  const mesh=$('neural-mesh');const points=[[85,105],[129,83],[169,102],[55,149],[105,145],[146,153],[183,164],[74,195],[114,198],[158,218],[103,247],[150,265],[315,105],[271,83],[231,102],[345,149],[295,145],[254,153],[217,164],[326,195],[286,198],[242,218],[297,247],[250,265]];
+  points.forEach((point,i)=>{points.map((p,j)=>({j,d:(p[0]-point[0])**2+(p[1]-point[1])**2})).filter(p=>p.j!==i).sort((a,b)=>a.d-b.d).slice(0,3).forEach(({j})=>{if(j>i)mesh.append(makeSvg('line',{x1:point[0],y1:point[1],x2:points[j][0],y2:points[j][1],class:'neural-line'}));});mesh.append(makeSvg('circle',{cx:point[0],cy:point[1],r:i%3===0?2.7:1.7,class:'neural-dot'}));});
+  function animate(time){const delta=last?Math.min((time-last)/1000,.1):0;last=time;if(!isPaused()){phase=(phase+delta*.045)%(Math.PI*2);position();}frame=requestAnimationFrame(animate);}
+  const observer=new ResizeObserver(layout);observer.observe(stage);layout();syncMotion();frame=requestAnimationFrame(animate);
+  // Optional embedding API. The host can tear down animation when unmounting.
+  root.boitUniverse={select,offerings:offerings.map(p=>({...p})),destroy(){cancelAnimationFrame(frame);observer.disconnect();}};
+})();
+
+</script>
+</body></html>

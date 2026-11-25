@@ -1,86 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { brand, footer, primaryNav } from '../data/site';
-import Magnetic from './motion/Magnetic';
-import SplitText from './motion/SplitText';
+import { logoFull } from '../brand/logos';
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer id="footer" className="panel-dark">
-      <div className="shell" style={{ padding: '120px 40px 72px' }}>
+      <div className="shell" style={{ padding: '72px 40px' }}>
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0,1.1fr) minmax(0,.9fr)',
-            gap: 64,
-            alignItems: 'end',
-          }}
-          data-stack="1"
-        >
-          <div>
-            <p className="eyebrow" style={{ color: 'var(--on-dark-4)' }}>
-              {footer.band.eyebrow}
-            </p>
-            <SplitText
-              as="h2"
-              text={footer.band.title}
-              style={{
-                fontSize: 'clamp(34px, 5vw, 76px)',
-                lineHeight: 0.98,
-                letterSpacing: '-.04em',
-                fontWeight: 600,
-                margin: '24px 0 0',
-                maxWidth: '20ch',
-              }}
-            />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
-            <ul
-              style={{
-                listStyle: 'none',
-                margin: 0,
-                padding: 0,
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: 10,
-              }}
-            >
-              {footer.band.points.map((p) => (
-                <li
-                  key={p}
-                  style={{
-                    fontFamily: 'var(--mono)',
-                    fontSize: 11,
-                    letterSpacing: '.1em',
-                    textTransform: 'uppercase',
-                    color: 'var(--on-dark-3)',
-                    border: '1px solid rgba(238,243,241,.2)',
-                    borderRadius: 999,
-                    padding: '8px 14px',
-                  }}
-                >
-                  {p}
-                </li>
-              ))}
-            </ul>
-            <Magnetic
-              as={Link}
-              to={footer.band.cta.to}
-              className="btn btn--primary btn--block"
-            >
-              {footer.band.cta.label}
-              <span>→</span>
-            </Magnetic>
-          </div>
-        </div>
-
-        <div
-          style={{
-            marginTop: 96,
-            paddingTop: 30,
-            borderTop: '1px solid var(--line-dark)',
             display: 'grid',
             gridTemplateColumns: 'repeat(4, minmax(0,1fr))',
             gap: 32,
@@ -88,10 +18,20 @@ export default function Footer() {
           data-stack="1"
         >
           <div>
-            <span style={{ fontSize: 24, fontWeight: 700, letterSpacing: '-.04em' }}>
-              <span style={{ color: 'var(--bright)' }}>bo</span>
-              <span style={{ color: 'var(--on-dark)' }}>IT</span>
-            </span>
+            <Link to="/" aria-label={brand.ariaLabel} style={{ display: 'inline-flex' }}>
+              <img
+                src={logoFull}
+                alt={brand.name}
+                style={{
+                  height: 28,
+                  width: 'auto',
+                  maxWidth: 112,
+                  objectFit: 'contain',
+                  objectPosition: 'left center',
+                  display: 'block',
+                }}
+              />
+            </Link>
             <p
               style={{
                 margin: '14px 0 0',
@@ -121,8 +61,9 @@ export default function Footer() {
             <div className="eyebrow" style={{ marginBottom: 4 }}>
               Platform
             </div>
-            <Link to="/product/insurance">Insurance Platform</Link>
-            <Link to="/product/banking">Banking Platform</Link>
+            <Link to="/platform/insurance">Insurance Platform</Link>
+            <Link to="/platform/banking">Banking Platform</Link>
+            <Link to="/platform/capabilities">Explore the platform</Link>
             <Link to="/product/capabilities">AI Capabilities</Link>
           </div>
 
@@ -130,7 +71,6 @@ export default function Footer() {
             <div className="eyebrow" style={{ marginBottom: 4 }}>
               Contact
             </div>
-            <a href="mailto:hello@boitglobal.com">hello@boitglobal.com</a>
             <a href="mailto:marcom@boitglobal.com">marcom@boitglobal.com</a>
             <Link to="/contact">Demo</Link>
           </div>
@@ -139,6 +79,8 @@ export default function Footer() {
         <div
           style={{
             marginTop: 48,
+            paddingTop: 30,
+            borderTop: '1px solid var(--line-dark)',
             fontFamily: 'var(--mono)',
             fontSize: 10.5,
             letterSpacing: '.12em',

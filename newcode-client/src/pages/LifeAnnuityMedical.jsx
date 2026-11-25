@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductVerticalPage from '../components/ProductVerticalPage';
-import heroImage from '../assets/pageimages/LifeAnnuityMedical.png';
+import { verticalHeroes } from '../data/submenuHeroes';
+const heroImage = verticalHeroes.life;
 
 export default function LifeAnnuityMedical() {
   return (
@@ -28,7 +29,7 @@ export default function LifeAnnuityMedical() {
       ]}
       acceleratorsTitle="Engagement, operations, and distribution — ready for life & medical."
       platformLabel="Insurance Platform"
-      platformTo="/product/insurance"
+      platformTo="/platform/insurance"
     />
   );
 }

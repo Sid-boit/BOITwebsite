@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BOIT — The Product Atom</title><link rel="stylesheet" href="universe.css"><link rel="stylesheet" href="light-theme.css"><link rel="stylesheet" href="atom.css"></head>
+<body>
+<header class="header"><a class="logo" href="https://ericaceous-christiana-proscribable.ngrok-free.dev/" aria-label="BOIT home">bo<sup>IT</sup></a><nav aria-label="Main navigation"><a href="https://ericaceous-christiana-proscribable.ngrok-free.dev/platform/insurance">Platform</a><a href="https://ericaceous-christiana-proscribable.ngrok-free.dev/product" aria-current="page">Product</a><a href="https://ericaceous-christiana-proscribable.ngrok-free.dev/services">Services</a><a class="nav-cta" href="https://ericaceous-christiana-proscribable.ngrok-free.dev/contact">Request demo ↗</a></nav></header>
+<main id="boit-universe">
+<section class="hero" aria-labelledby="hero-title">
+  <div class="copy">
+    <p class="eyebrow"><span></span> THE BOIT PRODUCT UNIVERSE</p>
+    <h1 id="hero-title">Every product.<br>Connected by<br><em>intelligence.</em></h1>
+    <p class="intro">A connected product portfolio for Banking and Insurance. Bringing AI to customer acquisition, underwriting, claims, servicing, distribution, risk, and compliance.</p>
+    <div class="hero-actions"><a class="cta" href="#portfolio">Explore the portfolio <span>↓</span></a><a class="quiet-link" href="https://ericaceous-christiana-proscribable.ngrok-free.dev/contact">Request a demo ↗</a></div>
+    <div class="selection" aria-live="polite" aria-atomic="true">
+      <p class="selection-kicker" id="selection-kicker">ONE CONNECTED PORTFOLIO</p>
+      <h2 id="selection-title">Many solutions. One intelligent foundation.</h2>
+      <p id="selection-description">Explore every offering around the AI nucleus. Each connects industry workflows with shared intelligence and coordinated execution.</p>
+      <div class="selection-tags" id="selection-tags"><span>3 business verticals</span><span>9 business solutions</span></div>
+      <a id="selection-link" href="#portfolio">View all offerings <span>→</span></a>
+    </div>
+  </div>
+  <div class="visual">
+    <div class="visual-top"><span><i></i> ONE INTELLIGENT CORE. EVERY PRODUCT CONNECTED.</span><button id="orbit-toggle" type="button" aria-label="Pause product orbit" aria-pressed="false">Ⅱ <span>Pause</span></button></div>
+    <div class="stage" id="orbit-stage" role="group" aria-label="Twelve BOIT offerings with image thumbnails revolving around a spherical AI nucleus. Select a product to explore its details.">
+      <svg class="orbital-space" viewBox="0 0 900 620" preserveAspectRatio="none" aria-hidden="true">
+        <defs><linearGradient id="orbit-gradient" x1="0" x2="1"><stop stop-color="#13aeb5"/><stop offset=".5" stop-color="#6c81d6"/><stop offset="1" stop-color="#a37bd3"/></linearGradient><radialGradient id="ambient"><stop stop-color="#6665d3" stop-opacity=".26"/><stop offset="1" stop-color="#3b4f8f" stop-opacity="0"/></radialGradient></defs>
+        <ellipse cx="450" cy="300" rx="290" ry="230" fill="url(#ambient)"/>
+        <g id="atom-orbits">
+          <ellipse class="atom-track" cx="450" cy="300" rx="350" ry="122"/>
+          <ellipse class="atom-track" cx="450" cy="300" rx="290" ry="115" transform="rotate(-52 450 300)"/>
+          <ellipse class="atom-track" cx="450" cy="300" rx="290" ry="115" transform="rotate(52 450 300)"/>
+        </g>
+        <g id="product-connections"></g>
+        <g class="stars"><circle cx="262" cy="54" r="2"/><circle cx="687" cy="83" r="2"/><circle cx="120" cy="245" r="1.5"/><circle cx="771" cy="388" r="2"/><circle cx="280" cy="553" r="2"/><circle cx="610" cy="541" r="1.5"/><path d="M728 184h9m-4.5-4.5v9M234 452h9m-4.5-4.5v9" fill="none" stroke="#b1c5fa"/></g>
+      </svg>
+      <button id="nucleus-button" class="nucleus-button" type="button" aria-label="Explore the BOIT AI nucleus: domain LLM, specialist agents and orchestration">
+        <span class="nucleus-halo"></span><span class="nucleus" aria-hidden="true"></span>
+        <span class="nucleus-label">BOIT AI</span><span class="nucleus-caption">LLM · Agents · Orchestration</span>
+      </button>
+      <div id="product-nodes"></div>
+    </div>
+    <div class="visual-bottom"><span class="legend">12 connected offerings · One intelligent nucleus</span><span id="orbit-status">Hover to pause · Select to explore</span></div>
+  </div>
+</section>
+<section class="portfolio" id="portfolio" aria-labelledby="portfolio-title"><div class="portfolio-heading"><div><p class="eyebrow">THE COMPLETE PRODUCT MENU</p><h2 id="portfolio-title">An offering for every ambition.</h2></div><p>All 12 offerings, connected to the same intelligent core.</p></div><h3>Business verticals</h3><div class="portfolio-grid vertical-grid" id="vertical-directory"></div><h3>Business solutions</h3><div class="portfolio-grid" id="solution-directory"></div></section>
+</main><script src="universe.js"></script>
+</body></html>

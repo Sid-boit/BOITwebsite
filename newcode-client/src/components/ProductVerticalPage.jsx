@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { platforms, productHub } from '../data/products';
 import CtaBand from './CtaBand';
+import GlassPanel from './GlassPanel';
 import Reveal from './motion/Reveal';
 import SplitText from './motion/SplitText';
 import Magnetic from './motion/Magnetic';
+import useTiltPanels from '../hooks/useTiltPanels';
+import '../styles/brand-surfaces.css';
+import './ProductVerticalPage.css';
 
-/* Shared sample vertical page: copy left, hero image right. */
+/* Shared product vertical / solution page: wash hero, glass pillars, accelerators. */
 export default function ProductVerticalPage({
   platformKey,
   title,
@@ -21,29 +25,18 @@ export default function ProductVerticalPage({
   acceleratorsTitle,
   platformLabel,
   platformTo,
+  ctaEyebrow,
 }) {
   const platform = platformKey ? platforms[platformKey] : null;
   const cta = platform?.cta || productHub.cta;
+  const rootRef = useRef(null);
+  useTiltPanels(rootRef, []);
 
   return (
-    <>
-      <section
-        style={{
-          position: 'relative',
-          maxWidth: 'var(--shell)',
-          margin: '0 auto',
-          padding: '148px var(--gutter) 72px',
-        }}
-      >
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 0.85fr) minmax(0, 1.25fr)',
-            gap: 40,
-            alignItems: 'center',
-          }}
-          data-stack="1"
-        >
+    <div className="brand-page vertical-page" ref={rootRef}>
+      <section className="page-hero page-hero--wash vertical-page__hero">
+        <div className="page-hero__wash" aria-hidden="true" />
+        <div className="vertical-page__hero-inner" data-stack="1">
           <div>
             <h1
               className="h1 fade-up"
@@ -54,11 +47,10 @@ export default function ProductVerticalPage({
 
             {headline ? (
               <p
-                className="fade-up"
+                className="fade-up page-tagline"
                 style={{
                   margin: '22px 0 0',
                   maxWidth: '42ch',
-                  fontSize: 'clamp(18px, 1.8vw, 24px)',
                   fontWeight: 700,
                   lineHeight: 1.25,
                   letterSpacing: '-0.02em',
@@ -69,44 +61,42 @@ export default function ProductVerticalPage({
               </p>
             ) : null}
 
-            <p className="lede fade-up" style={{ marginTop: 18, maxWidth: '42ch', animationDelay: '.18s' }}>
+            <p
+              className="lede fade-up"
+              style={{ marginTop: 18, maxWidth: '42ch', animationDelay: '.18s' }}
+            >
               {lede}
             </p>
 
             <div
               className="fade-up"
-              style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 32, animationDelay: '.28s' }}
+              style={{
+                display: 'flex',
+                gap: 12,
+                flexWrap: 'wrap',
+                marginTop: 32,
+                animationDelay: '.28s',
+              }}
             >
               <Magnetic as={Link} to="/contact" className="btn btn--primary">
                 Demo
               </Magnetic>
               {platformTo ? (
                 <Magnetic as={Link} to={platformTo} className="btn btn--ghost">
-                  {platformLabel} <span>→</span>
+                  {platformLabel}
                 </Magnetic>
               ) : null}
             </div>
           </div>
 
-          <Reveal className="lam-hero-visual" style={{ justifySelf: 'stretch', width: '100%', maxWidth: 'none' }}>
-            <img
-              src={image}
-              alt={imageAlt}
-              style={{
-                display: 'block',
-                width: '100%',
-                height: 'auto',
-                minHeight: 420,
-                borderRadius: 28,
-                objectFit: 'contain',
-              }}
-            />
+          <Reveal className="lam-hero-visual vertical-page__visual">
+            <img src={image} alt={imageAlt} />
           </Reveal>
         </div>
       </section>
 
-      <section className="panel-light">
-        <div className="shell" style={{ padding: '96px var(--gutter)' }}>
+      <section className="brand-section brand-wash">
+        <div className="shell" style={{ padding: '0 var(--gutter)' }}>
           <Reveal as="p" className="eyebrow">
             {pillarsEyebrow}
           </Reveal>
@@ -117,16 +107,18 @@ export default function ProductVerticalPage({
             style={{ margin: '18px 0 48px', maxWidth: '18ch' }}
           />
 
-          <div
-            className="grid-hair"
-            style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}
-            data-stack="1"
-          >
+          <div className="vertical-page__pillars brand-card-grid" data-stack="1">
             {pillars.map((p, i) => (
-              <Reveal key={p.title} delay={i + 1} className="hair-cell lift">
-                <div className="tag">{`0${i + 1}`}</div>
-                <h3 style={{ fontSize: 22, letterSpacing: '-.03em', margin: '10px 0 12px' }}>{p.title}</h3>
-                <p style={{ margin: 0, color: 'var(--body-2)', fontSize: 15, lineHeight: 1.55 }}>{p.body}</p>
+              <Reveal key={p.title} delay={i + 1}>
+                <GlassPanel
+                  accent
+                  className={`vertical-page__card vertical-page__card--tone-${
+                    i % 2 === 0 ? 'violet' : 'teal'
+                  }`}
+                >
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
+                </GlassPanel>
               </Reveal>
             ))}
           </div>
@@ -134,56 +126,51 @@ export default function ProductVerticalPage({
       </section>
 
       {platform && acceleratorsTitle ? (
-        <section className="section">
-          <Reveal as="p" className="eyebrow">
-            Accelerators
-          </Reveal>
-          <SplitText
-            as="h2"
-            text={acceleratorsTitle}
-            className="h2"
-            style={{ margin: '18px 0 48px', maxWidth: '22ch' }}
-          />
+        <section className="brand-section brand-band vertical-page__accels-section">
+          <div className="shell" style={{ padding: '0 var(--gutter)' }}>
+            <div className="vertical-page__accels-layout">
+              <div className="vertical-page__accels-sticky">
+                <Reveal as="p" className="eyebrow">
+                  Accelerators
+                </Reveal>
+                <SplitText
+                  as="h2"
+                  text={acceleratorsTitle}
+                  className="h2"
+                  style={{ margin: '18px 0 0', maxWidth: '18ch' }}
+                />
+              </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-            {platform.modules.map((m, i) => (
-              <Reveal key={m.id} delay={(i % 3) + 1}>
-                <Link
-                  to={`${platformTo}#${m.id}`}
-                  className="lift"
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '88px minmax(0, 1fr)',
-                    gap: 24,
-                    padding: '28px 0',
-                    borderTop: '1px solid var(--line)',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                  }}
-                  data-stack="1"
-                >
-                  <span className="eyebrow eyebrow--accent" style={{ marginTop: 6 }}>
-                    {`0${i + 1}`}
-                  </span>
-                  <div>
-                    <h3 style={{ margin: 0, fontSize: 24, letterSpacing: '-.03em' }}>{m.name}</h3>
-                    <p style={{ margin: '10px 0 0', color: 'var(--body-2)', maxWidth: '56ch' }}>
-                      {m.headline}. {m.solution}
-                    </p>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
+              <div className="vertical-page__accels">
+                {platform.modules.map((m, i) => (
+                  <Reveal key={m.id} delay={(i % 3) + 1}>
+                    <GlassPanel
+                      as={Link}
+                      to={`${platformTo}#${m.id}`}
+                      accent
+                      className={`vertical-page__card vertical-page__accel vertical-page__card--tone-${
+                        i % 2 === 0 ? 'teal' : 'violet'
+                      }`}
+                    >
+                      <h3>{m.name}</h3>
+                      <p>
+                        {m.headline}. {m.solution}
+                      </p>
+                    </GlassPanel>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       ) : null}
 
       <CtaBand
-        eyebrow={platform?.eyebrow || 'Product'}
+        eyebrow={ctaEyebrow || platform?.eyebrow || 'Product'}
         title={cta.title}
         body={cta.body}
         buttons={cta.buttons}
       />
-    </>
+    </div>
   );
 }

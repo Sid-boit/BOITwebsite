@@ -1,64 +1,130 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { productHub, platforms, capabilities, aiComponents, featureInventory } from '../data/products';
 import PageHero from '../components/PageHero';
+import ProductAtomHero from '../components/ProductAtomHero';
 import ScrollDeck from '../components/ScrollDeck';
 import CtaBand from '../components/CtaBand';
+import GlassPanel from '../components/GlassPanel';
 import Reveal from '../components/motion/Reveal';
 import SplitText from '../components/motion/SplitText';
 import Magnetic from '../components/motion/Magnetic';
+import useTiltPanels from '../hooks/useTiltPanels';
+import insuranceVisual from '../assets/insurance.png';
+import bankingVisual from '../assets/02-banking.png';
+import aiCapabilitiesVisual from '../assets/03-ai-capabilities.png';
+import '../styles/brand-surfaces.css';
+import './Product.css';
+
+/* Merge insurance + banking inventory blocks that share an accelerator role. */
+const inventoryGroupKey = (title) => {
+  const t = title.toLowerCase();
+  if (t.includes('engagement')) return 'engagement';
+  if (t.includes('operation')) return 'operations';
+  if (t.includes('distribution') || t.includes('channel')) return 'distribution';
+  return title;
+};
+
+const inventoryGroupTitle = {
+  engagement: 'Accelerate Engagement',
+  operations: 'Accelerate Operations',
+  distribution: 'Accelerate Distribution',
+};
+
+const combinedInventory = (() => {
+  const order = [];
+  const byKey = new Map();
+
+  for (const [pillar, blocks] of Object.entries(featureInventory)) {
+    for (const block of blocks) {
+      const key = inventoryGroupKey(block.title);
+      if (!byKey.has(key)) {
+        byKey.set(key, {
+          title: inventoryGroupTitle[key] || block.title,
+          banner: block.banner,
+          pillars: [],
+        });
+        order.push(key);
+      }
+      const entry = byKey.get(key);
+      entry.pillars.push({
+        key: pillar,
+        label: pillar === 'insurance' ? 'Insurance' : 'Banking',
+        features: block.features,
+      });
+      if (pillar === 'insurance') entry.banner = block.banner;
+    }
+  }
+
+  return order.map((key) => byKey.get(key));
+})();
 
 /* Hub deck: the two platform pillars plus the shared intelligence layer. */
 const deckCards = [
   {
     index: 1,
-    tag: 'Platform pillar',
+    tag: '',
     title: 'Insurance',
     body: platforms.insurance.subtitle,
-    bullets: featureInventory.insurance.map((f) => `${f.title} — ${f.tagline.split('.')[0]}.`),
-    to: '/product/insurance',
+    bullets: featureInventory.insurance.map((f) =>
+      f.tagline?.trim() ? `${f.title} — ${f.tagline.replace(/\.$/, '')}.` : f.title,
+    ),
+    to: '/platform/insurance',
     linkLabel: productHub.pillars[0].linkLabel,
-    facts: platforms.insurance.modules.map((m) => ({
-      k: m.name,
-      v: m.features.map((f) => f.title).join(' · '),
-    })),
+    image: insuranceVisual,
+    imageAlt: 'Connected insurance engagement, operations, and distribution workflows',
   },
   {
     index: 2,
-    tag: 'Platform pillar',
+    tag: '',
     title: 'Banking',
     dark: true,
     body: platforms.banking.subtitle,
-    bullets: featureInventory.banking.map((f) => `${f.title} — ${f.tagline}`),
-    to: '/product/banking',
+    bullets: featureInventory.banking.map((f) =>
+      f.tagline?.trim() ? `${f.title} — ${f.tagline.replace(/\.$/, '')}.` : f.title,
+    ),
+    to: '/platform/banking',
     linkLabel: productHub.pillars[1].linkLabel,
-    facts: platforms.banking.modules.map((m) => ({
-      k: m.name,
-      v: m.features.map((f) => f.title).join(' · '),
-    })),
+    image: bankingVisual,
+    imageAlt: 'Intelligent banking channels, operations, and customer engagement',
   },
   {
     index: 3,
-    tag: 'Intelligence layer',
+    tag: '',
     title: 'AI Capabilities',
     body: productHub.capabilitiesStrip.subtitle,
     chips: capabilities.items.map((c) => c.title.replace(/\s*\(.*\)$/, '')),
     to: '/product/capabilities',
     linkLabel: productHub.capabilitiesStrip.cta.label,
+    image: aiCapabilitiesVisual,
+    imageAlt: 'Unified AI capabilities powering insurance and banking modules',
   },
 ];
 
 export default function Product() {
-  const { hero, pillars, pillarsEyebrow, capabilitiesStrip, cta } = productHub;
+  const { hero, pillars, capabilitiesStrip, cta } = productHub;
+  const rootRef = useRef(null);
+  useTiltPanels(rootRef, []);
 
   return (
-    <>
-      <PageHero eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle}>
+    <div className="brand-page product-page" ref={rootRef}>
+      <ProductAtomHero />
+
+      <PageHero
+        eyebrow={hero.eyebrow}
+        title={hero.title}
+        subtitle={hero.subtitle}
+        style={{
+          maxWidth: 'var(--shell)',
+          margin: '0 auto',
+          padding: '56px var(--gutter) 28px',
+        }}
+      >
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           {pillars.map((p) => (
-            <Magnetic key={p.key} as={Link} to={p.to} className="btn btn--ghost">
-              {p.linkLabel} <span>→</span>
+            <Magnetic key={p.key} as={Link} to={p.to} className="btn btn--primary">
+              {p.linkLabel}
             </Magnetic>
           ))}
         </div>
@@ -66,123 +132,72 @@ export default function Product() {
 
       <ScrollDeck
         id="pillars"
-        eyebrow={`01 — ${pillarsEyebrow}`}
-        title="One platform. Every touchpoint."
+        mode="hover"
+        spotlight
+        title=""
         allLink="/product/capabilities"
         allLabel="View all capabilities"
         cards={deckCards}
       />
 
-      {/* ---------------------------------------- feature inventory grid */}
-      <section className="panel-light" style={{ marginTop: 128 }}>
-        <div className="shell" style={{ padding: '112px 40px' }}>
-          <Reveal as="p" className="eyebrow">
-            02 — Module inventory
-          </Reveal>
+      {/* ---------------------------------------- feature inventory */}
+      <section className="brand-band">
+        <div className="shell brand-section">
           <SplitText
             as="h2"
             text="Engagement, operations, distribution — end to end."
-            className="h2"
-            style={{ margin: '22px 0 64px', maxWidth: '24ch' }}
+            style={{ margin: '0 0 48px', maxWidth: '24ch' }}
           />
 
-          {Object.entries(featureInventory).map(([key, blocks]) => (
-            <div key={key} style={{ marginBottom: 72 }}>
-              <p className="eyebrow eyebrow--accent" style={{ marginBottom: 24 }}>
-                {key === 'insurance' ? 'Insurance pillars' : 'Banking pillars'}
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-                {blocks.map((b) => (
-                  <div
-                    key={`${key}-${b.n}`}
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'minmax(0,.62fr) minmax(0,1fr)',
-                      gap: 40,
-                      alignItems: 'start',
-                    }}
-                    data-stack="1"
-                  >
-                    <div>
-                      <Reveal as="div" className="eyebrow">
-                        {b.n}
-                      </Reveal>
-                      <h3
-                        style={{
-                          fontSize: 'clamp(22px, 2.3vw, 32px)',
-                          letterSpacing: '-.03em',
-                          fontWeight: 600,
-                          margin: '12px 0 12px',
-                        }}
-                      >
-                        {b.title}
-                      </h3>
-                      <Reveal
-                        as="p"
-                        delay={1}
-                        style={{
-                          margin: 0,
-                          fontSize: 15.5,
-                          lineHeight: 1.55,
-                          color: 'var(--body)',
-                          maxWidth: '44ch',
-                        }}
-                      >
-                        {b.banner}
-                      </Reveal>
-                    </div>
+          {combinedInventory.map((block) => (
+            <article key={block.title} className="product-detail">
+              <div className="product-detail-grid">
+                <div className="product-detail-sticky">
+                  <h3>{block.title}</h3>
+                  <Reveal as="p" delay={1}>
+                    {block.banner}
+                  </Reveal>
+                </div>
 
-                    <div
-                      className="grid-hair"
-                      style={{
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                      }}
-                    >
-                      {b.features.map((f, fi) => (
-                        <Reveal
-                          key={f.title}
-                          delay={(fi % 4) + 1}
-                          className="hair-cell lift"
-                          style={{ gap: 8 }}
-                        >
-                          <h4 style={{ fontSize: 16.5 }}>{f.title}</h4>
-                          <p style={{ fontSize: 13.5 }}>{f.body}</p>
+                <div className="product-feature-list">
+                  {block.pillars.map((pillar) => (
+                    <div key={pillar.key} className="product-feature-pillar">
+                      <p className="product-feature-pillar__label">{pillar.label}</p>
+                      {pillar.features.map((f, fi) => (
+                        <Reveal key={`${pillar.key}-${f.title}`} delay={fi + 1}>
+                          <GlassPanel accent className="product-feature-card">
+                            <h4>{f.title}</h4>
+                            <p>{f.body}</p>
+                          </GlassPanel>
                         </Reveal>
                       ))}
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
       {/* ------------------------------------------- AI components strip */}
-      <section className="section">
-        <Reveal as="p" className="eyebrow">
-          03 — {capabilitiesStrip.eyebrow}
-        </Reveal>
+      <section className="shell brand-section product-section">
         <SplitText
           as="h2"
           text={aiComponents.title}
-          className="h2"
-          style={{ margin: '22px 0 18px', maxWidth: '22ch' }}
+          style={{ margin: '0 0 18px', maxWidth: '22ch' }}
         />
-        <Reveal as="p" className="lede" style={{ marginBottom: 48 }}>
+        <Reveal as="p" className="lede" style={{ marginBottom: 8 }}>
           {capabilitiesStrip.subtitle}
         </Reveal>
 
-        <div
-          className="grid-hair"
-          style={{ gridTemplateColumns: 'repeat(4, minmax(0,1fr))' }}
-          data-stack="1"
-        >
+        <div className="brand-card-grid brand-card-grid--4">
           {aiComponents.items.map((it, i) => (
-            <Reveal key={it.title} delay={(i % 4) + 1} className="hair-cell lift">
-              <div className="tag">{`0${i + 1}`}</div>
-              <h4 style={{ fontSize: 17 }}>{it.title}</h4>
-              <p style={{ fontSize: 13.5 }}>{it.body}</p>
+            <Reveal key={it.title} delay={(i % 4) + 1}>
+              <GlassPanel accent className="product-ai-card">
+                <h4>{it.title}</h4>
+                <p>{it.body}</p>
+              </GlassPanel>
             </Reveal>
           ))}
         </div>
@@ -193,16 +208,15 @@ export default function Product() {
           className="link-arrow"
           style={{ marginTop: 32, display: 'inline-flex' }}
         >
-          {capabilitiesStrip.cta.label} <span>→</span>
+          {capabilitiesStrip.cta.label}
         </Magnetic>
       </section>
 
       <CtaBand
-        //eyebrow="Accelerate Automation Platform"
         title={cta.title}
         body={cta.body}
         buttons={cta.buttons}
       />
-    </>
+    </div>
   );
 }

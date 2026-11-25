@@ -1,0 +1,40 @@
+.cta-band__eyebrow {
+  color: var(--bright) !important;
+  letter-spacing: 0.18em;
+}
+
+.cta-band__title {
+  font-size: clamp(30px, 4.2vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+  margin: 22px 0 0;
+  max-width: 12ch;
+  color: var(--on-dark);
+  white-space: pre-line;
+}
+
+.cta-band__title-line {
+  display: block;
+}
+
+.cta-band__body {
+  text-align: left !important;
+}
+
+.cta-band .btn--primary {
+  align-self: flex-start;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .cta-band__grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+    align-items: start !important;
+  }
+
+  .cta-band__title {
+    max-width: 16ch;
+  }
+}

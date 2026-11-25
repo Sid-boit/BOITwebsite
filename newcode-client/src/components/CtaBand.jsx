@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Magnetic from './motion/Magnetic';
-import SplitText from './motion/SplitText';
 import Reveal from './motion/Reveal';
+import './CtaBand.css';
 
 /* Dark closing band used at the foot of the inner pages. */
 export default function CtaBand({ eyebrow, title, body, buttons = [], points = [] }) {
   return (
-    <section className="panel-dark">
+    <section className="panel-dark cta-band">
       <div className="shell" style={{ padding: '104px 40px' }}>
         <div
+          className="cta-band__grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'minmax(0,1.1fr) minmax(0,.9fr)',
@@ -20,28 +21,26 @@ export default function CtaBand({ eyebrow, title, body, buttons = [], points = [
         >
           <div>
             {eyebrow ? (
-              <p className="eyebrow" style={{ color: 'var(--on-dark-4)' }}>
+              <p className="eyebrow cta-band__eyebrow">
                 {eyebrow}
               </p>
             ) : null}
-            <SplitText
-              as="h2"
-              text={title}
-              style={{
-                fontSize: 'clamp(30px, 4.2vw, 62px)',
-                lineHeight: 1,
-                letterSpacing: '-.04em',
-                fontWeight: 600,
-                margin: '22px 0 0',
-                maxWidth: '20ch',
-              }}
-            />
+            <h2 className="cta-band__title">
+              {String(title)
+                .split('\n')
+                .map((line) => (
+                  <span key={line} className="cta-band__title-line">
+                    {line}
+                  </span>
+                ))}
+            </h2>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
             {body ? (
               <Reveal
                 as="p"
+                className="cta-band__body"
                 style={{
                   margin: 0,
                   fontSize: 16.5,
@@ -94,7 +93,6 @@ export default function CtaBand({ eyebrow, title, body, buttons = [], points = [
                   }
                 >
                   {b.label}
-                  <span>→</span>
                 </Magnetic>
               ))}
             </div>

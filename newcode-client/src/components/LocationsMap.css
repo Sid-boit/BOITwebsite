@@ -78,7 +78,8 @@
   z-index: 5;
   width: min(280px, 42vw);
   transform: translate(-50%, calc(-100% - 36px));
-  background: #fff;
+  background: var(--surface);
+  color: var(--ink);
   border: 1px solid var(--line);
   border-radius: 16px;
   box-shadow: 0 24px 50px -24px rgba(12, 21, 18, 0.4);

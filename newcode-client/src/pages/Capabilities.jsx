@@ -1,85 +1,45 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { capabilities } from '../data/products';
 import PageHero from '../components/PageHero';
 import CtaBand from '../components/CtaBand';
+import GlassPanel from '../components/GlassPanel';
 import Reveal from '../components/motion/Reveal';
 import SplitText from '../components/motion/SplitText';
 import Magnetic from '../components/motion/Magnetic';
+import useTiltPanels from '../hooks/useTiltPanels';
+import '../styles/brand-surfaces.css';
+import './Capabilities.css';
 
 export default function Capabilities() {
   const { hero, sidebar, items } = capabilities;
+  const rootRef = useRef(null);
+  useTiltPanels(rootRef, []);
 
   return (
-    <>
-      <PageHero eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} />
+    <div className="brand-page capabilities-page" ref={rootRef}>
+      <PageHero wash eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} />
 
-      <section className="section" style={{ paddingTop: 40 }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0,280px) minmax(0,1fr)',
-            gap: 64,
-            alignItems: 'start',
-          }}
-          data-stack="1"
-        >
-          {/* ---- sticky index + CTA ---- */}
-          <aside style={{ position: 'sticky', top: 110 }}>
+      <section
+        className="brand-section brand-wash"
+        style={{ paddingTop: 40, paddingLeft: 'var(--gutter)', paddingRight: 'var(--gutter)' }}
+      >
+        <div className="cap-layout" data-stack="1">
+          <aside className="cap-aside">
             <p className="eyebrow">Index</p>
-            <nav
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 8,
-                margin: '16px 0 32px',
-              }}
-            >
-              {items.map((c, i) => (
-                <a
-                  key={c.id}
-                  href={`#${c.id}`}
-                  className="underline"
-                  style={{ fontSize: 14, color: 'var(--body-2)' }}
-                >
-                  <span
-                    style={{
-                      fontFamily: 'var(--mono)',
-                      fontSize: 10,
-                      color: 'var(--accent)',
-                      marginRight: 8,
-                    }}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
+            <nav className="cap-index">
+              {items.map((c) => (
+                <a key={c.id} href={`#${c.id}`} className="cap-index__link">
                   {c.title.replace(/\s*\(.*\)$/, '')}
                 </a>
               ))}
             </nav>
 
-            <div
-              style={{
-                border: '1px solid var(--line)',
-                borderRadius: 16,
-                padding: 22,
-                background: 'var(--surface)',
-              }}
-            >
-              <h4 style={{ margin: 0, fontSize: 17, letterSpacing: '-.02em' }}>
-                {sidebar.title}
-              </h4>
-              <p
-                style={{
-                  margin: '8px 0 16px',
-                  fontSize: 13.5,
-                  lineHeight: 1.5,
-                  color: 'var(--body-2)',
-                }}
-              >
-                {sidebar.body}
-              </p>
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <GlassPanel accent className="cap-sidebar-card">
+              <h4>{sidebar.title}</h4>
+              <p>{sidebar.body}</p>
+              <div className="cap-sidebar-actions">
                 {sidebar.links.map((l) => (
                   <Magnetic
                     key={l.label}
@@ -92,77 +52,47 @@ export default function Capabilities() {
                   </Magnetic>
                 ))}
               </div>
-            </div>
+            </GlassPanel>
           </aside>
 
-          {/* ---- capability sections ---- */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 64 }}>
+          <div className="cap-sections">
             {items.map((c, i) => (
-              <article key={c.id} id={c.id} style={{ scrollMarginTop: 110 }}>
-                <Reveal as="div" className="eyebrow eyebrow--accent">
-                  {String(i + 1).padStart(2, '0')}
-                </Reveal>
+              <article key={c.id} id={c.id} className="cap-section">
                 <SplitText
                   as="h2"
                   text={c.title}
+                  className="h3"
                   style={{
                     fontSize: 'clamp(24px, 2.6vw, 38px)',
                     letterSpacing: '-.035em',
                     fontWeight: 600,
                     lineHeight: 1.05,
-                    margin: '14px 0 16px',
+                    margin: '0 0 16px',
                   }}
                 />
-                <Reveal as="p" delay={2} className="lede" style={{ fontSize: 16.5 }}>
+                <Reveal as="p" delay={1} className="lede" style={{ fontSize: 16.5 }}>
                   {c.body}
                 </Reveal>
 
-                <div
-                  className="grid-hair"
-                  style={{
-                    gridTemplateColumns: 'repeat(2, minmax(0,1fr))',
-                    marginTop: 26,
-                  }}
-                  data-stack="1"
-                >
+                <div className="cap-groups brand-card-grid brand-card-grid--2">
                   {c.groups.map((g, gi) => (
-                    <Reveal key={g.title} delay={gi + 1} className="hair-cell lift">
-                      <h4>{g.title}</h4>
-                      <ul
-                        style={{
-                          margin: 0,
-                          padding: 0,
-                          listStyle: 'none',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: 6,
-                        }}
+                    <Reveal key={g.title} delay={gi + 1}>
+                      <GlassPanel
+                        accent
+                        className={`cap-group-card cap-group-card--tone-${
+                          (i + gi) % 2 === 0 ? 'violet' : 'teal'
+                        }`}
                       >
-                        {g.items.map((it) => (
-                          <li
-                            key={it}
-                            style={{
-                              display: 'flex',
-                              gap: 10,
-                              alignItems: 'baseline',
-                              fontSize: 14,
-                              color: 'var(--body-2)',
-                            }}
-                          >
-                            <b
-                              style={{
-                                width: 5,
-                                height: 5,
-                                borderRadius: '50%',
-                                background: 'var(--bright)',
-                                flex: 'none',
-                                transform: 'translateY(-3px)',
-                              }}
-                            />
-                            {it}
-                          </li>
-                        ))}
-                      </ul>
+                        <h4>{g.title}</h4>
+                        <ul>
+                          {g.items.map((it) => (
+                            <li key={it}>
+                              <b />
+                              {it}
+                            </li>
+                          ))}
+                        </ul>
+                      </GlassPanel>
                     </Reveal>
                   ))}
                 </div>
@@ -181,6 +111,6 @@ export default function Capabilities() {
           { label: 'Explore the platform', to: '/product' },
         ]}
       />
-    </>
+    </div>
   );
 }

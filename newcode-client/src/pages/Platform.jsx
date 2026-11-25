@@ -1,191 +1,221 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 import { platforms, featureInventory, aiComponents } from '../data/products';
-import PageHero from '../components/PageHero';
+import GlassPanel from '../components/GlassPanel';
 import ScrollDeck from '../components/ScrollDeck';
-import CtaBand from '../components/CtaBand';
 import Reveal from '../components/motion/Reveal';
-import SplitText from '../components/motion/SplitText';
+import Magnetic from '../components/motion/Magnetic';
+import useTiltPanels from '../hooks/useTiltPanels';
+import engagementVisual from '../assets/engagement.png';
+import operationsVisual from '../assets/operations.png';
+import distributionVisual from '../assets/distributions.png';
+import engageSmarterVisual from '../assets/engage-smarter.png';
+import optimizeFasterVisual from '../assets/optimize-faster.jpg';
+import '../styles/brand-surfaces.css';
+import './Platform.css';
 
-/* /product/insurance and /product/banking share this layout. */
+const moduleVisuals = {
+  'accelerate-engagement': {
+    image: engagementVisual,
+    imageAlt: 'AI-powered customer engagement across portals, apps, and conversational channels',
+  },
+  'accelerate-operations': {
+    image: operationsVisual,
+    imageAlt: 'Automated operations with case management, security, and intelligent workflows',
+  },
+  'accelerate-distribution': {
+    image: distributionVisual,
+    imageAlt: 'Distribution and channel tools that empower agents and partners',
+  },
+  'accelerate-channel': {
+    image: distributionVisual,
+    imageAlt: 'Agency and branch channel tools with unified customer intelligence',
+  },
+};
+
+/* Left-column detail art under sticky copy (insurance modules). */
+const detailVisuals = {
+  insurance: {
+    'accelerate-engagement': {
+      image: engageSmarterVisual,
+      imageAlt:
+        'Customer and agent engagement through portals, apps, and AI conversational channels',
+    },
+    'accelerate-operations': {
+      image: optimizeFasterVisual,
+      imageAlt:
+        'Automated case workflows with AI review stations and human-in-the-loop exception handling',
+    },
+  },
+};
+
+/* /platform/insurance and /platform/banking share this layout. */
 export default function Platform({ slug }) {
   const platform = platforms[slug];
   const inventory = featureInventory[slug];
+  const rootRef = useRef(null);
+  useTiltPanels(rootRef, [slug]);
 
   const deckCards = platform.modules.map((m, i) => ({
     index: i + 1,
-    tag: m.name,
-    title: m.name.replace('Accelerate ', ''),
+    title: m.name.replace('Accelerate ', 'Accelerate\n'),
     body: m.solution,
     dark: i % 2 === 1,
     bullets: m.features.map((f) => f.title),
-    to: `/product/${slug}#${m.id}`,
-    linkLabel: 'See the module',
     facts: m.features.map((f) => ({ k: f.title, v: f.body })),
+    ...(moduleVisuals[m.id] || {}),
   }));
 
   return (
-    <>
-      <PageHero
-        eyebrow={platform.eyebrow}
-        title={platform.title}
-        subtitle={platform.subtitle}
-      />
+    <div className="brand-page platform-page" ref={rootRef}>
+      {/* -------------------------------------------------------------- hero */}
+      <section className="brand-wash platform-hero">
+        <div className="shell">
+          <h1>
+            {platform.title.split(' ')[0]}{' '}
+            <span className="gradient-text">
+              {platform.title.split(' ').slice(1).join(' ')}
+            </span>
+          </h1>
+          <p className="platform-lede">{platform.subtitle}</p>
+          <div className="brand-actions">
+            {platform.cta.buttons.map((btn) =>
+              btn.primary ? (
+                <Magnetic key={btn.label} as={Link} to={btn.to} className="btn btn--primary">
+                  {btn.label}
+                </Magnetic>
+              ) : (
+                <Magnetic key={btn.label} as={Link} to={btn.to} className="btn btn--ghost">
+                  {btn.label}
+                </Magnetic>
+              ),
+            )}
+          </div>
+        </div>
+      </section>
 
+      {/* ----------------------------------------------------------- modules */}
       <ScrollDeck
         id={`${slug}-modules`}
-        eyebrow="01 — Modules"
+        mode="hover"
+        spotlight
         title={`Three accelerators for ${slug}.`}
-        allLink="/product/capabilities"
-        allLabel="AI capabilities"
+        actions={platform.cta.buttons}
         cards={deckCards}
       />
 
-      {/* ------------------------------------------------ module detail */}
-      <section className="panel-light" style={{ marginTop: 128 }}>
-        <div className="shell" style={{ padding: '112px 40px' }}>
-          <Reveal as="p" className="eyebrow">
-            02 — In detail
-          </Reveal>
-          <SplitText
-            as="h2"
-            text="What each accelerator ships with."
-            className="h2"
-            style={{ margin: '22px 0 64px', maxWidth: '22ch' }}
-          />
+      {/* ---------------------------------------------------- module detail */}
+      <section className="brand-band">
+        <div className="shell brand-section">
+          <h2 className="platform-ships-heading">
+            What each <span className="gradient-text">accelerator</span> ships with.
+          </h2>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 88 }}>
-            {platform.modules.map((m, i) => (
-              <article key={m.id} id={m.id} style={{ scrollMarginTop: 110 }}>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'minmax(0,.8fr) minmax(0,1fr)',
-                    gap: 64,
-                    alignItems: 'start',
-                  }}
-                  data-stack="1"
-                >
-                  <div style={{ position: 'sticky', top: 110 }}>
-                    <Reveal as="div" className="eyebrow eyebrow--accent">
-                      {`0${i + 1} — ${m.name}`}
-                    </Reveal>
-                    <SplitText
-                      as="h3"
-                      text={m.headline}
-                      style={{
-                        fontSize: 'clamp(26px, 3vw, 44px)',
-                        letterSpacing: '-.035em',
-                        fontWeight: 600,
-                        lineHeight: 1.02,
-                        margin: '18px 0 20px',
-                      }}
-                    />
-                    <Reveal as="p" delay={2} className="lede" style={{ fontSize: 16.5 }}>
-                      {m.solution}
-                    </Reveal>
-                  </div>
+          <div className="platform-detail-stack">
+            {platform.modules.map((m) => {
+              const detailVisual = detailVisuals[slug]?.[m.id];
+              return (
+                <article key={m.id} id={m.id} className="platform-detail">
+                  <div className="platform-detail-grid">
+                    <div className="platform-detail-sticky">
+                      <h3>{m.headline.replace(/,\s+/g, ',\n')}</h3>
+                      <p>{m.solution}</p>
+                      {detailVisual ? (
+                        <img
+                          className="platform-detail-visual"
+                          src={detailVisual.image}
+                          alt={detailVisual.imageAlt}
+                          loading="lazy"
+                        />
+                      ) : null}
+                    </div>
 
-                  <div className="grid-hair" style={{ gridTemplateColumns: '1fr' }}>
-                    {m.features.map((f, fi) => (
-                      <Reveal key={f.title} delay={fi + 1} className="hair-cell lift">
-                        <div className="tag">{`Feature 0${fi + 1}`}</div>
-                        <h4>{f.title}</h4>
-                        <p>{f.body}</p>
-                      </Reveal>
-                    ))}
+                    <div className="platform-feature-list">
+                      {m.features.map((f, fi) => (
+                        <Reveal key={f.title} delay={fi + 1}>
+                          <GlassPanel accent className="platform-feature-card">
+                            <h4>{f.title}</h4>
+                            <p>{f.body}</p>
+                          </GlassPanel>
+                        </Reveal>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ----------------------------------------------- feature inventory */}
+      <section className="brand-section shell">
+        <h2>
+          The full{' '}
+          <span className="gradient-text">{platform.title.toLowerCase()}</span>{' '}
+          feature set.
+        </h2>
+
+        {inventory.map((b) => (
+          <div key={b.n} className="platform-inventory-block">
+            <div className="platform-inventory-head">
+              <h3>{b.title}</h3>
+              <span className="platform-tagline">{b.tagline}</span>
+            </div>
+            <div className="brand-card-grid brand-card-grid--4">
+              {b.features.map((f, fi) => (
+                <Reveal key={f.title} delay={(fi % 4) + 1}>
+                  <GlassPanel accent className="platform-inventory-card">
+                    <h4>{f.title}</h4>
+                    <p>{f.body}</p>
+                  </GlassPanel>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* --------------------------------------------- AI capability row */}
+      <section className="brand-band">
+        <div className="shell brand-section">
+          <h2>
+            {aiComponents.title}
+          </h2>
+          <div className="brand-card-grid brand-card-grid--4">
+            {aiComponents.items.map((it, i) => (
+              <Reveal key={it.title} delay={(i % 4) + 1}>
+                <GlassPanel accent className="platform-ai-card">
+                  <h4>{it.title}</h4>
+                  <p>{it.body}</p>
+                </GlassPanel>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ------------------------------------------- approved copy grid */}
-      <section className="section">
-        <Reveal as="p" className="eyebrow">
-          03 — Feature inventory
-        </Reveal>
-        <SplitText
-          as="h2"
-          text={`The full ${platform.title.toLowerCase()} feature set.`}
-          className="h2"
-          style={{ margin: '22px 0 48px', maxWidth: '22ch' }}
-        />
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
-          {inventory.map((b) => (
-            <div key={b.n}>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'baseline',
-                  gap: 14,
-                  flexWrap: 'wrap',
-                  marginBottom: 18,
-                }}
-              >
-                <span className="eyebrow eyebrow--accent">{b.n}</span>
-                <h3 style={{ margin: 0, fontSize: 24, letterSpacing: '-.03em' }}>
-                  {b.title}
-                </h3>
-                <span style={{ fontSize: 14.5, color: 'var(--body-2)' }}>{b.tagline}</span>
-              </div>
-
-              <div
-                className="grid-hair"
-                style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))' }}
-              >
-                {b.features.map((f, fi) => (
-                  <Reveal
-                    key={f.title}
-                    delay={(fi % 4) + 1}
-                    className="hair-cell lift"
-                    style={{ gap: 8 }}
-                  >
-                    <h4 style={{ fontSize: 16.5 }}>{f.title}</h4>
-                    <p style={{ fontSize: 13.5 }}>{f.body}</p>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          ))}
+      {/* ---------------------------------------------------------- contact */}
+      <section className="brand-wash platform-contact">
+        <div className="shell">
+          <h2>{platform.cta.title}</h2>
+          <p className="platform-contact-body">{platform.cta.body}</p>
+          <div className="brand-actions">
+            {platform.cta.buttons.map((btn) =>
+              btn.primary ? (
+                <Magnetic key={btn.label} as={Link} to={btn.to} className="btn btn--primary">
+                  {btn.label}
+                </Magnetic>
+              ) : (
+                <Magnetic key={btn.label} as={Link} to={btn.to} className="btn btn--ghost">
+                  {btn.label}
+                </Magnetic>
+              ),
+            )}
+          </div>
         </div>
       </section>
-
-      {/* --------------------------------------- shared AI capability row */}
-      <section className="section" style={{ paddingTop: 0 }}>
-        <Reveal as="p" className="eyebrow">
-          04 — {aiComponents.eyebrow}
-        </Reveal>
-        <SplitText
-          as="h2"
-          text={aiComponents.title}
-          className="h3"
-          style={{ margin: '18px 0 40px', maxWidth: '22ch' }}
-        />
-        <div
-          className="grid-hair"
-          style={{ gridTemplateColumns: 'repeat(4, minmax(0,1fr))' }}
-          data-stack="1"
-        >
-          {aiComponents.items.map((it, i) => (
-            <Reveal key={it.title} delay={(i % 4) + 1} className="hair-cell">
-              <div className="tag">{`0${i + 1}`}</div>
-              <h4 style={{ fontSize: 16.5 }}>{it.title}</h4>
-              <p style={{ fontSize: 13.5 }}>{it.body}</p>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <CtaBand
-        eyebrow={platform.eyebrow}
-        title={platform.cta.title}
-        body={platform.cta.body}
-        buttons={platform.cta.buttons}
-      />
-    </>
+    </div>
   );
 }
