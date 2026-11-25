@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { contact, about } from '../data/site';
 import PageHero from '../components/PageHero';
 import Reveal from '../components/motion/Reveal';
+import { apiUrl } from '../lib/api';
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -18,7 +19,7 @@ export default function Contact() {
     setError('');
     setSubmitting(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/contact`, {
+      const response = await fetch(apiUrl('/api/contact'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
