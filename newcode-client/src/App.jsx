@@ -22,6 +22,7 @@ import PropertyCasualty from './pages/PropertyCasualty';
 import BankingFinance from './pages/BankingFinance';
 import Solution from './pages/Solution';
 import Capabilities from './pages/Capabilities';
+import { bankingCapabilities } from './data/products';
 import CaseStudies from './pages/CaseStudies';
 import Media from './pages/Media';
 import Contact from './pages/Contact';
@@ -102,6 +103,10 @@ export default function App() {
           <Route path="/product" element={<Product />} />
           <Route path="/product/solutions/:slug" element={<Solution />} />
           <Route path="/product/capabilities" element={<Capabilities />} />
+          <Route
+            path="/product/banking/capabilities"
+            element={<Capabilities data={bankingCapabilities} />}
+          />
 
           {/* Business verticals live under Product */}
           <Route path="/product/insurance/life-annuity-medical" element={<LifeAnnuityMedical />} />

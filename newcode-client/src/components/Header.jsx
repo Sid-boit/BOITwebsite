@@ -51,14 +51,20 @@ const tabs = [
 
 /* Product routes under /product/* used to steal the Platform active state
    (prefix match on /product). Keep Platform and Product mutually exclusive. */
+function isCapabilitiesPath(pathname) {
+  return (
+    pathname === '/product/capabilities' ||
+    pathname.startsWith('/product/capabilities/') ||
+    pathname === '/product/banking/capabilities'
+  );
+}
+
 function tabIsActive(key, pathname) {
   if (key === 'platform') {
-    return (
-      pathname.startsWith('/platform') || pathname.startsWith('/product/capabilities')
-    );
+    return pathname.startsWith('/platform') || isCapabilitiesPath(pathname);
   }
   if (key === 'product') {
-    if (pathname.startsWith('/product/capabilities')) return false;
+    if (isCapabilitiesPath(pathname)) return false;
     return pathname === '/product' || pathname.startsWith('/product/');
   }
   if (key === 'services') return pathname.startsWith('/services');

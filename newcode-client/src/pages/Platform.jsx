@@ -101,7 +101,6 @@ export default function Platform({ slug }) {
         mode="hover"
         spotlight
         title={`Three accelerators for ${slug}.`}
-        actions={platform.cta.buttons}
         cards={deckCards}
       />
 

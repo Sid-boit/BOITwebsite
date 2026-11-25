@@ -180,7 +180,7 @@ export default function Home() {
           </Reveal>
           <SectionTitle lines={contact.titleLines} />
           <p>{contact.body}</p>
-          <Magnetic as="a" href={contact.button.href} className="btn btn--primary">
+          <Magnetic as={Link} to={contact.button.to} className="btn btn--primary">
             {contact.button.label}
           </Magnetic>
         </div>

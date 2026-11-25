@@ -1,6 +1,9 @@
 /* Product hub, the two platform pillars, and the AI capability layer.
    All copy transcribed from WEBSITE-CONTENT.md. */
 
+import capabilitiesCoverInsurance from '../assets/capabilities/ai-capabilities-insurance.jpg';
+import capabilitiesCoverBanking from '../assets/capabilities/ai-capabilities-banking.jpg';
+
 export const productHub = {
   hero: {
     eyebrow: '',
@@ -131,7 +134,7 @@ export const platforms = {
       body: 'Explore the AI capability layer or talk to our team about a tailored rollout.',
       buttons: [
         { label: 'Demo', to: '/contact', primary: true },
-        { label: 'AI Capabilities', to: '/product/capabilities', primary: true },
+        { label: 'AI Capabilities', to: '/product/banking/capabilities', primary: true },
       ],
     },
     modules: [
@@ -200,17 +203,20 @@ export const platforms = {
 
 export const capabilities = {
   hero: {
-    eyebrow: 'Intelligence Layer',
+    eyebrow: 'Insurance · Intelligence Layer',
     title: 'AI-Powered Capabilities',
     subtitle:
-      'Reusable AI components that sit beneath every insurance and banking module — detection, extraction, decisioning, and propensity in one coherent stack.',
+      'Reusable AI components that sit beneath every insurance module — detection, extraction, decisioning, and propensity in one coherent stack.',
+    cover: capabilitiesCoverInsurance,
+    coverAlt:
+      'The Insurance Stack — reusable AI components for propensity, decisioning, extraction, and detection across insurance modules',
   },
   sidebar: {
     title: 'See it in context',
-    body: 'Explore insurance and banking modules powered by these capabilities.',
+    body: 'Explore insurance platform modules powered by these capabilities — or view the banking intelligence layer.',
     links: [
-      { label: 'Insurance', to: '/platform/insurance' },
-      { label: 'Banking', to: '/platform/banking' },
+      { label: 'Insurance platform', to: '/platform/insurance' },
+      { label: 'Banking AI', to: '/product/banking/capabilities' },
     ],
   },
   items: [
@@ -346,6 +352,249 @@ export const capabilities = {
         {
           title: 'Retention propensity',
           items: ['Lapse / churn scores', 'Save offers', 'Lifecycle triggers'],
+        },
+      ],
+    },
+  ],
+};
+
+/* Banking intelligence layer — linked from /platform/banking AI Capabilities. */
+export const bankingCapabilities = {
+  hero: {
+    eyebrow: 'Banking · Intelligence Layer',
+    title: 'AI-Powered Banking Capabilities',
+    subtitle:
+      'Agentic execution, onboarding, credit, fraud, AML, and core integration — the AI layer that powers modern banking workflows.',
+    cover: capabilitiesCoverBanking,
+    coverAlt:
+      'The Banking Stack — reusable AI components for propensity, decisioning, extraction, and detection across banking modules',
+  },
+  sidebar: {
+    title: 'See it in context',
+    body: 'Explore banking platform modules powered by these capabilities — or view the insurance intelligence layer.',
+    links: [
+      { label: 'Banking platform', to: '/platform/banking' },
+      { label: 'Insurance AI', to: '/product/capabilities' },
+    ],
+  },
+  items: [
+    {
+      id: 'conversational-banking',
+      title: 'Conversational Banking & Agentic Execution',
+      body: 'Natural language banking where AI agents understand intent, execute transactions in-conversation, and hand off to humans with full context across every channel.',
+      groups: [
+        {
+          title: 'In-conversation execution',
+          items: [
+            'Natural language banking transactions (balance inquiry, transfers, card block/replace, fee waiver)',
+            'AI agents execute actions directly within conversation',
+            'Intelligent intent recognition and multi-turn dialogue management',
+          ],
+        },
+        {
+          title: 'Human handoff & channels',
+          items: [
+            'Automated escalation to human agents with context handoff',
+            'Omnichannel conversational consistency (app, web, contact center)',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'intelligent-onboarding-ekyc',
+      title: 'Intelligent Customer Onboarding & eKYC',
+      body: 'Secure digital onboarding with document intelligence, biometrics, and deepfake defenses — enabling real-time decisions and straight-through processing.',
+      groups: [
+        {
+          title: 'Identity assurance',
+          items: [
+            'ID document OCR and authenticity verification',
+            'Biometric liveness detection and face matching',
+            'Deepfake and spoofing detection',
+          ],
+        },
+        {
+          title: 'STP onboarding',
+          items: [
+            'Automated KYC data extraction and validation',
+            'Real-time onboarding decisioning and straight-through processing',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'credit-underwriting',
+      title: 'Credit Underwriting & Lending Decisioning',
+      body: 'AI that spreads financials, scores alternative data, drafts credit memos, and keeps underwriters in control with review and override workflows.',
+      groups: [
+        {
+          title: 'Automated assessment',
+          items: [
+            'Automated financial statement analysis and spreading',
+            'Alternative data-based credit scoring (transaction flows, POS data)',
+            'Real-time SME and retail credit assessment',
+          ],
+        },
+        {
+          title: 'Decision support',
+          items: [
+            'AI-generated credit memos and risk profiles',
+            'Human-in-the-loop review and override workflows',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'fraud-transaction-monitoring',
+      title: 'Fraud Detection & Transaction Monitoring',
+      body: 'Real-time risk scoring, account-takeover defense, and graph-based network analysis with automated alert triage and case escalation.',
+      groups: [
+        {
+          title: 'Real-time defense',
+          items: [
+            'Real-time transaction risk scoring and blocking',
+            'Account takeover and identity fraud detection',
+            'Cross-channel fraud pattern recognition',
+          ],
+        },
+        {
+          title: 'Investigation at scale',
+          items: [
+            'Graph-based relationship and network analysis',
+            'Alert triage and case escalation automation',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'aml-compliance',
+      title: 'AML & Compliance Automation',
+      body: 'Transaction monitoring, sanctions screening, and SAR assistance with explainable decisions and audit-ready trails.',
+      groups: [
+        {
+          title: 'Monitoring & screening',
+          items: [
+            'Transaction monitoring and suspicious activity detection',
+            'Sanctions and watchlist screening',
+            'Automated alert triage and disposition',
+          ],
+        },
+        {
+          title: 'Reporting & explainability',
+          items: [
+            'SAR (Suspicious Activity Report) drafting assistance',
+            'Audit trail generation and decision explainability',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'smart-case-management',
+      title: 'Smart Case Management',
+      body: 'Unified intake across channels with AI categorization, document intelligence, and orchestrated workflows that keep manual review where it matters.',
+      groups: [
+        {
+          title: 'Unified intake',
+          items: [
+            'Unified case intake across channels (email, chat, voice, transaction alerts)',
+            'AI-assisted case categorization and prioritization',
+            'Document data extraction and context summarization',
+          ],
+        },
+        {
+          title: 'Orchestration & outcomes',
+          items: [
+            'Workflow orchestration with manual review checkpoints',
+            'Case resolution tracking and reporting',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'intelligent-process-automation',
+      title: 'Intelligent Process Automation',
+      body: 'End-to-end automation across lending, compliance, and onboarding — combining RPA, ML, and process mining with exception-aware STP.',
+      groups: [
+        {
+          title: 'Workflow automation',
+          items: [
+            'End-to-end workflow automation (loan processing, compliance, onboarding)',
+            'RPA + ML integration for unstructured data handling',
+            'Document processing and data extraction automation',
+          ],
+        },
+        {
+          title: 'Continuous improvement',
+          items: [
+            'Process mining and bottleneck identification',
+            'Straight-through processing with exception handling',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'core-banking-ai',
+      title: 'Core Banking AI Integration',
+      body: 'AI agents connected to the core ledger with real-time data access, embedded decisioning in payment flows, and governed model orchestration.',
+      groups: [
+        {
+          title: 'Core connectivity',
+          items: [
+            'AI agents connected to core ledger via MCP/API',
+            'Real-time data access for AI decisioning',
+            'Embedded AI in payment and transaction flows',
+          ],
+        },
+        {
+          title: 'Governance layer',
+          items: [
+            'Model orchestration and agent management layer',
+            'AI observability, guardrails, and governance controls',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'operational-intelligence',
+      title: 'Operational Intelligence & Analytics',
+      body: 'Portfolio and operations scanning, forecasting, and customer analytics that surface risk, revenue opportunity, and real-time alerts.',
+      groups: [
+        {
+          title: 'Scan & forecast',
+          items: [
+            'Portfolio and operations scanning for anomalies',
+            'AI-driven liquidity and balance forecasting',
+            'Customer behavior analytics and segmentation',
+          ],
+        },
+        {
+          title: 'Actionable insight',
+          items: [
+            'Revenue opportunity and risk identification',
+            'Real-time operational dashboards and alerting',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'agency-embedded-banking',
+      title: 'Agency & Embedded Banking',
+      body: 'Agent network management with biometric POS authentication, liquidity forecasting, automated settlement, and remote digital onboarding.',
+      groups: [
+        {
+          title: 'Agent network',
+          items: [
+            'Agent network management and hierarchy',
+            'Biometric authentication at POS/agent terminals',
+            'AI-powered liquidity forecasting for agent networks',
+          ],
+        },
+        {
+          title: 'Settlement & reach',
+          items: [
+            'Automated reconciliation and settlement',
+            'Remote onboarding via agent-assisted digital channels',
+          ],
         },
       ],
     },

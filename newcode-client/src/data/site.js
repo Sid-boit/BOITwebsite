@@ -539,7 +539,7 @@ export const about = {
         city: 'Dubai',
         flag: '🇦🇪',
         image: dubai,
-        company: 'BOIT MEA – FZCO',
+        company: 'BOIT MEA ',
         address:
           'No: 45427 – 001, IFZA Business Park, DDP, Dubai Silicon Oasis, Dubai, United Arab Emirates',
         phone: '+971-55225-1680',
@@ -1125,7 +1125,7 @@ export const notFound = {
 export const homePage = {
   hero: {
     eyebrow: '',
-    headingLines: ['The intelligence behind', 'your transformation.'],
+    headingLines: ['The intelligence behind', ' your transformation.'],
     headingClassName: 'assets-heading',
     lede: 'At BOIT we combine domain-focused AI, specialist agents, industry expertise, and global delivery to help banks and insurers grow sales, enhance customer service, and streamline operations',
     primary: { label: 'Request Demo', to: '/contact' },
@@ -1296,6 +1296,6 @@ export const homePage = {
     eyebrow: '',
     titleLines: ['What could we simplify', 'for your business?'],
     body: 'Tell us where your teams face complexity. Let’s explore how BOIT can help.',
-    button: { label: 'Talk to our team', href: 'mailto:marcom@boitglobal.com' },
+    button: { label: 'Talk to our team', to: '/contact' },
   },
 };

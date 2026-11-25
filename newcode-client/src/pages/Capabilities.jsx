@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import { capabilities } from '../data/products';
-import PageHero from '../components/PageHero';
+import { capabilities as insuranceCapabilities } from '../data/products';
 import CtaBand from '../components/CtaBand';
 import GlassPanel from '../components/GlassPanel';
 import Reveal from '../components/motion/Reveal';
@@ -12,14 +11,45 @@ import useTiltPanels from '../hooks/useTiltPanels';
 import '../styles/brand-surfaces.css';
 import './Capabilities.css';
 
-export default function Capabilities() {
-  const { hero, sidebar, items } = capabilities;
+export default function Capabilities({ data = insuranceCapabilities }) {
+  const { hero, sidebar, items } = data;
   const rootRef = useRef(null);
   useTiltPanels(rootRef, []);
 
   return (
     <div className="brand-page capabilities-page" ref={rootRef}>
-      <PageHero wash eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} />
+      <section className="page-hero page-hero--wash cap-hero">
+        <div className="page-hero__wash" aria-hidden="true" />
+        <div className="cap-hero__inner" data-stack="1">
+          <div>
+            {hero.eyebrow ? (
+              <Reveal as="p" className="eyebrow">
+                {hero.eyebrow}
+              </Reveal>
+            ) : null}
+            <h1
+              className="h1 fade-up"
+              style={{ maxWidth: '14ch', fontSize: 'clamp(34px, 4.8vw, 64px)' }}
+            >
+              {hero.title}
+            </h1>
+            {hero.subtitle ? (
+              <p
+                className="lede fade-up"
+                style={{ marginTop: 18, maxWidth: '42ch', animationDelay: '.18s' }}
+              >
+                {hero.subtitle}
+              </p>
+            ) : null}
+          </div>
+
+          {hero.cover ? (
+            <Reveal className="cap-hero__visual">
+              <img src={hero.cover} alt={hero.coverAlt || ''} />
+            </Reveal>
+          ) : null}
+        </div>
+      </section>
 
       <section
         className="brand-section brand-wash"
@@ -108,7 +138,10 @@ export default function Capabilities() {
         body="Talk to our team about the capability mix that fits your line of business."
         buttons={[
           { label: 'Demo', to: '/contact', primary: true },
-          { label: 'Explore the platform', to: '/product' },
+          {
+            label: 'Explore the platform',
+            to: data === insuranceCapabilities ? '/platform/insurance' : '/platform/banking',
+          },
         ]}
       />
     </div>

@@ -4,6 +4,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { sendContactEmail } from './brevo.js';
+import { LOGO_PNG } from './logo.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
@@ -24,6 +25,12 @@ const origins = (process.env.CORS_ORIGINS || 'http://localhost:5180,http://127.0
 
 app.use(cors({ origin: origins }));
 app.use(express.json({ limit: '32kb' }));
+
+/* Public logo for transactional emails (must be https in production). */
+app.get('/email/boit-logo.png', (_req, res) => {
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.type('png').send(LOGO_PNG);
+});
 
 app.get('/api/health', (_req, res) => {
   const configured = Boolean(

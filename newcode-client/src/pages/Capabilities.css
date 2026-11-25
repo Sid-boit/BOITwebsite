@@ -7,6 +7,52 @@
     var(--bg);
 }
 
+/* Split hero — write-up left, cover art right (matches product vertical pages) */
+.capabilities-page .cap-hero {
+  padding: 148px 0 72px;
+}
+
+.capabilities-page .cap-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.25fr);
+  gap: 40px;
+  align-items: center;
+}
+
+.capabilities-page .cap-hero__visual {
+  justify-self: stretch;
+  width: 100%;
+  max-width: none;
+}
+
+.capabilities-page .cap-hero__visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(52vh, 520px);
+  border-radius: 28px;
+  object-fit: cover;
+  object-position: center center;
+}
+
+@media (max-width: 900px) {
+  .capabilities-page .cap-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .capabilities-page .cap-hero__visual img {
+    max-height: min(40vh, 360px);
+  }
+}
+
 .capabilities-page .cap-layout {
   display: grid;
   grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
